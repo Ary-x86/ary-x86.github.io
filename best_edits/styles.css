@@ -27,7 +27,7 @@
   
   /* Gallery Grid */
   .gallery {
-    background-color: #b19d3093;
+    
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 15px;
@@ -38,6 +38,7 @@
   
   /* Thumbnail Tile */
   .thumbnail {
+    background-color: #4418187d;
     position: relative;
     cursor: pointer;
     border-radius: 8px;
