@@ -9,11 +9,11 @@ def get_video_files(video_folder):
 def generate_thumbnail(video_folder, thumbnail_folder, video_file):
     os.makedirs(thumbnail_folder, exist_ok=True)
     video_path = os.path.join(video_folder, video_file)
-    thumbnail_path = os.path.join(thumbnail_folder, os.path.splitext(video_file)[0] + ".webp")
+    thumbnail_path = os.path.join(thumbnail_folder, os.path.splitext(video_file)[0] + ".jpg")
     
-    # Generate a medium-sized compressed thumbnail using ffmpeg in webp format
+    # Generate a medium-sized compressed thumbnail using ffmpeg
     command = [
-        "ffmpeg", "-i", video_path, "-ss", "00:00:01", "-vframes", "1", "-vf", "scale=320:-1", "-compression_level", "6", thumbnail_path
+        "ffmpeg", "-i", video_path, "-ss", "00:00:01", "-vframes", "1", "-vf", "scale=320:-1", "-q:v", "5", thumbnail_path
     ]
     subprocess.run(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     return thumbnail_path
@@ -26,7 +26,7 @@ def save_to_json(videos, output_file, video_folder, thumbnail_folder):
         data["videos"].append({
             "file": video,
             "thumbnail": os.path.relpath(thumbnail, video_folder),
-            "title": f"Harde Edit #{idx}"
+            "title": f"Epic Edit #{idx}"
         })
     
     with open(output_file, 'w', encoding='utf-8') as json_file:
@@ -49,4 +49,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
