@@ -1,4 +1,4 @@
-/* Basic reset */
+/* Basic Reset */
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +6,7 @@
     font-family: sans-serif;
   }
   
-  /* Page style */
+  /* Page Styles */
   body {
     background-color: #111;
     color: #fff;
@@ -25,41 +25,83 @@
     letter-spacing: 2px;
   }
   
-  /* Video gallery grid */
+  /* Gallery Grid */
   .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 15px;
     max-width: 90%;
     margin: 0 auto;
     padding: 20px;
   }
   
-  /* Video container */
-  .video-container {
+  /* Thumbnail Tile */
+  .thumbnail {
     position: relative;
-    overflow: hidden;
     cursor: pointer;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
     transition: transform 0.3s ease;
   }
   
-  .video-container:hover {
+  .thumbnail img {
+    width: 100%;
+    display: block;
+  }
+  
+  .thumbnail:hover {
     transform: scale(1.05);
   }
   
-  /* Video tile (small default) */
-  .video-tile {
-    width: 100%;
-    height: 180px; /* fixed height for uniform tiles */
-    object-fit: cover;
-    transition: height 0.3s ease;
+  /* Title overlay (optional) */
+  .title-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px;
+    font-size: 0.9rem;
   }
   
-  /* Expanded view */
-  .video-container.active .video-tile {
+  /* Modal Styles */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
     width: 100%;
-    height: auto; /* show full height when playing */
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  .modal-content {
+    position: relative;
+    margin: 5% auto;
+    width: 80%;
+    max-width: 800px;
+    background: #000;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  /* Video inside Modal */
+  .modal-content video {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Close Button */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1010;
   }
   

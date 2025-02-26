@@ -1,60 +1,284 @@
 {
   "videos": [
-    "VIDEO-2025-02-26-17-59-21 6_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 18_compressed.mp4",
-    "VIDEO-2025-01-31-14-49-48 2_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 24_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 72_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 5_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 69_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 45_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 13_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 2_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 47_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 71_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 58_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 34_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 20_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 7_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 11_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 75_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 19_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 54_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 12_compressed.mp4",
-    "VIDEO-2025-01-31-14-49-48_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 57_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 35_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 63_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 56_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 25_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 30_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 15_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 31_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 37_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 53_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 46_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 23_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 8_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 36_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 67_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 70_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 43_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 3_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 61_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 50_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 16_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 28_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 42_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 9_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 4_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 76_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 74_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 73_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 32_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 41_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 68_compressed.mp4",
-    "VIDEO-2025-01-31-14-49-48 3_compressed.mp4",
-    "VIDEO-2025-02-26-17-59-21 66_compressed.mp4"
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 6_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 6_compressed.jpg",
+      "title": "Epic Edit #1"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 18_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 18_compressed.jpg",
+      "title": "Epic Edit #2"
+    },
+    {
+      "file": "VIDEO-2025-01-31-14-49-48 2_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-01-31-14-49-48 2_compressed.jpg",
+      "title": "Epic Edit #3"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 24_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 24_compressed.jpg",
+      "title": "Epic Edit #4"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 72_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 72_compressed.jpg",
+      "title": "Epic Edit #5"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 5_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 5_compressed.jpg",
+      "title": "Epic Edit #6"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 69_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 69_compressed.jpg",
+      "title": "Epic Edit #7"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 45_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 45_compressed.jpg",
+      "title": "Epic Edit #8"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 13_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 13_compressed.jpg",
+      "title": "Epic Edit #9"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 2_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 2_compressed.jpg",
+      "title": "Epic Edit #10"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 47_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 47_compressed.jpg",
+      "title": "Epic Edit #11"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 71_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 71_compressed.jpg",
+      "title": "Epic Edit #12"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 58_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 58_compressed.jpg",
+      "title": "Epic Edit #13"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 34_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 34_compressed.jpg",
+      "title": "Epic Edit #14"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 20_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 20_compressed.jpg",
+      "title": "Epic Edit #15"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 7_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 7_compressed.jpg",
+      "title": "Epic Edit #16"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 11_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 11_compressed.jpg",
+      "title": "Epic Edit #17"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21_compressed.jpg",
+      "title": "Epic Edit #18"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 75_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 75_compressed.jpg",
+      "title": "Epic Edit #19"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 19_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 19_compressed.jpg",
+      "title": "Epic Edit #20"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 54_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 54_compressed.jpg",
+      "title": "Epic Edit #21"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 12_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 12_compressed.jpg",
+      "title": "Epic Edit #22"
+    },
+    {
+      "file": "VIDEO-2025-01-31-14-49-48_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-01-31-14-49-48_compressed.jpg",
+      "title": "Epic Edit #23"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 57_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 57_compressed.jpg",
+      "title": "Epic Edit #24"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 35_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 35_compressed.jpg",
+      "title": "Epic Edit #25"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 63_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 63_compressed.jpg",
+      "title": "Epic Edit #26"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 56_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 56_compressed.jpg",
+      "title": "Epic Edit #27"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 25_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 25_compressed.jpg",
+      "title": "Epic Edit #28"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 30_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 30_compressed.jpg",
+      "title": "Epic Edit #29"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 15_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 15_compressed.jpg",
+      "title": "Epic Edit #30"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 31_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 31_compressed.jpg",
+      "title": "Epic Edit #31"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 37_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 37_compressed.jpg",
+      "title": "Epic Edit #32"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 53_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 53_compressed.jpg",
+      "title": "Epic Edit #33"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 46_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 46_compressed.jpg",
+      "title": "Epic Edit #34"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 23_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 23_compressed.jpg",
+      "title": "Epic Edit #35"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 8_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 8_compressed.jpg",
+      "title": "Epic Edit #36"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 36_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 36_compressed.jpg",
+      "title": "Epic Edit #37"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 67_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 67_compressed.jpg",
+      "title": "Epic Edit #38"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 70_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 70_compressed.jpg",
+      "title": "Epic Edit #39"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 43_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 43_compressed.jpg",
+      "title": "Epic Edit #40"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 3_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 3_compressed.jpg",
+      "title": "Epic Edit #41"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 61_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 61_compressed.jpg",
+      "title": "Epic Edit #42"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 50_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 50_compressed.jpg",
+      "title": "Epic Edit #43"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 16_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 16_compressed.jpg",
+      "title": "Epic Edit #44"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 28_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 28_compressed.jpg",
+      "title": "Epic Edit #45"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 42_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 42_compressed.jpg",
+      "title": "Epic Edit #46"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 9_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 9_compressed.jpg",
+      "title": "Epic Edit #47"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 4_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 4_compressed.jpg",
+      "title": "Epic Edit #48"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 76_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 76_compressed.jpg",
+      "title": "Epic Edit #49"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 74_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 74_compressed.jpg",
+      "title": "Epic Edit #50"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 73_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 73_compressed.jpg",
+      "title": "Epic Edit #51"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 32_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 32_compressed.jpg",
+      "title": "Epic Edit #52"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 41_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 41_compressed.jpg",
+      "title": "Epic Edit #53"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 68_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 68_compressed.jpg",
+      "title": "Epic Edit #54"
+    },
+    {
+      "file": "VIDEO-2025-01-31-14-49-48 3_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-01-31-14-49-48 3_compressed.jpg",
+      "title": "Epic Edit #55"
+    },
+    {
+      "file": "VIDEO-2025-02-26-17-59-21 66_compressed.mp4",
+      "thumbnail": "thumbnails/VIDEO-2025-02-26-17-59-21 66_compressed.jpg",
+      "title": "Epic Edit #56"
+    }
   ]
 }

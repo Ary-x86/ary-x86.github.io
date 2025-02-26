@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hall of Fame: Hardest CapCut Edits</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -10,8 +11,16 @@
     <h1>Hall of Fame: Hardest CapCut Edits</h1>
   </header>
 
-  <!-- The gallery will be injected here by JS -->
+  <!-- Gallery: Thumbnails will be dynamically injected here -->
   <main class="gallery" id="video-gallery"></main>
+
+  <!-- Modal Popup for Video Playback -->
+  <div id="video-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <!-- The video element will be inserted here on click -->
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
