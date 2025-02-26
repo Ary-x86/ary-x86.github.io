@@ -15,8 +15,6 @@ body {
     background-color: #c9d8b979;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    align-content: center;
-    align-items: center;
 }
 
 h1, h2 {
@@ -24,10 +22,6 @@ h1, h2 {
 }
 
 .box {
-    max-width: 1200px;
-    align-content: center;
-    align-items: center;
-    align-self: center;
     background-color: #d4dfc9;
     border: 1px solid #ddd;
     margin-bottom: 20px;
@@ -45,26 +39,14 @@ h1, h2 {
     border-radius: 8px;
 }
 
-.box, .box2 {
-    max-width: 800px; /* Prevents full-width stretching */
-    margin: 0 auto; /* Centers the section */
-    text-align: center; /* Centers text inside */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-
-
 .flex-container {
     display: flex;
-    justify-content: center; /* Centers content */
-    align-items: center; /* Aligns items vertically */
-    flex-wrap: wrap; /* Prevents items from going off-screen */
-    gap: 20px; /* Adds spacing between elements */
+    background-color: #d4dfc9;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    
 }
-
-
 
 .image-box{
     width: fit-content;
@@ -108,24 +90,12 @@ h1, h2 {
 
 .video-container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    margin: 20px auto;
+    flex-wrap: wrap;
+    justify-content: center; /* Center content */
+    align-items: center; /* Align items centrally */
+    text-align: center; /* Ensure text is centered */
+    flex-direction: column; /* Stack elements */
 }
-.video-box {
-    width: fit-content;
-    max-width: 100%;
-}
-
-.box, .box2, .video-container {
-    margin-bottom: 40px; /* Adds space between sections */
-    padding: 20px;
-}
-
-
 
 
 .video-wrapper {
