@@ -96,6 +96,20 @@
       - Opacity is set to 0.8
       - background-size: cover ensures the image fills the card
     */
+    .site-title {
+        position: relative;
+        z-index: 1; /* Ensure it's above the background */
+        color: white;
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 60px;
+        background: rgba(163, 145, 86, 0.836); /* Semi-transparent background for readability */
+        padding: 5px 10px;
+        border-radius: 8px;
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
+    }
+
     .site-card {
       position: relative;
       min-height: 220px;       /* Adjust as desired */
@@ -103,8 +117,9 @@
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       display: flex;
-      justify-content: center;
-      align-items: flex-end;   /* The button sits at the bottom */
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;   /* The button sits at the bottom */
       padding: 15px;           /* Some padding for the button area */
       transition: transform 0.2s ease;
     }
@@ -185,21 +200,27 @@
     <div class="site-grid">
       <!-- Each card sets its background via --bg-image -->
       <div class="site-card" style="--bg-image: url('electrolight_sport/screenshot.png');">
+        <div class="site-title">Electrolyte Elixer Music</div>
         <a href="electrolight_sport/electrolight_sport.html">Visit</a>
       </div>
       <div class="site-card" style="--bg-image: url('sisi_incident/sisi1.jpeg');">
+        <div class="site-title">The Sisi Incident</div>
         <a href="sisi_incident/sisi.html">Visit</a>
       </div>
       <div class="site-card" style="--bg-image: url('best_edits/thumb.png');">
+        <div class="site-title">Best Capcut Edits Gallery</div>
         <a href="best_edits/gallery.html">Visit</a>
       </div>
-      <div class="site-card" style="--bg-image: url('image4.jpg');">
-        <a href="site4.html">Visit</a>
+      <div class="site-card" style="--bg-image: url('stopspongeclock/spongeclock.jpg');">
+        <div class="site-title">STOP SPONGECLOCK</div>
+        <a href="stopspongeclock/spongeclock.html">Visit</a>
       </div>
-      <div class="site-card" style="--bg-image: url('image5.jpg');">
-        <a href="site5.html">Visit</a>
+      <div class="site-card" style="--bg-image: url('TFA\ U\ Explain/src/learnhard.jpg');">
+        <div class="site-title">TFA + U Explanation</div>
+        <a href="TFA U Explain/TFA_U.html">Visit</a>
       </div>
       <div class="site-card" style="--bg-image: url('image6.jpg');">
+        <div class="site-title">Website</div>
         <a href="site6.html">Visit</a>
       </div>
     </div>
