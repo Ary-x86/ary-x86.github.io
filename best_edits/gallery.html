@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hall of Fame: Hardest CapCut Edits</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
+  <script src="auth.js"></script> <!-- Load authentication script first -->
 </head>
 <body>
-  <header>
-    <h1>Hall of Fame: Hardest CapCut Edits</h1>
-  </header>
-
-  <!-- Gallery: Thumbnails will be dynamically injected here -->
-  <main class="gallery" id="video-gallery"></main>
-
-  <!-- Modal Popup for Video Playback -->
-  <div id="video-modal" class="modal">
-    <div class="modal-content">
-      <span class="close-button">&times;</span>
-      <!-- The video element will be inserted here on click -->
+  <div id="password-container" class="password-modal">
+    <div class="password-content">
+      <h2>Enter Password</h2>
+      <input type="password" id="password-input" placeholder="Password">
+      <button onclick="checkPassword()">Enter</button>
+      <p id="error-message"></p>
     </div>
+  </div>
+
+  <!-- Main Content (Hidden until authenticated) -->
+  <div id="main-content" style="display: none;">
+    <header>
+      <h1>Hall of Fame: Hardest CapCut Edits</h1>
+    </header>
+    <main class="gallery" id="video-gallery"></main>
   </div>
 
   <script src="script.js"></script>
