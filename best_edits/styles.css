@@ -39,6 +39,7 @@
   /* Thumbnail Tile */
   .thumbnail {
     background-color: #4418187d;
+    align-content: center;
     position: relative;
     cursor: pointer;
     border-radius: 8px;
