@@ -1,0 +1,7 @@
+1. cd to ~/Coding Projects/websitesgithub/ary-x86.github.io
+
+2. git add .
+
+3. git commit -m "msg"
+
+4. git push origin main
