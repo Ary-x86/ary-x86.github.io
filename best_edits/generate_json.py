@@ -25,8 +25,8 @@ def save_to_json(videos, output_file, video_folder, thumbnail_folder):
         thumbnail = generate_thumbnail(video_folder, thumbnail_folder, video)
         data["videos"].append({
             "file": video,
-            "thumbnail": os.path.relpath(thumbnail, video_folder),
-            "title": f"Harde Edit #{idx}"
+            "thumbnail": os.path.relpath(thumbnail, os.getcwd()),
+            "title": f"Epic Edit #{idx}"
         })
     
     with open(output_file, 'w', encoding='utf-8') as json_file:
@@ -35,7 +35,7 @@ def save_to_json(videos, output_file, video_folder, thumbnail_folder):
 def main():
     project_folder = os.getcwd()
     video_folder = os.path.join(project_folder, "videos")
-    thumbnail_folder = os.path.join(video_folder, "thumbnails")
+    thumbnail_folder = os.path.join(project_folder, "thumbnails")
     output_file = os.path.join(project_folder, "videos.json")
     
     if not os.path.exists(video_folder):
@@ -49,4 +49,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
