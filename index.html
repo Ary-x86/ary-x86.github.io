@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Aryan's Websites</title>
+  <!-- Optionally include a Google Font for a refined look -->
   <link
     href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap"
     rel="stylesheet"
@@ -30,7 +31,7 @@
       color: inherit;
     }
 
-    /* NAVBAR */
+    /* HEADER / NAVBAR */
     header {
       background: #bfa58a;
       padding: 15px 20px;
@@ -82,54 +83,80 @@
       font-weight: 600;
     }
 
-    /* SITE GRID */
+    /* GRID LAYOUT */
     .site-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
     }
 
-    /* CARD DESIGN */
+    /*
+      CARD DESIGN:
+      - The background image is applied via a pseudo-element
+      - Opacity is set to 0.8
+      - background-size: cover ensures the image fills the card
+    */
     .site-card {
-      background: #fff;
+      position: relative;
+      min-height: 220px;       /* Adjust as desired */
       border-radius: 12px;
+      overflow: hidden;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: transform 0.2s ease;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 15px;
+      justify-content: center;
+      align-items: flex-end;   /* The button sits at the bottom */
+      padding: 15px;           /* Some padding for the button area */
+      transition: transform 0.2s ease;
     }
     .site-card:hover {
       transform: translateY(-3px);
     }
 
-    /* IMAGE CONTAINER (Fills Card) */
-    .image-container {
-      width: 100%;
-      height: 150px;  /* Controls image size */
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
-      border-radius: 10px;
-      margin-bottom: 10px;
+    /* 
+      The pseudo-element for the background image
+      We use a custom CSS variable (--bg-image) for each card
+    */
+    .site-card::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: center center no-repeat;
+        background-size: cover;
+        background-image: var(--bg-image);
+        opacity: 0.8; /* 80% opacity */
+        z-index: 0;
+        
+        /* Apply Gaussian blur */
+        filter: blur(0.7px);
+        
+        /* Prevents the blur from affecting edges */
+        transform: scale(1.1);
     }
 
-    /* BUTTON */
+
+    /* BUTTON ON TOP OF THE CARD BACKGROUND */
     .site-card a {
-      display: inline-block;
-      width: 100%;
-      text-align: center;
-      background: #d4a373;
-      color: #fff;
-      padding: 10px 15px;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: background 0.3s ease;
+        position: relative;
+        z-index: 1;           /* Above the pseudo-element */
+        background: #d4a373;  /* Beige-ish button color */
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: background 0.3s ease, box-shadow 0.3s ease;
+        
+        /* Prominent shadow */
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5); /* X, Y, Blur, Spread */
     }
+
     .site-card a:hover {
-      background: #c49266;
+        background: #c49266;
+        
+        /* Even stronger shadow on hover */
+        box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.6);
     }
+
 
     /* FOOTER */
     footer {
@@ -156,43 +183,23 @@
   <main>
     <h1>Aryan's Websites</h1>
     <div class="site-grid">
-      <!-- Site Card 1 -->
-      <div class="site-grid">
-        <!-- Site Card 1 -->
-        <div class="site-card">
-          <!-- The button is the link, with a background image -->
-          <a href="electrolight_sport/electrolight_sport.html" style="background-image: url('electrolight_sport/screenshot.png');">
-            1
-          </a>
-        </div>
-
-      <!-- Site Card 2 -->
-      <div class="site-card">
-        <div class="image-container" style="background-image: url('image2.jpg');"></div>
+      <!-- Each card sets its background via --bg-image -->
+      <div class="site-card" style="--bg-image: url('electrolight_sport/screenshot.png');">
+        <a href="site1.html">Visit</a>
+      </div>
+      <div class="site-card" style="--bg-image: url('image2.jpg');">
         <a href="site2.html">Visit</a>
       </div>
-
-      <!-- Site Card 3 -->
-      <div class="site-card">
-        <div class="image-container" style="background-image: url('image3.jpg');"></div>
+      <div class="site-card" style="--bg-image: url('image3.jpg');">
         <a href="site3.html">Visit</a>
       </div>
-
-      <!-- Site Card 4 -->
-      <div class="site-card">
-        <div class="image-container" style="background-image: url('image4.jpg');"></div>
+      <div class="site-card" style="--bg-image: url('image4.jpg');">
         <a href="site4.html">Visit</a>
       </div>
-
-      <!-- Site Card 5 -->
-      <div class="site-card">
-        <div class="image-container" style="background-image: url('image5.jpg');"></div>
+      <div class="site-card" style="--bg-image: url('image5.jpg');">
         <a href="site5.html">Visit</a>
       </div>
-
-      <!-- Site Card 6 -->
-      <div class="site-card">
-        <div class="image-container" style="background-image: url('image6.jpg');"></div>
+      <div class="site-card" style="--bg-image: url('image6.jpg');">
         <a href="site6.html">Visit</a>
       </div>
     </div>
@@ -204,16 +211,15 @@
   </footer>
 
   <script>
-    // Set current year in footer
+    // Current year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // "Pick a random site" button functionality
+    // Random site button
     document.getElementById('random-site-btn').addEventListener('click', function() {
       const siteLinks = document.querySelectorAll('.site-card a');
       if (siteLinks.length > 0) {
         const randomIndex = Math.floor(Math.random() * siteLinks.length);
-        const randomLink = siteLinks[randomIndex];
-        window.location.href = randomLink.href;
+        window.location.href = siteLinks[randomIndex].href;
       }
     });
   </script>
