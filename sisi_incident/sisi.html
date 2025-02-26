@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Breaking News: The Sisi-Incident</title>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Overall Page Styles */
+    body {
+      background-color: #111;
+      color: #eee;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    header {
+      background: #200;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 3px solid #b00;
+    }
+    header h1 {
+      font-family: 'Creepster', cursive;
+      font-size: 3em;
+      margin: 0;
+      text-shadow: 2px 2px 4px #000;
+    }
+    .blink {
+      animation: blink-animation 1s steps(5, start) infinite;
+      -webkit-animation: blink-animation 1s steps(5, start) infinite;
+    }
+    @keyframes blink-animation {
+      to { visibility: hidden; }
+    }
+    @-webkit-keyframes blink-animation {
+      to { visibility: hidden; }
+    }
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #1a1a1a;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    }
+    .article-header {
+      border-bottom: 1px solid #444;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .article-header h2 {
+      font-family: 'Creepster', cursive;
+      font-size: 2.5em;
+      color: #f22;
+    }
+    .news-date {
+      font-size: 0.9em;
+      color: #888;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      border: 5px solid #333;
+    }
+    p {
+      margin: 20px 0;
+      text-align: justify;
+    }
+    /* News Video Section */
+    .video-section {
+      background: #300;
+      padding: 20px;
+      margin: 40px auto;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+      border-radius: 10px;
+    }
+    .video-section h2 {
+      font-family: 'Creepster', cursive;
+      font-size: 2em;
+      color: #ff4444;
+      text-shadow: 2px 2px 5px rgba(255, 0, 0, 0.7);
+    }
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      margin: 20px auto;
+    }
+    .video-container iframe,
+    .video-container video {
+      width: 100%;
+      height: 400px;
+      border: 5px solid #900;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+    }
+    /* Footer Styles */
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: #200;
+      border-top: 3px solid #b00;
+      margin-top: 40px;
+      font-size: 0.8em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1 id="breakingHeadline" class="blink">BREAKING: SISI-INCIDENT!</h1>
+  </header>
+
+  <div class="container">
+    <div class="article-header">
+      <h2>The Shocking Incident of S-I-S-I</h2>
+      <div class="news-date">February 25, 2025 | Midnight Special Edition</div>
+    </div>
+
+    <p>
+      In an eerie twist of events, the notorious feline known as S-I-S-I (or simply Sisi) has taken center stage in a bizarre incident that has rattled the local community. Known for his peculiar habit of watching Squid Game on an old Acer laptop, Sisi has become the unwitting star of this macabre news piece.
+    </p>
+
+    <img src="sisi2.jpeg" alt="Sisi watching Squid Game">
+
+    <p>
+      Legend has it that before Squid Game graced television screens, there was a time when this cult series was nothing but a myth. During those dark days, Ryan Raven’s sister, Serena—whose choice of entertainment fell on the sinister series <em>Miraculous and Ladybug</em>—found herself embroiled in a horrifying situation. As Serena indulged in salted peanuts, an unexpected turn of events unfolded.
+    </p>
+
+    <p>
+      In a moment that can only be described as surreal, Sisi, disturbed by the cursed selection of programming, leaped from his perch to confront Serena. In a chaotic flurry, the feline ended up sitting directly on Serena, capturing an unforgettable moment that has since become a viral sensation. Witnesses say the scene was equal parts tragic and absurd.
+    </p>
+
+    <img src="sisi1.jpeg" alt="Sisi incident on Serena">
+
+    <p>
+      Stay tuned as we bring you more updates on this spine-chilling saga. Was it destiny or a cursed fate that led to this macabre encounter? Only time will tell.
+    </p>
+  </div>
+
+  <!-- News Video Section -->
+  <div class="video-section">
+    <h2>📺 EXCLUSIVE: Sisi-Incident Caught on Tape!</h2>
+    <div class="video-container">
+      <!-- Replace the YouTube link with your video -->
+      <!--<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>-->
+      
+      <!-- If you want to use a local video file instead, use this instead of the iframe -->
+      <video controls>
+        <source src="sisi_incid.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video> 
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Ary News Network. All rights reserved.
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Beware... the Sisi-incident is only the beginning...');
+    });
+  </script>
+</body>
+</html>
