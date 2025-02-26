@@ -22,7 +22,7 @@
       height: 100%;
       font-family: 'Open Sans', sans-serif;
       background: #f7f3e9; /* Beige background */
-      color: #3b2f2f;      /* A warm, dark brown for text */
+      color: #3b2f2f;      /* Warm brown text */
     }
     body {
       display: flex;
@@ -37,7 +37,7 @@
       HEADER & NAVBAR
     */
     header {
-      background: #bfa58a; /* A warmer brown for the header */
+      background: #bfa58a; /* Warm brown header */
       padding: 15px 20px;
     }
     .navbar {
@@ -59,7 +59,7 @@
       color: #ffffff;
     }
     .random-btn {
-      background: #d4a373;  /* A gold-ish button color */
+      background: #d4a373;  /* Gold-ish button color */
       border: none;
       padding: 10px 20px;
       color: #fff;
@@ -76,7 +76,7 @@
       MAIN CONTENT
     */
     main {
-      flex: 1; /* Pushes footer to the bottom if content is short */
+      flex: 1; /* Pushes footer down if content is short */
       max-width: 1200px;
       margin: 30px auto;
       width: 100%;
@@ -98,37 +98,42 @@
       gap: 20px;
     }
     .site-card {
-      /* Each card is a container with a background image */
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      width: 100%;
-      min-height: 180px;
-      position: relative;
+      background: #fff;               /* White card background */
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: transform 0.2s ease, filter 0.2s ease;
+      transition: transform 0.2s ease;
       display: flex;
       justify-content: center;
       align-items: center;
+      min-height: 180px; /* Enough space to display the button nicely */
     }
     .site-card:hover {
       transform: translateY(-3px);
-      filter: brightness(0.95);
     }
 
-    /* The button inside the card */
+    /* 
+      BUTTON / LINK INSIDE THE CARD
+      - Acts as a small image container
+      - background-size: contain => no stretching, scaled proportionally
+    */
     .site-card a {
-      display: inline-block;
-      background: rgba(0,0,0,0.5);
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100px;      /* Adjust to taste */
+      height: 100px;     /* Adjust to taste */
+      background-color: #eee; /* Fallback color behind the image */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      border-radius: 8px;
       font-weight: 600;
-      transition: background 0.3s ease;
+      color: #fff;
+      transition: transform 0.3s ease, background-color 0.3s ease;
     }
     .site-card a:hover {
-      background: rgba(0,0,0,0.7);
+      transform: scale(1.05);
+      background-color: #ddd; /* Slight color shift behind the image */
     }
 
     /*
@@ -159,37 +164,46 @@
     <h1>Aryan's Websites</h1>
     <div class="site-grid">
       <!-- Site Card 1 -->
-      <!-- Site Card 1 -->
       <div class="site-card">
-        <a href="electrolight_sport/electrolight_sport.html">
-          <img src="electrolight_sport/screenshot.png" alt="Digital Sex">
+        <!-- The button is the link, with a background image -->
+        <a href="electrolight_sport/electrolight_sport.html" style="background-image: url('electrolight_sport/screenshot.png');">
+          1
         </a>
-        <a href="electrolight_sport/electrolight_sport.html"><button>Digital Sex</button></a>
       </div>
 
       <!-- Site Card 2 -->
-      <div class="site-card" style="background-image: url('image2.jpg');">
-        <a href="site2.html">1</a>
+      <div class="site-card">
+        <a href="site2.html" style="background-image: url('image2.jpg');">
+          1
+        </a>
       </div>
 
       <!-- Site Card 3 -->
-      <div class="site-card" style="background-image: url('image3.jpg');">
-        <a href="site3.html">1</a>
+      <div class="site-card">
+        <a href="site3.html" style="background-image: url('image3.jpg');">
+          1
+        </a>
       </div>
 
       <!-- Site Card 4 -->
-      <div class="site-card" style="background-image: url('image4.jpg');">
-        <a href="site4.html">1</a>
+      <div class="site-card">
+        <a href="site4.html" style="background-image: url('image4.jpg');">
+          1
+        </a>
       </div>
 
       <!-- Site Card 5 -->
-      <div class="site-card" style="background-image: url('image5.jpg');">
-        <a href="site5.html">1</a>
+      <div class="site-card">
+        <a href="site5.html" style="background-image: url('image5.jpg');">
+          1
+        </a>
       </div>
 
       <!-- Site Card 6 -->
-      <div class="site-card" style="background-image: url('image6.jpg');">
-        <a href="site6.html">1</a>
+      <div class="site-card">
+        <a href="site6.html" style="background-image: url('image6.jpg');">
+          1
+        </a>
       </div>
     </div>
   </main>
