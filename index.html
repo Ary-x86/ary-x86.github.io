@@ -4,15 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Aryan's Websites</title>
-  <!-- Optionally include a Google Font for a more refined look -->
   <link
     href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap"
     rel="stylesheet"
   />
   <style>
-    /* 
-      GLOBAL RESETS & BASE STYLES
-    */
+    /* GLOBAL STYLES */
     * {
       margin: 0;
       padding: 0;
@@ -22,7 +19,7 @@
       height: 100%;
       font-family: 'Open Sans', sans-serif;
       background: #f7f3e9; /* Beige background */
-      color: #3b2f2f;      /* Warm brown text */
+      color: #3b2f2f;      /* Dark brown text */
     }
     body {
       display: flex;
@@ -33,11 +30,9 @@
       color: inherit;
     }
 
-    /*
-      HEADER & NAVBAR
-    */
+    /* NAVBAR */
     header {
-      background: #bfa58a; /* Warm brown header */
+      background: #bfa58a;
       padding: 15px 20px;
     }
     .navbar {
@@ -59,7 +54,7 @@
       color: #ffffff;
     }
     .random-btn {
-      background: #d4a373;  /* Gold-ish button color */
+      background: #d4a373;
       border: none;
       padding: 10px 20px;
       color: #fff;
@@ -72,11 +67,9 @@
       background: #c49266;
     }
 
-    /*
-      MAIN CONTENT
-    */
+    /* MAIN CONTENT */
     main {
-      flex: 1; /* Pushes footer down if content is short */
+      flex: 1;
       max-width: 1200px;
       margin: 30px auto;
       width: 100%;
@@ -89,56 +82,56 @@
       font-weight: 600;
     }
 
-    /* 
-      SITE CARDS GRID
-    */
+    /* SITE GRID */
     .site-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
     }
+
+    /* CARD DESIGN */
     .site-card {
-      background: #fff;               /* White card background */
-      border-radius: 8px;
+      background: #fff;
+      border-radius: 12px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       transition: transform 0.2s ease;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      min-height: 180px; /* Enough space to display the button nicely */
+      padding: 15px;
     }
     .site-card:hover {
       transform: translateY(-3px);
     }
 
-    /* 
-      BUTTON / LINK INSIDE THE CARD
-      - Acts as a small image container
-      - background-size: contain => no stretching, scaled proportionally
-    */
-    .site-card a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100px;      /* Adjust to taste */
-      height: 100px;     /* Adjust to taste */
-      background-color: #eee; /* Fallback color behind the image */
+    /* IMAGE CONTAINER (Fills Card) */
+    .image-container {
+      width: 100%;
+      height: 150px;  /* Controls image size */
+      background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
-      background-size: contain;
-      border-radius: 8px;
-      font-weight: 600;
-      color: #fff;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-    }
-    .site-card a:hover {
-      transform: scale(1.05);
-      background-color: #ddd; /* Slight color shift behind the image */
+      border-radius: 10px;
+      margin-bottom: 10px;
     }
 
-    /*
-      FOOTER
-    */
+    /* BUTTON */
+    .site-card a {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      background: #d4a373;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    .site-card a:hover {
+      background: #c49266;
+    }
+
+    /* FOOTER */
     footer {
       background: #bfa58a;
       color: #fff;
@@ -164,46 +157,43 @@
     <h1>Aryan's Websites</h1>
     <div class="site-grid">
       <!-- Site Card 1 -->
-      <div class="site-card">
-        <!-- The button is the link, with a background image -->
-        <a href="electrolight_sport/electrolight_sport.html" style="background-image: url('electrolight_sport/screenshot.png');">
-          1
-        </a>
-      </div>
+      <div class="site-grid">
+        <!-- Site Card 1 -->
+        <div class="site-card">
+          <!-- The button is the link, with a background image -->
+          <a href="electrolight_sport/electrolight_sport.html" style="background-image: url('electrolight_sport/screenshot.png');">
+            1
+          </a>
+        </div>
 
       <!-- Site Card 2 -->
       <div class="site-card">
-        <a href="site2.html" style="background-image: url('image2.jpg');">
-          1
-        </a>
+        <div class="image-container" style="background-image: url('image2.jpg');"></div>
+        <a href="site2.html">Visit</a>
       </div>
 
       <!-- Site Card 3 -->
       <div class="site-card">
-        <a href="site3.html" style="background-image: url('image3.jpg');">
-          1
-        </a>
+        <div class="image-container" style="background-image: url('image3.jpg');"></div>
+        <a href="site3.html">Visit</a>
       </div>
 
       <!-- Site Card 4 -->
       <div class="site-card">
-        <a href="site4.html" style="background-image: url('image4.jpg');">
-          1
-        </a>
+        <div class="image-container" style="background-image: url('image4.jpg');"></div>
+        <a href="site4.html">Visit</a>
       </div>
 
       <!-- Site Card 5 -->
       <div class="site-card">
-        <a href="site5.html" style="background-image: url('image5.jpg');">
-          1
-        </a>
+        <div class="image-container" style="background-image: url('image5.jpg');"></div>
+        <a href="site5.html">Visit</a>
       </div>
 
       <!-- Site Card 6 -->
       <div class="site-card">
-        <a href="site6.html" style="background-image: url('image6.jpg');">
-          1
-        </a>
+        <div class="image-container" style="background-image: url('image6.jpg');"></div>
+        <a href="site6.html">Visit</a>
       </div>
     </div>
   </main>
