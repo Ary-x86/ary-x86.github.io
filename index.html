@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aryan's Websites</title>
+  <style>
+    /* Reset & Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar Styles */
+    header {
+      background: #2c3e50;
+      padding: 15px 20px;
+      color: #ecf0f1;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+    .nav-links a {
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    .nav-links a:hover {
+      color: #bdc3c7;
+    }
+    .random-btn {
+      background: #e74c3c;
+      border: none;
+      padding: 10px 20px;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .random-btn:hover {
+      background: #c0392b;
+    }
+
+    /* Main Content Styles */
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+    }
+    .site-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .site-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+    .site-card:hover {
+      transform: translateY(-5px);
+    }
+    .site-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-bottom: 1px solid #ddd;
+      /* Rounded corners at the top */
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+    .site-card button {
+      width: 100%;
+      padding: 12px;
+      background: #3498db;
+      border: none;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 0 0 8px 8px;
+      transition: background 0.3s ease;
+    }
+    .site-card button:hover {
+      background: #2980b9;
+    }
+
+    /* Footer Styles */
+    footer {
+      background: #2c3e50;
+      color: #ecf0f1;
+      text-align: center;
+      padding: 15px 20px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <div class="navbar">
+      <div class="nav-links">
+        <a href="#">Menu</a>
+        <a href="#">Contact</a>
+      </div>
+      <button class="random-btn" id="random-site-btn">Pick a random site</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h1>Aryan's Websites</h1>
+    <div class="site-grid">
+      <!-- Site Card 1 -->
+      <div class="site-card">
+        <a href="site1.html">
+          <img src="image1.jpg" alt="Site 1">
+        </a>
+        <a href="site1.html"><button>1</button></a>
+      </div>
+      <!-- Site Card 2 -->
+      <div class="site-card">
+        <a href="site2.html">
+          <img src="image2.jpg" alt="Site 2">
+        </a>
+        <a href="site2.html"><button>1</button></a>
+      </div>
+      <!-- Site Card 3 -->
+      <div class="site-card">
+        <a href="site3.html">
+          <img src="image3.jpg" alt="Site 3">
+        </a>
+        <a href="site3.html"><button>1</button></a>
+      </div>
+      <!-- Site Card 4 -->
+      <div class="site-card">
+        <a href="site4.html">
+          <img src="image4.jpg" alt="Site 4">
+        </a>
+        <a href="site4.html"><button>1</button></a>
+      </div>
+      <!-- Site Card 5 -->
+      <div class="site-card">
+        <a href="site5.html">
+          <img src="image5.jpg" alt="Site 5">
+        </a>
+        <a href="site5.html"><button>1</button></a>
+      </div>
+      <!-- Site Card 6 -->
+      <div class="site-card">
+        <a href="site6.html">
+          <img src="image6.jpg" alt="Site 6">
+        </a>
+        <a href="site6.html"><button>1</button></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© <span id="year"></span> Aryan Swami-Persaud. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Set current year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Functionality for "Pick a random site" button
+    document.getElementById('random-site-btn').addEventListener('click', function() {
+      // Select all site links from the cards (assumes first <a> in card is the image link)
+      var siteLinks = document.querySelectorAll('.site-card a');
+      if (siteLinks.length > 0) {
+        // Choose a random link from the NodeList
+        var randomIndex = Math.floor(Math.random() * siteLinks.length);
+        var randomLink = siteLinks[randomIndex];
+        // Redirect to the random site's href
+        window.location.href = randomLink.href;
+      }
+    });
+  </script>
+</body>
+</html>
