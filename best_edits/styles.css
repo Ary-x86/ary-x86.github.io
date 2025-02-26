@@ -1,64 +1,65 @@
-/* Reset */
+/* Basic reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: sans-serif;
-}
-
-/* Page Style */
-body {
+  }
+  
+  /* Page style */
+  body {
     background-color: #111;
     color: #fff;
     text-align: center;
     padding: 20px;
-}
-
-/* Header */
-header {
+  }
+  
+  /* Header */
+  header {
     margin-bottom: 20px;
-}
-
-h1 {
+  }
+  
+  h1 {
     font-size: 2rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-}
-
-/* Video Gallery */
-.gallery {
+  }
+  
+  /* Video gallery grid */
+  .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 15px;
     max-width: 90%;
     margin: 0 auto;
     padding: 20px;
-}
-
-/* Video Container */
-.video-container {
+  }
+  
+  /* Video container */
+  .video-container {
     position: relative;
     overflow: hidden;
     cursor: pointer;
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.1);
     transition: transform 0.3s ease;
-}
-
-.video-container:hover {
+  }
+  
+  .video-container:hover {
     transform: scale(1.05);
-}
-
-/* Video Tile (Small Default View) */
-.video-tile {
+  }
+  
+  /* Video tile (small default) */
+  .video-tile {
     width: 100%;
-    height: 180px; /* Fixed size for uniformity */
+    height: 180px; /* fixed height for uniform tiles */
     object-fit: cover;
     transition: height 0.3s ease;
-}
-
-/* Expanded View */
-.video-container.active .video-tile {
+  }
+  
+  /* Expanded view */
+  .video-container.active .video-tile {
     width: 100%;
-    height: auto; /* Full video height */
-}
+    height: auto; /* show full height when playing */
+  }
+  
