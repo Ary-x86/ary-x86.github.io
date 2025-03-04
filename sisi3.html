@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Breaking News: The Sisi-Incident (Part 3)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Overall Page Styles */
+    body {
+      background-color: #111;
+      color: #eee;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    header {
+      background: #200;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 3px solid #b00;
+    }
+    header h1 {
+      font-family: 'Creepster', cursive;
+      font-size: 3em;
+      margin: 0;
+      text-shadow: 2px 2px 4px #000;
+    }
+    .blink {
+      animation: blink-animation 1s steps(5, start) infinite;
+      -webkit-animation: blink-animation 1s steps(5, start) infinite;
+    }
+    @keyframes blink-animation {
+      to { visibility: hidden; }
+    }
+    @-webkit-keyframes blink-animation {
+      to { visibility: hidden; }
+    }
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #1a1a1a;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    }
+    .article-header {
+      border-bottom: 1px solid #444;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .article-header h2 {
+      font-family: 'Creepster', cursive;
+      font-size: 2.5em;
+      color: #f22;
+    }
+    .news-date {
+      font-size: 0.9em;
+      color: #888;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      border: 5px solid #333;
+    }
+    p {
+      margin: 20px 0;
+      text-align: justify;
+    }
+    /* News Video Section */
+    .video-section {
+      background: #300;
+      padding: 20px;
+      margin: 40px auto;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+      border-radius: 10px;
+    }
+    .video-section h2 {
+      font-family: 'Creepster', cursive;
+      font-size: 2em;
+      color: #ff4444;
+      text-shadow: 2px 2px 5px rgba(255, 0, 0, 0.7);
+    }
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      margin: 20px auto;
+    }
+    .video-container iframe,
+    .video-container video {
+      width: 100%;
+      height: 400px;
+      border: 5px solid #900;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+    }
+    /* Footer Styles */
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: #200;
+      border-top: 3px solid #b00;
+      margin-top: 40px;
+      font-size: 0.8em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1 id="breakingHeadline" class="blink">BREAKING: FURTHER DEVELOPMENTS IN THE SECOND SISI-INCIDENT!</h1>
+  </header>
+
+  <div class="container">
+    <div class="article-header">
+      <h2>Sisi vs. Kiwi: New Revelations</h2>
+      <div class="news-date">March 4, 2025 | Late Night Update</div>
+    </div>
+
+    <p>
+      Our correspondent, <strong>R. Raven</strong>, has uncovered startling new context regarding the ongoing <em>Second Sisi Incident</em>. Security camera footage reveals a sequence of four images, only the third of which was previously known. These pictures chronicle a tense standoff between Sisi and a kiwi fruit.
+    </p>
+
+    <p>
+      Below, we present the photos in chronological order:
+    </p>
+
+    <!-- Image 1 -->
+    <h3>1. The Stare-Down</h3>
+    <img src="sisi_kiwi1.jpg" alt="Sisi staring from afar, looking like a kiwi herself">
+    <p>
+      In the first image, Sisi is spotted at a distance, eyeing the kiwi suspiciously. Some observers note that Sisi's fluffy fur makes her look uncannily similar to the fruit itself.
+    </p>
+
+    <!-- Image 2 -->
+    <h3>2. The Approach</h3>
+    <img src="sisi_kiwi2.jpg" alt="Sisi coming closer to the kiwi">
+    <p>
+      The second image shows Sisi moving in on her unsuspecting target. Her expression suggests a mix of curiosity and determination.
+    </p>
+
+    <!-- Image 3 (Previously Known) -->
+    <h3>3. The Contact (Previously Known)</h3>
+    <img src="sisi_kiwi3.jpg" alt="Sisi placing her paw on the kiwi">
+    <p>
+      This now-infamous photo captures the exact moment Sisi's paw lands on the kiwi. Fans of the feline are already calling it the “Kiwi Paw of Doom.”
+    </p>
+
+    <!-- Image 4 -->
+    <h3>4. The Ceasefire</h3>
+    <img src="sisi_kiwi4.jpg" alt="Sisi pulling the kiwi closer, a possible truce">
+    <p>
+      Finally, we see Sisi gently pulling the kiwi closer. Sources indicate that the two parties have since reached a ceasefire agreement, though tensions remain high.
+    </p>
+
+    <p>
+      As this saga continues, we’ll keep you updated on any new developments. Will Sisi and the kiwi remain at peace, or is this merely the calm before another storm? Stay tuned for further reports.
+    </p>
+  </div>
+
+  <!-- Optional News Video Section -->
+  <div class="video-section">
+    <h2>📺 EXCLUSIVE: Ongoing Coverage</h2>
+    <div class="video-container">
+      <!-- If you have new footage, embed or replace here -->
+      <!--<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>-->
+      <video controls>
+        <source src="sisi_kiwi_incident.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video> 
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Ary News Network. All rights reserved.
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Sisi’s second incident continues to escalate...');
+    });
+  </script>
+</body>
+</html>
