@@ -26,6 +26,37 @@
       margin: 0;
       text-shadow: 2px 2px 4px #000;
     }
+    .site-menu {
+  background: #200; /* matches your header color */
+  padding: 10px;
+  border-bottom: 3px solid #b00; /* optional decorative border */
+  text-align: center;           /* center the menu items */
+  margin-bottom: 20px;          /* space below the menu */
+}
+
+.site-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-block; /* keeps the list items together */
+}
+
+.site-menu li {
+  display: inline;
+  margin: 0 15px;
+}
+
+.site-menu a {
+  color: #eee;
+  text-decoration: none;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif; /* match your page font */
+}
+
+.site-menu a:hover {
+  text-decoration: underline;
+}
+
     .image-wrapper {
       display: flex;
       flex-direction: column;
@@ -127,6 +158,24 @@
   <header>
     <h1 id="breakingHeadline" class="blink">BREAKING: FURTHER DEVELOPMENTS IN THE SECOND SISI-INCIDENT!</h1>
   </header>
+  <!-- Start of Reusable Menu Component -->
+<nav class="site-menu">
+  <ul>
+    <!-- Link back to your main index page -->
+    <li><a href="../index.html">Home</a></li>
+    
+    <!-- Link to the first Sisi Incident page -->
+    <li><a href="../sisi_incident/sisi.html">Sisi Incident #1</a></li>
+    
+    <!-- Link to the second (insane_sisi2) Sisi Incident page -->
+    <li><a href="../insane_sisi2/sisi2.html">Sisi Incident #2</a></li>
+    
+    <!-- Link to the third (sisi_update_v3) Sisi Incident page -->
+    <li><a href="../sisi_update_v3/sisi3.html">Sisi Incident #3</a></li>
+  </ul>
+</nav>
+<!-- End of Reusable Menu Component -->
+
 
   <div class="container">
     <div class="article-header">
