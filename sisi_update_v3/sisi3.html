@@ -26,6 +26,21 @@
       margin: 0;
       text-shadow: 2px 2px 4px #000;
     }
+    .image-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Centers both image and text */
+      justify-content: center; /* Centers content vertically */
+      padding: 0%;
+      margin: 0%;
+    }
+    .image-wrapper img {
+      max-width: 300px; /* Adjust size as needed */
+      height: auto; /* Keeps aspect ratio */
+      display: block; /* Prevents extra space under image */
+      padding: 0%;
+      margin: 0%;
+    }
     .blink {
       animation: blink-animation 1s steps(5, start) infinite;
       -webkit-animation: blink-animation 1s steps(5, start) infinite;
@@ -128,29 +143,37 @@
     </p>
 
     <!-- Image 1 -->
-    <h3>1. The Stare-Down</h3>
-    <img src="sisi_kiwi1.jpeg" alt="Sisi staring from afar, looking like a kiwi herself">
+    <div class="image-wrapper">
+      <h3>1. The Stare-Down</h3>
+      <img src="sisi_kiwi1.jpeg" alt="Sisi staring from afar, looking like a kiwi herself">
+    </div>
     <p>
       In the first image, Sisi is spotted at a distance, eyeing the kiwi suspiciously. Some observers note that Sisi's fluffy fur makes her look uncannily similar to the fruit itself.
     </p>
 
     <!-- Image 2 -->
-    <h3>2. The Approach</h3>
-    <img src="sisi_kiwi2.jpeg" alt="Sisi coming closer to the kiwi">
+    <div class="image-wrapper">
+      <h3>2. The Approach</h3>
+      <img src="sisi_kiwi2.jpeg" alt="Sisi coming closer to the kiwi">
+    </div>
     <p>
       The second image shows Sisi moving in on her unsuspecting target. Her expression suggests a mix of curiosity and determination.
     </p>
 
     <!-- Image 3 (Previously Known) -->
-    <h3>3. The Contact (Previously Known)</h3>
-    <img src="sisi_kiwi3.jpeg" alt="Sisi placing her paw on the kiwi">
+    <div class="image-wrapper">
+      <h3>3. The Contact (Previously Known)</h3>
+      <img src="sisi_kiwi3.jpeg" alt="Sisi placing her paw on the kiwi">
+    </div>
     <p>
       This now-infamous photo captures the exact moment Sisi's paw lands on the kiwi. Fans of the feline are already calling it the “Kiwi Paw of Doom.”
     </p>
 
     <!-- Image 4 -->
-    <h3>4. The Ceasefire</h3>
-    <img src="sisi_kiwi4.jpeg" alt="Sisi pulling the kiwi closer, a possible truce">
+    <div class="image-wrapper">
+      <h3>4. The Ceasefire</h3>
+      <img src="sisi_kiwi4.jpeg" alt="Sisi pulling the kiwi closer, a possible truce">
+   </div>
     <p>
       Finally, we see Sisi gently pulling the kiwi closer. Sources indicate that the two parties have since reached a ceasefire agreement, though tensions remain high.
     </p>
