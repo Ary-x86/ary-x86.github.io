@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MST Visualizer (Prim's & Kruskal's)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 1400px;
+        }
+        .column {
+            background-color: #fff;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #controls {
+            width: 100%;
+            max-width: 700px; /* Adjust as needed if it's in its own row */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        #controls button, #controls select {
+            padding: 10px 15px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #e7e7e7;
+            cursor: pointer;
+        }
+        #controls button:hover, #controls select:hover {
+            background-color: #d7d7d7;
+        }
+        #controls button:disabled {
+            background-color: #f0f0f0;
+            cursor: not-allowed;
+            color: #aaa;
+        }
+        #visualizationArea {
+            display: flex;
+            width: 100%;
+            justify-content: space-around; /* Puts canvas and info side-by-side */
+        }
+        #canvasContainer {
+            flex: 2; /* Canvas takes more space */
+            min-width: 450px; /* Min width for canvas */
+        }
+        #graphCanvas {
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+        #infoArea {
+            flex: 1; /* Info area takes less space */
+            min-width: 300px;
+            max-height: 800px; /* Max height for scrollable log */
+            overflow-y: auto; /* Scroll if content overflows */
+        }
+        #unionFindParentState {
+            font-size: 0.9em;
+            white-space: pre-wrap; /* Allows line breaks and preserves spaces */
+            max-height: 150px; /* Adjust as needed */
+            overflow-y: auto;
+            border: 1px solid #eee;
+            padding: 5px;
+            margin-top: 5px;
+            background-color: #f9f9f9;
+            font-family: monospace;
+        }
+        #logMessagesContainer {
+             margin-top:10px;
+        }
+        #logMessages, #pqState {
+            font-size: 0.9em;
+            white-space: pre-wrap; /* Allows line breaks and preserves spaces */
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            padding: 5px;
+            margin-top: 5px;
+            background-color: #f9f9f9;
+        }
+        #pqState {
+            font-family: monospace;
+        }
+        #codeDisplay {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .code-tabs button {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            border-radius: 4px 4px 0 0;
+        }
+        .code-tabs button.active {
+            background-color: #fff;
+            border-bottom: 1px solid #fff; /* Or some other indication */
+        }
+        pre {
+            background-color: #2d2d2d;
+            color: #f0f0f0;
+            padding: 15px;
+            border-radius: 0 4px 4px 4px;
+            overflow-x: auto;
+            font-size: 0.9em;
+            border: 1px solid #ccc;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+        h2, h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        .lecture-goal {
+            background-color: #e6f3ff;
+            border-left: 5px solid #007bff;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .lecture-goal p { margin: 5px 0; }
+        .lecture-goal strong { color: #0056b3; }
+        .highlight-mst { color: green; font-weight: bold; }
+        .highlight-candidate { color: orange; }
+        .highlight-considering { color: blue; }
+        .highlight-rejected { color: red; text-decoration: line-through;}
+    </style>
+</head>
+<body>
+
+    <div class="column lecture-goal">
+        <h2>🎯 Goal: Minimal Spanning Tree (MST) <a href="../index.html">(What's that?)</a></h2>
+        <p>Given a <strong>connected, undirected</strong> weighted graph $G = (V, E)$, we want to find a <strong>spanning tree</strong> of $G$ with the <strong>minimal sum of edge weights</strong>.</p>
+        <p>A <strong>spanning tree</strong> connects all vertices without any cycles and uses the minimum possible edges: $|V| - 1$.</p>
+        <h4>Real-world Analogy:</h4>
+        <p>Imagine cities (nodes) in Europe connected via train tracks (edges with weights = cost). We want every city connected with <strong>minimal total track cost</strong>, without loops.</p>
+    </div>
+
+    <div id="controls" class="column">
+        <h3>Controls</h3>
+        <select id="algorithmSelector">
+            <option value="none">Select Algorithm</option>
+            <option value="prim">Prim's Algorithm</option>
+            <option value="kruskal">Kruskal's Algorithm</option>
+        </select>
+        <label for="startNodeSelector" id="startNodeLabel" style="display:none;">Start Node:</label>
+        <select id="startNodeSelector" style="display:none;"></select>
+        <button id="startButton">Start</button>
+        <button id="stepButton" disabled>Next Step</button>
+        <button id="resetButton" disabled>Reset</button>
+    </div>
+
+    <div class="container">
+        <div id="visualizationArea" class="column" style="flex-direction: row; align-items: flex-start;">
+            <div id="canvasContainer" style="margin-right: 20px;">
+                <h3>Graph Visualization</h3>
+                <canvas id="graphCanvas" width="540" height="420"></canvas>
+            </div>
+            <div id="infoArea">
+                <h3>Algorithm Log</h3>
+                <div id="totalWeight">Total MST Weight: 0</div>
+                <div id="logMessagesContainer">
+                    <h4>Log:</h4>
+                    <div id="logMessages">(No actions yet)</div>
+                </div>
+                <div id="pqStateContainer" style="display:none;">
+                     <h4>Priority Queue / Candidate Edges:</h4>
+                    <div id="pqState">(Empty)</div>
+                </div>
+                 <div id="kruskalSortedEdgesContainer" style="display:none;">
+                     <h4>Sorted Edges (Kruskal):</h4>
+                    <div id="kruskalSortedEdges">(Not initialized)</div>
+                </div>
+                    <div id="unionFindParentContainer" style="display:none;">
+                     <h4>Union-Find Parent Array:</h4>
+                    <div id="unionFindParentState">(Not initialized)</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="codeDisplay" class="column">
+            <h3>Python Implementation (from lecture)</h3>
+            <div class="code-tabs">
+                <button id="showPrimCode" class="active">Prim's Pseudocode</button>
+                <button id="showKruskalCode">Kruskal's Pseudocode</button>
+            </div>
+            <div id="primCodeDiv">
+                <pre><code class="language-python">
+# Prim's Algorithm
+import heapq    # heapq is Python's min-priority queue implementation, we could do it without and use a for-loop to find the min cost edge
+
+def prim(graph, start):
+    mst = set()                 # Set to store edges (from, to, cost) of the MST
+    visited = set([start])      # Set of vertices already included in MST
+    
+    # Edges list will act as a min-priority queue.
+    # Stores tuples of (cost, from_node, to_node)
+    # Initialize with edges from the starting node
+
+    edges = []
+
+    for to_node, cost in graph[start]:
+        heapq.heappush(edges, (cost, start, to_node))
+
+    while edges and len(mst) < len(graph) - 1:
+        cost, frm, to = heapq.heappop(edges)        # Get the smallest edge
+
+        if to not in visited:
+            visited.add(to)
+            mst.add((frm, to, cost))                # Add edge to MST
+
+            # Add new candidate edges from the newly added 'to' node
+            for to_next, cost_next in graph[to]:
+                if to_next not in visited:
+                    heapq.heappush(edges, (cost_next, to, to_next))
+    return mst
+                </code></pre>
+            </div>
+            <div id="kruskalCodeDiv" style="display:none;">
+                <pre><code class="language-python">
+# Kruskal's Algorithm
+def kruskal(graph_nodes, graph_edges_list): # graph_nodes is list of V, graph_edges_list is list of (cost,u,v)
+    parent = {}  # To store parent of each node for Union-Find
+
+    # Helper for Union-Find: finds the representative (root) of a set
+    def find(v):
+        # Path compression: make every node on path point directly to root
+        if parent[v] == v:
+            return v
+        parent[v] = find(parent[v])
+        return parent[v]
+
+    # Helper for Union-Find: unites two sets
+    def union(u, v):
+        root_u = find(u)
+        root_v = find(v)
+        if root_u == root_v: # If u and v are already in the same set
+            return False # Cycle detected
+        parent[root_u] = root_v # Merge sets by making one root parent of other
+        return True
+
+    mst = []
+    
+    # Initialize Union-Find: each node is its own parent initially
+    for v in graph_nodes:
+        parent[v] = v
+
+    # Sort all edges by weight in non-decreasing order
+    # graph_edges_list should be like: [(cost, u, v), (cost, u, v), ...]
+    sorted_edges = sorted(graph_edges_list) 
+
+    for cost, u, v in sorted_edges:
+        if union(u, v): # If adding edge (u,v) doesn't form a cycle
+            mst.append((u, v, cost))
+            if len(mst) == len(graph_nodes) - 1: # MST is complete
+                break
+    
+    return mst
+
+# Example graph representation for Kruskal's input:
+# nodes = ['A', 'B', 'C', 'D', 'E', 'F']
+# edges_list = [
+#   (3, 'A', 'B'), (5, 'A', 'F'), (6, 'A', 'E'),
+#   (1, 'B', 'C'), (4, 'B', 'F'),
+#   (4, 'C', 'F'), (6, 'C', 'D'),
+#   (5, 'F', 'D'), (2, 'F', 'E')
+# ]
+# kruskal(nodes, edges_list)
+                </code></pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- MinHeap Implementation ---
+        class MinHeap {
+            constructor(compareFn = (a, b) => a[0] - b[0]) { // Expects items like [cost, u, v]
+                this.heap = [];
+                this.compareFn = compareFn;
+            }
+            push(val) {
+                this.heap.push(val);
+                this._siftUp();
+            }
+            pop() {
+                if (this.isEmpty()) return undefined;
+                const val = this.heap[0];
+                const last = this.heap.pop();
+                if (!this.isEmpty()) {
+                    this.heap[0] = last;
+                    this._siftDown();
+                }
+                return val;
+            }
+            isEmpty() { return this.heap.length === 0; }
+            peek() { return this.heap[0]; }
+            size() { return this.heap.length; }
+            getItems() { return [...this.heap].sort(this.compareFn); } // For display, sorted
+            _siftUp() {
+                let nodeIdx = this.heap.length - 1;
+                while (nodeIdx > 0 && this.compareFn(this.heap[nodeIdx], this.heap[this._parent(nodeIdx)]) < 0) {
+                    this._swap(nodeIdx, this._parent(nodeIdx));
+                    nodeIdx = this._parent(nodeIdx);
+                }
+            }
+            _siftDown() {
+                let nodeIdx = 0;
+                while (
+                    (this._leftChild(nodeIdx) < this.heap.length && this.compareFn(this.heap[this._leftChild(nodeIdx)], this.heap[nodeIdx]) < 0) ||
+                    (this._rightChild(nodeIdx) < this.heap.length && this.compareFn(this.heap[this._rightChild(nodeIdx)], this.heap[nodeIdx]) < 0)
+                ) {
+                    let swapChildIdx = this._leftChild(nodeIdx);
+                    if (this._rightChild(nodeIdx) < this.heap.length && this.compareFn(this.heap[this._rightChild(nodeIdx)], this.heap[this._leftChild(nodeIdx)]) < 0) {
+                        swapChildIdx = this._rightChild(nodeIdx);
+                    }
+                    this._swap(swapChildIdx, nodeIdx);
+                    nodeIdx = swapChildIdx;
+                }
+            }
+            _parent(idx) { return Math.floor((idx - 1) / 2); }
+            _leftChild(idx) { return idx * 2 + 1; }
+            _rightChild(idx) { return idx * 2 + 2; }
+            _swap(i, j) { [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]]; }
+        }
+
+        // --- UnionFind Implementation ---
+        class UnionFind {
+            constructor(nodes) {
+                this.parent = {};
+                nodes.forEach(node => this.parent[node] = node);
+            }
+            find(i) {
+                if (this.parent[i] === i) return i;
+                return this.parent[i] = this.find(this.parent[i]); // Path compression
+            }
+            union(i, j) {
+                const rootI = this.find(i);
+                const rootJ = this.find(j);
+                if (rootI !== rootJ) {
+                    this.parent[rootI] = rootJ;
+                    return true;
+                }
+                return false; // Already in the same set
+            }
+        }
+
+        // --- Graph Data & Canvas Setup ---
+        const canvas = document.getElementById('graphCanvas');
+        const ctx = canvas.getContext('2d');
+        const nodeRadius = 15;
+
+        const graphNodes = [
+            { id: 'A', x: 100, y: 70, color: 'lightblue', textColor: 'black' },
+            { id: 'B', x: 225, y: 70, color: 'lightblue', textColor: 'black' },
+            { id: 'C', x: 350, y: 70, color: 'lightblue', textColor: 'black' },
+            { id: 'D', x: 400, y: 200, color: 'lightblue', textColor: 'black' },
+            { id: 'E', x: 50, y: 210, color: 'lightblue', textColor: 'black' },
+            { id: 'F', x: 190, y: 200, color: 'lightblue', textColor: 'black' },
+        ];
+
+        const getEdgeId = (u, v) => [u, v].sort().join('-');
+
+        const rawEdges = [
+            { u: 'A', v: 'B', weight: 3 }, { u: 'A', v: 'F', weight: 5 }, { u: 'A', v: 'E', weight: 6 },
+            { u: 'B', v: 'C', weight: 1 }, { u: 'B', v: 'F', weight: 4 },
+            { u: 'C', v: 'F', weight: 4 }, { u: 'C', v: 'D', weight: 6 },
+            { u: 'F', v: 'D', weight: 5 }, { u: 'F', v: 'E', weight: 2 },
+        ];
+        
+        let processedEdges = []; // Will be populated by resetGraphState
+
+        const adjList = {}; // Adjacency list for algorithms
+        graphNodes.forEach(n => adjList[n.id] = []);
+        rawEdges.forEach(e => {
+            adjList[e.u].push({ node: e.v, weight: e.weight });
+            adjList[e.v].push({ node: e.u, weight: e.weight });
+        });
+
+
+        // --- Drawing Functions ---
+        function drawNode(node) {
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, nodeRadius, 0, Math.PI * 2);
+            ctx.fillStyle = node.color;
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.stroke();
+            ctx.fillStyle = node.textColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(node.id, node.x, node.y);
+        }
+
+        function drawEdge(edge) {
+            const nodeU = graphNodes.find(n => n.id === edge.u);
+            const nodeV = graphNodes.find(n => n.id === edge.v);
+            ctx.beginPath();
+            ctx.moveTo(nodeU.x, nodeU.y);
+            ctx.lineTo(nodeV.x, nodeV.y);
+            ctx.strokeStyle = edge.color;
+            ctx.lineWidth = edge.thickness;
+            ctx.stroke();
+
+            // Draw weight
+            const midX = (nodeU.x + nodeV.x) / 1.96;
+            const midY = (nodeU.y + nodeV.y) / 2.05;
+            // Small offset to prevent text overlap with thick lines
+            const offsetX = (nodeV.y - nodeU.y) * 0.08; 
+            const offsetY = (nodeU.x - nodeV.x) * 0.04;
+
+                /*
+            const textMetrics = ctx.measureText(weightText);
+            const textWidth = textMetrics.width;
+            const textHeight = 12; // Approximate height for 12px font
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'; // Semi-transparent white
+            // Adjust background rectangle position based on textAlign and textBaseline
+            ctx.fillRect(textX - textWidth / 2 - 2, textY - textHeight / 2 - 2, textWidth + 4, textHeight + 4);
+            */
+            ctx.fillStyle = 'blue';
+            ctx.font = '14px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+            ctx.fillText(edge.weight, midX + offsetX, midY + offsetY);
+        }
+
+        function redrawCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            processedEdges.forEach(drawEdge);
+            graphNodes.forEach(drawNode);
+        }
+
+        // --- UI Update Functions ---
+        const logMessagesDiv = document.getElementById('logMessages');
+        const totalWeightDiv = document.getElementById('totalWeight');
+        const pqStateDiv = document.getElementById('pqState');
+        const kruskalSortedEdgesDiv = document.getElementById('kruskalSortedEdges');
+
+        function logMessage(message, styleClass = '') {
+            const p = document.createElement('p');
+            p.innerHTML = message; // Use innerHTML to allow for styled spans
+            if (styleClass) p.className = styleClass;
+            logMessagesDiv.appendChild(p);
+            logMessagesDiv.scrollTop = logMessagesDiv.scrollHeight; // Auto-scroll
+        }
+        
+        function clearLogs() {
+            logMessagesDiv.innerHTML = '(No actions yet)';
+            pqStateDiv.innerHTML = '(Empty)';
+            kruskalSortedEdgesDiv.innerHTML = '(Not initialized)';
+        }
+
+        function updateTotalWeightDisplay(weight) {
+            totalWeightDiv.textContent = `Total MST Weight: ${weight}`;
+        }
+
+        function updatePQStateDisplay(heap) {
+            if (!heap || heap.isEmpty()) {
+                pqStateDiv.textContent = '(Empty)';
+                return;
+            }
+            const items = heap.getItems().map(item => `(${item[0]}, ${item[1]}-${item[2]})`);
+            pqStateDiv.textContent = items.join('\n');
+        }
+        
+        function updateKruskalSortedEdgesDisplay(edges) {
+            if (!edges || edges.length === 0) {
+                 kruskalSortedEdgesDiv.textContent = '(Empty)';
+                return;
+            }
+            const items = edges.map((edge, index) => {
+                let display = `${index + 1}. (${edge.weight}, ${edge.u}-${edge.v})`;
+                if (edge.status === 'mst') display = `<span class="highlight-mst">${display} ✔</span>`;
+                else if (edge.status === 'rejected') display = `<span class="highlight-rejected">${display} ✘ Cycle</span>`;
+                else if (edge.status === 'considering') display = `<span class="highlight-considering">${display} ?</span>`;
+                return display;
+            });
+            kruskalSortedEdgesDiv.innerHTML = items.join('<br>');
+        }
+
+        const unionFindParentStateDiv = document.getElementById('unionFindParentState');
+
+        function updateParentDictDisplay(unionFindInstance) {
+            if (!unionFindInstance || !unionFindInstance.parent) {
+                unionFindParentStateDiv.textContent = '(Not initialized or empty)';
+                return;
+            }
+            let displayString = "Node : Parent\n-----------\n";
+            // Sort nodes for consistent display order (optional, but good for readability)
+            const sortedNodes = Object.keys(unionFindInstance.parent).sort();
+            for (const node of sortedNodes) {
+                displayString += `${node}    : ${unionFindInstance.parent[node]}\n`;
+            }
+            unionFindParentStateDiv.textContent = displayString.trim();
+        }
+
+
+
+
+        // --- Algorithm State ---
+        let currentAlgorithm = null; // 'prim' or 'kruskal'
+        let primState = {};
+        let kruskalState = {};
+        let mstTotalWeight = 0;
+
+        function resetGraphState() {
+            processedEdges = rawEdges.map(e => ({
+                ...e,
+                id: getEdgeId(e.u, e.v),
+                color: 'gray',
+                thickness: 2,
+                status: 'default'
+            }));
+            graphNodes.forEach(n => {
+                n.color = 'lightblue';
+                n.textColor = 'black';
+            });
+            mstTotalWeight = 0;
+            updateTotalWeightDisplay(0);
+            clearLogs();
+            redrawCanvas();
+        }
+        
+        // --- Prim's Algorithm Logic ---
+        function initPrim(startNodeId) {
+            resetGraphState();
+            logMessage(`Initializing Prim's Algorithm starting from node ${startNodeId}.`);
+            
+            primState = {
+                visited: new Set([startNodeId]),
+                mstEdges: [],
+                candidateEdgesHeap: new MinHeap(),
+                startNode: startNodeId,
+                initialized: true,
+                steps: 0
+            };
+
+            const startNodeObj = graphNodes.find(n => n.id === startNodeId);
+            startNodeObj.color = 'lightgreen'; // Mark start node
+
+            adjList[startNodeId].forEach(edge => {
+                primState.candidateEdgesHeap.push([edge.weight, startNodeId, edge.node]);
+                const procEdge = processedEdges.find(pe => pe.id === getEdgeId(startNodeId, edge.node));
+                if (procEdge && procEdge.status !== 'mst') procEdge.status = 'candidate';
+            });
+            
+            updatePQStateDisplay(primState.candidateEdgesHeap);
+            logMessage(`Added initial edges from ${startNodeId} to priority queue.`);
+            redrawCanvas();
+        }
+
+        function primStep() {
+            if (!primState.initialized || primState.candidateEdgesHeap.isEmpty() || primState.mstEdges.length >= graphNodes.length - 1) {
+                logMessage("Prim's Algorithm finished or cannot proceed.", primState.mstEdges.length >= graphNodes.length - 1 ? 'highlight-mst' : '');
+                document.getElementById('stepButton').disabled = true;
+                updatePQStateDisplay(null); // Clear PQ display
+                return;
+            }
+
+            const [cost, u, v] = primState.candidateEdgesHeap.pop();
+            const edgeIdToUpdate = getEdgeId(u,v);
+            const procEdgeToUpdate = processedEdges.find(pe => pe.id === edgeIdToUpdate);
+            
+            // Visually mark edge as "considering" temporarily
+            if (procEdgeToUpdate && procEdgeToUpdate.status !== 'mst') {
+                procEdgeToUpdate.color = 'orange'; // Considering color
+                redrawCanvas(); 
+            }
+            logMessage(`Considering edge <span class="highlight-considering">${u}-${v} (cost ${cost})</span> from PQ.`);
+
+            if (primState.visited.has(v)) {
+                logMessage(`Node ${v} already visited. Skipping edge ${u}-${v}.`);
+                 if (procEdgeToUpdate && procEdgeToUpdate.status !== 'mst') {
+                    //procEdgeToUpdate.status = 'rejected'; // Not really rejected, just already covered
+                    procEdgeToUpdate.color = 'lightcoral'; // Indicate it was popped but not used
+                }
+                updatePQStateDisplay(primState.candidateEdgesHeap);
+                redrawCanvas();
+                // Call step again automatically if user wants one visual step per MST edge
+                // For now, let user click again or make this a sub-step not counting to "Next Step"
+                return; // Allow user to see this before next pop
+            }
+
+            primState.visited.add(v);
+            primState.mstEdges.push({ u, v, weight: cost });
+            mstTotalWeight += cost;
+            updateTotalWeightDisplay(mstTotalWeight);
+
+            const nodeVObj = graphNodes.find(n => n.id === v);
+            if (nodeVObj) nodeVObj.color = 'lightgreen'; // Add to MST display
+            
+            if (procEdgeToUpdate) {
+                procEdgeToUpdate.status = 'mst';
+                procEdgeToUpdate.color = 'green';
+                procEdgeToUpdate.thickness = 4;
+            }
+            logMessage(`Added edge <span class="highlight-mst">${u}-${v} (cost ${cost})</span> to MST. Node ${v} visited.`, 'highlight-mst');
+
+            adjList[v].forEach(neighborEdge => {
+                if (!primState.visited.has(neighborEdge.node)) {
+                    primState.candidateEdgesHeap.push([neighborEdge.weight, v, neighborEdge.node]);
+                    const procCandidateEdge = processedEdges.find(pe => pe.id === getEdgeId(v, neighborEdge.node));
+                    if (procCandidateEdge && procCandidateEdge.status !== 'mst') {
+                         procCandidateEdge.status = 'candidate';
+                         //procCandidateEdge.color = 'gold'; // Candidate edge color
+                    }
+                    logMessage(`Added edge ${v}-${neighborEdge.node} (cost ${neighborEdge.weight}) to PQ.`);
+                }
+            });
+            
+            updatePQStateDisplay(primState.candidateEdgesHeap);
+            redrawCanvas();
+            
+            if (primState.mstEdges.length >= graphNodes.length - 1) {
+                 logMessage("MST complete for Prim's Algorithm!", 'highlight-mst');
+                 document.getElementById('stepButton').disabled = true;
+                 updatePQStateDisplay(null);
+            }
+        }
+
+        // --- Kruskal's Algorithm Logic ---
+        function initKruskal() {
+            resetGraphState();
+            logMessage("Initializing Kruskal's Algorithm.");
+
+            const allEdgesForKruskal = [];
+            processedEdges.forEach(e => allEdgesForKruskal.push({u: e.u, v: e.v, weight: e.weight, id: e.id, status: 'default'}) );
+            
+            kruskalState = {
+                sortedEdges: allEdgesForKruskal.sort((a, b) => a.weight - b.weight),
+                mstEdges: [],
+                unionFind: new UnionFind(graphNodes.map(n => n.id)), // UnionFind initialized
+                currentEdgeIndex: 0,
+                initialized: true
+            };
+            
+            graphNodes.forEach(n => n.color = 'lightskyblue'); 
+            updateKruskalSortedEdgesDisplay(kruskalState.sortedEdges);
+            updateParentDictDisplay(kruskalState.unionFind); // <<< --- ADD THIS LINE ---
+            redrawCanvas();
+        }
+
+        function kruskalStep() {
+            if (!kruskalState.initialized || kruskalState.mstEdges.length >= graphNodes.length - 1 || kruskalState.currentEdgeIndex >= kruskalState.sortedEdges.length) {
+                logMessage("Kruskal's Algorithm finished or no more edges.", kruskalState.mstEdges.length >= graphNodes.length - 1 ? 'highlight-mst' : '');
+                document.getElementById('stepButton').disabled = true;
+                // Clear considering status from remaining edges
+
+                 if (kruskalState.unionFind) { // Ensure unionFind object exists
+                    updateParentDictDisplay(kruskalState.unionFind); 
+                }
+
+                kruskalState.sortedEdges.forEach((edge, idx) => {
+                    if (idx >= kruskalState.currentEdgeIndex && edge.status === 'considering') {
+                        const procEdge = processedEdges.find(pe => pe.id === edge.id);
+                        if (procEdge && procEdge.status !== 'mst' && procEdge.status !== 'rejected') {
+                            procEdge.color = 'gray'; // Reset color if it was 'considering'
+                            edge.status = 'default';
+                        }
+                    }
+                });
+                updateKruskalSortedEdgesDisplay(kruskalState.sortedEdges);
+                redrawCanvas();
+                return;
+            }
+
+            const edge = kruskalState.sortedEdges[kruskalState.currentEdgeIndex];
+            const procEdge = processedEdges.find(pe => pe.id === edge.id);
+
+            // Reset previous 'considering' edge if it wasn't chosen or rejected
+            if (kruskalState.currentEdgeIndex > 0) {
+                const prevEdgeState = kruskalState.sortedEdges[kruskalState.currentEdgeIndex - 1];
+                const prevProcEdge = processedEdges.find(pe => pe.id === prevEdgeState.id);
+                if (prevProcEdge && prevEdgeState.status === 'considering') { // Was considering but not chosen/rejected
+                     prevProcEdge.color = 'gray'; 
+                     prevEdgeState.status = 'default';
+                }
+            }
+            
+            logMessage(`Considering edge <span class="highlight-considering">${edge.u}-${edge.v} (cost ${edge.weight})</span>.`);
+            if (procEdge) {
+                procEdge.color = 'orange'; // Considering
+                edge.status = 'considering';
+            }
+            updateKruskalSortedEdgesDisplay(kruskalState.sortedEdges);
+            redrawCanvas();
+
+
+            if (kruskalState.unionFind.union(edge.u, edge.v)) {
+                kruskalState.mstEdges.push(edge);
+                mstTotalWeight += edge.weight;
+                updateTotalWeightDisplay(mstTotalWeight);
+
+                if (procEdge) {
+                    procEdge.status = 'mst';
+                    edge.status = 'mst';
+                    procEdge.color = 'green';
+                    procEdge.thickness = 4;
+                }
+                // Highlight nodes connected by this edge if they weren't already "in MST"
+                [edge.u, edge.v].forEach(nodeId => {
+                    const nodeObj = graphNodes.find(n => n.id === nodeId);
+                    if (nodeObj && nodeObj.color !== 'lightgreen') nodeObj.color = 'lightgreen';
+                });
+                logMessage(`Added edge <span class="highlight-mst">${edge.u}-${edge.v} (cost ${edge.weight})</span> to MST. No cycle.`, 'highlight-mst');
+            } else {
+                if (procEdge) {
+                    procEdge.status = 'rejected';
+                    edge.status = 'rejected';
+                    procEdge.color = 'red'; // Cycle
+                }
+                logMessage(`Skipped edge <span class="highlight-rejected">${edge.u}-${edge.v} (cost ${edge.weight})</span>. Forms a cycle.`, 'highlight-rejected');
+            }
+            
+            kruskalState.currentEdgeIndex++;
+            updateKruskalSortedEdgesDisplay(kruskalState.sortedEdges);
+            redrawCanvas();
+
+            if (kruskalState.mstEdges.length >= graphNodes.length - 1) {
+                 logMessage("MST complete for Kruskal's Algorithm!", 'highlight-mst');
+                 document.getElementById('stepButton').disabled = true;
+            }
+        }
+
+        // --- Event Listeners ---
+        const algoSelector = document.getElementById('algorithmSelector');
+        const startNodeSelector = document.getElementById('startNodeSelector');
+        const startNodeLabel = document.getElementById('startNodeLabel');
+        const startButton = document.getElementById('startButton');
+        const stepButton = document.getElementById('stepButton');
+        const resetButton = document.getElementById('resetButton');
+        const pqStateContainer = document.getElementById('pqStateContainer');
+        const kruskalSortedEdgesContainer = document.getElementById('kruskalSortedEdgesContainer');
+        const unionFindParentContainer = document.getElementById('unionFindParentContainer'); // <<< --- ADD THIS LINE ---
+
+
+
+        algoSelector.addEventListener('change', function() {
+            currentAlgorithm = this.value;
+            if (currentAlgorithm === 'prim') {
+                startNodeLabel.style.display = 'inline';
+                startNodeSelector.style.display = 'inline';
+                pqStateContainer.style.display = 'block';
+                kruskalSortedEdgesContainer.style.display = 'none';
+                unionFindParentContainer.style.display = 'none'; // <<< --- ADD THIS LINE ---
+            } else if (currentAlgorithm === 'kruskal') {
+                startNodeLabel.style.display = 'none';
+                startNodeSelector.style.display = 'none';
+                pqStateContainer.style.display = 'none';
+                kruskalSortedEdgesContainer.style.display = 'block';
+                unionFindParentContainer.style.display = 'block'; // <<< --- ADD THIS LINE ---
+            } else {
+                startNodeLabel.style.display = 'none';
+                startNodeSelector.style.display = 'none';
+                pqStateContainer.style.display = 'none';
+                kruskalSortedEdgesContainer.style.display = 'none';
+                unionFindParentContainer.style.display = 'none'; // <<< --- ADD THIS LINE ---
+            }
+            resetButton.click(); 
+            startButton.disabled = (currentAlgorithm === 'none');
+        });
+
+        startButton.addEventListener('click', function() {
+            if (currentAlgorithm === 'prim') {
+                const startNode = startNodeSelector.value;
+                if (!startNode) {
+                    alert("Please select a starting node for Prim's algorithm.");
+                    return;
+                }
+                initPrim(startNode);
+            } else if (currentAlgorithm === 'kruskal') {
+                initKruskal();
+            } else {
+                return; // No algorithm selected
+            }
+            startButton.disabled = true;
+            stepButton.disabled = false;
+            resetButton.disabled = false;
+            algoSelector.disabled = true;
+        });
+
+        stepButton.addEventListener('click', function() {
+            if (currentAlgorithm === 'prim' && primState.initialized) {
+                primStep();
+            } else if (currentAlgorithm === 'kruskal' && kruskalState.initialized) {
+                kruskalStep();
+            }
+        });
+
+        resetButton.addEventListener('click', function() {
+            resetGraphState();
+            primState = { initialized: false };
+            kruskalState = { initialized: false };
+            currentAlgorithm = algoSelector.value; 
+            
+            startButton.disabled = (currentAlgorithm === 'none');
+            stepButton.disabled = true;
+            resetButton.disabled = true;
+            algoSelector.disabled = false;
+            
+            if (algoSelector.value === 'prim') {
+                 pqStateContainer.style.display = 'block';
+                 kruskalSortedEdgesContainer.style.display = 'none';
+                 unionFindParentContainer.style.display = 'none'; // <<< --- ADD THIS LINE ---
+                 updatePQStateDisplay(null);
+            } else if (algoSelector.value === 'kruskal') {
+                 pqStateContainer.style.display = 'none';
+                 kruskalSortedEdgesContainer.style.display = 'block';
+                 unionFindParentContainer.style.display = 'block'; // <<< --- ADD THIS LINE ---
+                 updateKruskalSortedEdgesDisplay(null);
+                 updateParentDictDisplay(null); // <<< --- ADD THIS LINE to clear content ---
+            } else {
+                 pqStateContainer.style.display = 'none';
+                 kruskalSortedEdgesContainer.style.display = 'none';
+                 unionFindParentContainer.style.display = 'none'; // <<< --- ADD THIS LINE ---
+            }
+        });
+
+        // Populate start node selector
+        graphNodes.forEach(node => {
+            const option = document.createElement('option');
+            option.value = node.id;
+            option.textContent = node.id;
+            startNodeSelector.appendChild(option);
+        });
+        if (graphNodes.length > 0) startNodeSelector.value = graphNodes[0].id;
+
+
+        // Code display tabs
+        const primCodeBtn = document.getElementById('showPrimCode');
+        const kruskalCodeBtn = document.getElementById('showKruskalCode');
+        const primCodeDiv = document.getElementById('primCodeDiv');
+        const kruskalCodeDiv = document.getElementById('kruskalCodeDiv');
+
+        primCodeBtn.addEventListener('click', () => {
+            primCodeDiv.style.display = 'block';
+            kruskalCodeDiv.style.display = 'none';
+            primCodeBtn.classList.add('active');
+            kruskalCodeBtn.classList.remove('active');
+        });
+        kruskalCodeBtn.addEventListener('click', () => {
+            primCodeDiv.style.display = 'none';
+            kruskalCodeDiv.style.display = 'block';
+            kruskalCodeBtn.classList.add('active');
+            primCodeBtn.classList.remove('active');
+        });
+
+        // Initial draw
+        resetGraphState(); // Initializes processedEdges
+        redrawCanvas();
+        startButton.disabled = true; // Initially disabled until an algorithm is chosen
+
+    </script>
+</body>
+</html>

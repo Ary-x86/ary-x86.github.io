@@ -5,3 +5,25 @@
 3. git commit -m "msg"
 
 4. git push origin main
+
+
+----------------------------
+
+
+Initial Setup
+1. git init
+2. git config --global user.name "Your Name"
+3. git config --global user.email "you@example.com"
+4. git add .
+5. git commit -m "Initial commit"
+6. git remote add origin <URL>      (links local repo to github)
+7. git push -u origin main
+
+(-u flag to remember the remote repo and branch for future pushes.)
+
+On Other Devices
+1. git clone <URL>
+2. git pull origin main
+3. git add .
+4. git commit -m "Description of changes"
+5. git push origin main
