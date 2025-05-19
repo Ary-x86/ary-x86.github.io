@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Least Squares Explanation</title>
+    <script>
+      MathJax = { // Note: In Python string, { and } are literal here.
+        tex: {
+          inlineMath: [['$', '$']], 
+          displayMath: [['$$', '$$']] 
+        },
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1, h2, h3 { color: #0056b3; }
+        h1 { text-align: center; }
+        .math-eq { margin: 15px 0; padding: 10px; background-color: #e9f2f9; border-left: 4px solid #0056b3; text-align: center; }
+        .highlight { color: #d6336c; font-weight: bold; }
+        details { margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        summary { padding: 10px; font-weight: bold; background-color: #f0f0f0; cursor: pointer; }
+        details div { padding: 10px; border-top: 1px solid #ddd; }
+        img { max-width: 100%; height: auto; display: block; margin: 20px auto; border: 1px solid #ddd; }
+        .tooltip { position: relative; display: inline-block; cursor: pointer; border-bottom: 1px dotted black; }
+        .tooltip .tooltiptext { visibility: hidden; width: 220px; background-color: #555; color: #fff; text-align: center; border-radius: 6px; padding: 5px; position: absolute; z-index: 1; bottom: 125%; left: 50%; margin-left: -110px; opacity: 0; transition: opacity 0.3s; }
+        .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Understanding Least Squares: Problem 6</h1>
+
+        <h2>1. The Problem: Finding the "Line of Best Fit"</h2>
+        <p>Often, we have a set of data points $(x_i, y_i)$ that don't perfectly lie on a straight line, but we want to find a line $y = c_0 + c_1x$ that best represents the trend in the data. This is the core idea of linear regression and the method of least squares.</p>
+        <p>For Problem 6, the given points are $(2,1)$, $(3,-1)$, and $(3,4)$. If these points were perfectly on a line $y = c_0 + c_1x$, they would satisfy:</p>
+        <div class="math-eq">
+            $1 = c_0 + 2c_1$ <br>
+            $-1 = c_0 + 3c_1$ <br>
+            $4 = c_0 + 3c_1$
+        </div>
+
+        <h2>2. Setting up the Matrix Equation $A\mathbf{x} = \mathbf{b}$</h2>
+        <p>We can write this system of equations in matrix form $A\mathbf{x} = \mathbf{b}$, where $\mathbf{x} = \begin{bmatrix} c_0 \\ c_1 \end{bmatrix}$ are the unknown coefficients of the line.</p>
+        <p>For our problem:</p>
+        <div class="math-eq">
+        $$A = \begin{bmatrix} 1 & 2 \\ 1 & 3 \\ 1 & 3 \end{bmatrix}, \quad
+        \mathbf{x} = \begin{bmatrix} c_0 \\ c_1 \end{bmatrix}, \quad
+        \mathbf{b} = \begin{bmatrix} 1 \\ -1 \\ 4 \end{bmatrix}$$
+        </div>
+        <p>So we are trying to solve: $$\begin{bmatrix} 1 & 2 \\ 1 & 3 \\ 1 & 3 \end{bmatrix} \begin{bmatrix} c_0 \\ c_1 \end{bmatrix} = \begin{bmatrix} 1 \\ -1 \\ 4 \end{bmatrix}$$</p>
+        <p>However, these points are not collinear (e.g., the last two rows of $A$ involve the same $x$-coordinate $x=3$, but the target $y$-values $-1$ and $4$ are different). Thus, there is no exact solution $\mathbf{x}$ to $A\mathbf{x} = \mathbf{b}$. This means $\mathbf{b}$ is not in the column space of $A$, denoted $\text{Col}(A)$.</p>
+
+        <h2>3. The "Least Squares" Idea: Minimizing Errors</h2>
+        <p>Since we can't find an exact solution, we look for an approximate solution $\hat{\mathbf{x}}$ (read as "x-hat") such that $A\hat{\mathbf{x}}$ is as close as possible to $\mathbf{b}$.</p>
+        <p>The difference $\mathbf{e} = \mathbf{b} - A\hat{\mathbf{x}}$ is called the <span class="tooltip">error vector<span class="tooltiptext">Each component $e_i = y_i - (\hat{c}_{0} + \hat{c}_{1}x_i)$ is the vertical distance from a data point $(x_i, y_i)$ to the fitted line.</span></span>. We want to minimize the "size" of this error vector. The standard way is to minimize its squared Euclidean norm (length):</p>
+        <div class="math-eq">
+        $$ \text{Minimize } \|\mathbf{e}\||^2 = \|\mathbf{b} - A\hat{\mathbf{x}}\||^2 = \sum e_i^2 $$
+        </div>
+        <p>The vector $\hat{\mathbf{x}}$ that achieves this minimum is the <span class="highlight">least squares solution</span>.</p>
+
+        <h2>4. Geometric Intuition: Projections</h2>
+        <p>The vector $A\hat{\mathbf{x}}$ is always in the column space of $A$, $\text{Col}(A)$. The vector in $\text{Col}(A)$ that is closest to $\mathbf{b}$ is the <span class="tooltip">orthogonal projection<span class="tooltiptext">Imagine $\text{Col}(A)$ as a plane. If $\mathbf{b}$ is outside this plane, its projection is the closest point on the plane to $\mathbf{b}$.</span></span> of $\mathbf{b}$ onto $\text{Col}(A)$. Let's call this projection $\hat{\mathbf{b}}$. So, we set $A\hat{\mathbf{x}} = \hat{\mathbf{b}}$.</p>
+        <p style="text-align:center;">
+            <img src="Projection_and_rejection.png" alt="Projection of b onto a subspace" style="width:300px;">
+            <br><small>Geometric view: The vector $\mathbf{y}$ (our $\mathbf{b}$) is projected onto the subspace spanned by columns of $X$ (our $A$). The projection is $\mathbf{p}$ (our $\hat{\mathbf{b}}=A\hat{\mathbf{x}}$). The error vector $\mathbf{z}$ (our $\mathbf{e}$) is $\mathbf{y}-\mathbf{p}$ and is orthogonal to the subspace.</small>
+        </p>
+        <p>A key property is that the error vector $\mathbf{e} = \mathbf{b} - A\hat{\mathbf{x}}$ must be <span class="highlight">orthogonal</span> to $\text{Col}(A)$. This means $\mathbf{e}$ is orthogonal to every column of $A$. If the columns of $A$ are $\mathbf{a}_1, \dots, \mathbf{a}_n$, then $\mathbf{a}_j^T \mathbf{e} = 0$ for all $j$. This can be written compactly as:</p>
+        <p>From the book:</p>
+        <img src="input.png">
+        
+        <div class="math-eq">
+        $$ A^T \mathbf{e} = \mathbf{0} $$
+        </div>
+        
+        <h2>5. The Normal Equations</h2>
+        <p>Substituting $\mathbf{e} = \mathbf{b} - A\hat{\mathbf{x}}$ into $A^T \mathbf{e} = \mathbf{0}$, we get: $A^T (\mathbf{b} - A\hat{\mathbf{x}}) = \mathbf{0}$.</p>
+        <p>Distributing $A^T$ gives: $A^T \mathbf{b} - A^T A\hat{\mathbf{x}} = \mathbf{0}$.</p>
+        <p>Rearranging this yields the <span class="highlight">Normal Equations</span>:</p>
+        <div class="math-eq">
+        $$ A^T A \hat{\mathbf{x}} = A^T \mathbf{b} $$
+        </div>
+        <p>Solving this system gives us the least squares solution $\hat{\mathbf{x}} = \begin{bmatrix} \hat{c}_0 \\ \hat{c}_1 \end{bmatrix}$.</p>
+
+        <h2>6. Solving Problem 6 (Following Your Solution Image)</h2>
+        <p>Let's apply this to Problem 6. The data points are $(2,1)$, $(3,-1)$, and $(3,4)$.</p>
+
+        <h3>(1) Give a matrix $A$ and a vector $\mathbf{b}$...</h3>
+        <p>As established, for $y = c_0 + c_1x$ and points $(2,1), (3,-1), (3,4)$:</p>
+        <div class="math-eq">
+        $$ A = \begin{bmatrix} 1 & 2 \\ 1 & 3 \\ 1 & 3 \end{bmatrix}, \quad
+        \mathbf{b} = \begin{bmatrix} 1 \\ -1 \\ 4 \end{bmatrix} $$
+        </div>
+        <p>This matches step 1 in your solution image.</p>
+
+        <h3>(2) Use $A$ and $\mathbf{b}$ ... to construct the normal equations...</h3>
+        <p>We need to calculate $A^T A$ and $A^T \mathbf{b}$.</p>
+        <details>
+            <summary>Click to see calculation of $A^T$</summary>
+            <div>
+                <p>$$ A = \begin{bmatrix} 1 & 2 \\ 1 & 3 \\ 1 & 3 \end{bmatrix} \implies A^T = \begin{bmatrix} 1 & 1 & 1 \\ 2 & 3 & 3 \end{bmatrix} $$</p>
+            </div>
+        </details>
+        <details>
+            <summary>Click to see calculation of $A^T A$</summary>
+            <div>
+                <p>$$ A^T A = \begin{bmatrix} 1 & 1 & 1 \\ 2 & 3 & 3 \end{bmatrix} \begin{bmatrix} 1 & 2 \\ 1 & 3 \\ 1 & 3 \end{bmatrix}
+                = \begin{bmatrix} (1\cdot1+1\cdot1+1\cdot1) & (1\cdot2+1\cdot3+1\cdot3) \\ (2\cdot1+3\cdot1+3\cdot1) & (2\cdot2+3\cdot3+3\cdot3) \end{bmatrix} $$</p>
+                <p>$$ = \begin{bmatrix} 1+1+1 & 2+3+3 \\ 2+3+3 & 4+9+9 \end{bmatrix} = \begin{bmatrix} 3 & 8 \\ 8 & 22 \end{bmatrix} $$</p>
+            </div>
+        </details>
+        <details>
+            <summary>Click to see calculation of $A^T \mathbf{b}$</summary>
+            <div>
+                <p>$$ A^T \mathbf{b} = \begin{bmatrix} 1 & 1 & 1 \\ 2 & 3 & 3 \end{bmatrix} \begin{bmatrix} 1 \\ -1 \\ 4 \end{bmatrix}
+                = \begin{bmatrix} (1\cdot1+1\cdot(-1)+1\cdot4) \\ (2\cdot1+3\cdot(-1)+3\cdot4) \end{bmatrix} $$</p>
+                <p>$$ = \begin{bmatrix} 1-1+4 \\ 2-3+12 \end{bmatrix} = \begin{bmatrix} 4 \\ 11 \end{bmatrix} $$</p>
+            </div>
+        </details>
+        <p>So the normal equations $A^T A \hat{\mathbf{x}} = A^T \mathbf{b}$ are:</p>
+        <div class="math-eq">
+        $$ \begin{bmatrix} 3 & 8 \\ 8 & 22 \end{bmatrix} \begin{bmatrix} c_0 \\ c_1 \end{bmatrix} = \begin{bmatrix} 4 \\ 11 \end{bmatrix} $$
+        </div>
+        <p>This matches step 2 in your solution image.</p>
+
+        <h3>(3) Determine if the least-squares solution ... is unique.</h3>
+        <p>The least squares solution $\hat{\mathbf{x}}$ is unique if and only if the matrix $A^T A$ is invertible. This is true if and only if the <span class="highlight">columns of $A$ are linearly independent</span>.</p>
+        <p>To check this for $A = \begin{bmatrix} 1 & 2 \\ 1 & 3 \\ 1 & 3 \end{bmatrix}$, we can see if $A$ has a pivot in every column after row reduction.</p>
+        <details>
+            <summary>Click to see row reduction of $A$ (as in your image)</summary>
+            <div>
+                $$ A = \begin{bmatrix} 1 & 2 \\ 1 & 3 \\ 1 & 3 \end{bmatrix} \xrightarrow{R_2 \leftarrow R_2-R_1 \atop R_3 \leftarrow R_3-R_1} \begin{bmatrix} 1 & 2 \\ 0 & 1 \\ 0 & 1 \end{bmatrix} \xrightarrow{{R_3 \leftarrow R_3-R_2} \atop {R_1 \leftarrow R_1-2R_2}} \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 0 & 0 \end{bmatrix} $$
+                <p>There are pivot positions in both columns (column 1 and column 2). Since $A$ has 2 columns and 2 pivots, its columns are linearly independent.</p>
+            </div>
+        </details>
+        <p>Alternatively, we can check if $\det(A^T A) \neq 0$:</p>
+        <p>$$ \det \begin{pmatrix} 3 & 8 \\ 8 & 22 \end{pmatrix} = (3)(22) - (8)(8) = 66 - 64 = 2 $$</p>
+        <p>Since $2 \neq 0$, $A^T A$ is invertible, and the least-squares solution is <span class="highlight">unique</span>. This matches step 3 in your solution image.</p>
+
+        <h3>(4) A solution ... is given by $\mathbf{v} = \begin{bmatrix} 0 \\ 1/2 \end{bmatrix}$. Use this to write the equation of the least squares line.</h3>
+        <p>We are given that the solution to $A^T A \hat{\mathbf{x}} = A^T \mathbf{b}$ is $\hat{\mathbf{x}} = \mathbf{v} = \begin{bmatrix} 0 \\ 1/2 \end{bmatrix}$.</p>
+        <p>Since $\hat{\mathbf{x}} = \begin{bmatrix} \hat{c}_0 \\ \hat{c}_1 \end{bmatrix}$, we have $\hat{c}_0 = 0$ and $\hat{c}_1 = 1/2$.</p>
+        <p>The equation of the least squares line $y = \hat{c}_0 + \hat{c}_1x$ is therefore:</p>
+        <div class="math-eq">
+        $$ y = 0 + \frac{1}{2}x \implies y = \frac{1}{2}x $$
+        </div>
+        <p>This matches step 4 in your solution image.</p>
+
+        <h2>7. Plot of Data and Line</h2>
+        <p style="text-align:center;"><i>(An interactive plot would show points (2,1), (3,-1), (3,4) and the line y=0.5x passing closely among them, with vertical lines indicating the errors.)</i></p>
+        
+
+        <h2>8. Your Solution Image (for reference)</h2>
+        <p><i>Solution image (input_file_0.png).</i></p>
+        <img src="input_file_0.png">
+    
+    </div>
+    <script>
+        // Minimal JavaScript, primarily for MathJax loading.
+    </script>
+</body>
+</html>
+
