@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Calculus Problem Explanations</title>
+    
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$']],
+          displayMath: [['$$', '$$']]
+        },
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
+
+    <style>
+        :root {
+            --primary-color: #34495e;
+            --secondary-color: #16a085;
+            --accent-color: #c0392b;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --body-bg: #f4f6f9;
+            --border-color: #dce4ec;
+            --header-font: 'Georgia', 'Times New Roman', serif;
+        }
+        body {
+            font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--body-bg);
+            margin: 0;
+            padding: 2em;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: var(--card-bg);
+            box-shadow: 0 2px 8px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            }
+            header a.back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            }
+            header a.back:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+        h1, h2, h3, h4 {
+            color: var(--primary-color);
+            font-family: var(--header-font);
+        }
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            border-bottom: 4px double var(--secondary-color);
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+        h2 {
+            font-size: 2.2em;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.4em;
+            margin-top: 2em;
+        }
+        h3 {
+            font-size: 1.6em;
+            color: var(--secondary-color);
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5em 2.5em 2.5em 2.5em;
+            margin-bottom: 2.5em;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+        }
+        .question-image, .ref-image {
+            display: block;
+            max-width: 80%;
+            margin: 1.5em auto;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .why-box {
+            background: #e8f6f3;
+            border-left: 5px solid var(--secondary-color);
+            padding: 1em 1.5em;
+            margin: 1.5em 0;
+            border-radius: 5px;
+        }
+        .why-box h4 {
+            color: var(--secondary-color);
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+          <header>
+        <!-- TODO: Replace `index.html` with the correct root‑page URL if different. -->
+        <a class="back" href="https://ary-x86.github.io/Calc2-PartialDeriv-SecondDerivTest/Calculus2.html" title="Back to start">&#x2190; Back</a>
+        
+    </header>
+
+<div class="container">
+
+    <h1>EXAM 2 WARNING: BIG GEMINI HALLUCINATIONS IDK WHAT HAPPENED</h1>
+
+    <div class="card">
+        <h2>Question 1: Series Convergence and Divergence</h2>
+        
+        <h3>a) The Ratio Test</h3>
+        <img src="question4.png" class="question-image" alt="Question 1a prompt">
+        
+        <div class="why-box">
+            <h4>Why do we use the Ratio Test?</h4>
+            <p>The key is to recognize the structure of the series terms, $a_n = \frac{n+1}{1.01^n}$. When you see terms involving **exponentials** (like $1.01^n$) or **factorials** (like $n!$), the Ratio Test is almost always the best tool. This is because the test creates a fraction $\frac{a_{n+1}}{a_n}$, which allows the exponential or factorial terms to cancel out beautifully, making the limit easy to calculate.</p>
+        </div>
+        
+        <h4>How the Ratio Test Works</h4>
+        <p>We compute the limit $L = \lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n} \right|$.</p>
+        <ul>
+            <li>If $L < 1$, the series **converges** absolutely.</li>
+            <li>If $L > 1$, the series **diverges**.</li>
+            <li>If $L = 1$, the test is inconclusive, and we must try another method.</li>
+        </ul>
+        
+        <h4>Step-by-Step Solution</h4>
+        <ol>
+            <li><strong>Identify $a_n$ and $a_{n+1}$</strong>:
+                $$ a_n = \frac{n+1}{1.01^n} \quad \implies \quad a_{n+1} = \frac{(n+1)+1}{1.01^{n+1}} = \frac{n+2}{1.01^{n+1}} $$
+            </li>
+            <li><strong>Set up the ratio $\frac{a_{n+1}}{a_n}$</strong>:
+                $$ \frac{a_{n+1}}{a_n} = \frac{\frac{n+2}{1.01^{n+1}}}{\frac{n+1}{1.01^n}} = \frac{n+2}{1.01^{n+1}} \cdot \frac{1.01^n}{n+1} $$
+            </li>
+            <li><strong>Simplify the expression</strong>: The exponential terms simplify: $\frac{1.01^n}{1.01^{n+1}} = \frac{1}{1.01}$.
+                $$ \frac{a_{n+1}}{a_n} = \frac{n+2}{n+1} \cdot \frac{1}{1.01} $$
+            </li>
+            <li><strong>Compute the limit</strong>:
+                $$ L = \lim_{n \to \infty} \left| \frac{n+2}{n+1} \cdot \frac{1}{1.01} \right| = \frac{1}{1.01} \cdot \lim_{n \to \infty} \frac{n+2}{n+1} $$
+                To solve the remaining limit, we can divide the numerator and denominator by the highest power of $n$:
+                $$ \lim_{n \to \infty} \frac{1 + \frac{2}{n}}{1 + \frac{1}{n}} = \frac{1+0}{1+0} = 1 $$
+                So, the final limit is $L = \frac{1}{1.01} \cdot 1 = \frac{1}{1.01}$.
+            </li>
+            <li><strong>Conclusion</strong>: Since $L = \frac{1}{1.01} < 1$, the series $\sum_{n=1}^\infty \frac{n+1}{1.01^n}$ **converges** by the Ratio Test.</li>
+        </ol>
+
+        <hr style="margin: 2em 0;">
+
+        <h3>b) The Limit Comparison Test</h3>
+        <img src="question4.png" class="question-image" alt="Question 1b prompt">
+
+        <div class="why-box">
+            <h4>Why do we use the Limit Comparison Test?</h4>
+            <p>Look at the terms $a_n = \frac{\sqrt{n}}{n+1}$. This is a rational-like function of $n$. For very large $n$, the "+1" in the denominator doesn't change the value much. So, the terms "behave" like $\frac{\sqrt{n}}{n} = \frac{n^{1/2}}{n^1} = \frac{1}{n^{1/2}}$. Since we can easily determine the convergence of $\sum \frac{1}{n^{1/2}}$ (it's a p-series), the Limit Comparison Test is the perfect tool to formally link the behavior of our complicated series to this simpler one.</p>
+        </div>
+
+        <h4>How the Limit Comparison Test Works</h4>
+        <p>We choose a simpler series $\sum b_n$ whose convergence we know. We then compute the limit $L = \lim_{n \to \infty} \frac{a_n}{b_n}$.</p>
+        <ul>
+            <li>If $L$ is a finite, positive number ($0 < L < \infty$), then both series share the same fate: they either both converge or both diverge.</li>
+        </ul>
+
+        <h4>Step-by-Step Solution</h4>
+        <ol>
+            <li><strong>Identify $a_n$ and choose a comparison series $b_n$</strong>:
+                $$ a_n = \frac{\sqrt{n}}{n+1} $$
+                As discussed, we choose $b_n$ based on the dominant terms:
+                $$ b_n = \frac{\sqrt{n}}{n} = \frac{1}{\sqrt{n}} = \frac{1}{n^{1/2}} $$
+            </li>
+            <li><strong>Analyze the comparison series $\sum b_n$</strong>:
+                <p>The series $\sum_{n=1}^\infty \frac{1}{n^{1/2}}$ is a **p-series** with $p = 1/2$. Since $p \le 1$, the series $\sum b_n$ **diverges**.</p>
+            </li>
+            <li><strong>Compute the limit of the ratio</strong>:
+                $$ L = \lim_{n \to \infty} \frac{a_n}{b_n} = \lim_{n \to \infty} \frac{\frac{\sqrt{n}}{n+1}}{\frac{1}{\sqrt{n}}} = \lim_{n \to \infty} \frac{\sqrt{n} \cdot \sqrt{n}}{n+1} = \lim_{n \to \infty} \frac{n}{n+1} $$
+                This limit is equal to 1.
+            </li>
+            <li><strong>Conclusion</strong>: Since $L=1$ (which is finite and positive) and we know that $\sum b_n$ diverges, the original series $\sum_{n=1}^\infty \frac{\sqrt{n}}{n+1}$ must also **diverge** by the Limit Comparison Test.</li>
+        </ol>
+        <img src="pasted file.png" class="ref-image" alt="Reference image 2 for series">
+    </div>
+
+    <div class="card">
+        <h2>Question 2: Area Between Curves</h2>
+        <img src="question1a.png" class="question-image" alt="Question 2 prompt">
+        
+        <div class="why-box">
+            <h4>What is the core idea?</h4>
+            <p>The area of a region enclosed by two functions is found by summing up an infinite number of infinitesimally thin vertical rectangles that fill the region. The height of each rectangle is the difference between the top curve and the bottom curve, $(\text{top function} - \text{bottom function})$. The width is an infinitesimal change in x, $dx$. The definite integral $\int_a^b (\text{top} - \text{bottom}) \,dx$ is the mathematical tool that performs this summation from the left intersection point ($a$) to the right intersection point ($b$).</p>
+        </div>
+
+        <h4>Step 1: Find the Intersection Points (The Boundaries)</h4>
+        <p>To find where the region begins and ends, we set the two functions equal to each other and solve for $x$.</p>
+        $$ f(x) = g(x) \implies x^2 - 4x = 6 - x^2 $$
+        $$ 2x^2 - 4x - 6 = 0 $$
+        $$ x^2 - 2x - 3 = 0 $$
+        $$ (x-3)(x+1) = 0 $$
+        <p>The intersection points are at $x = -1$ and $x = 3$. These will be our limits of integration, $a=-1$ and $b=3$.</p>
+        
+        <h4>Step 2: Determine the Top and Bottom Functions</h4>
+        <p>In the interval $[-1, 3]$, we need to know which function has a greater y-value. We can test a point inside the interval, like $x=0$:</p>
+        <ul>
+            <li>$f(0) = 0^2 - 4(0) = 0$</li>
+            <li>$g(0) = 6 - 0^2 = 6$</li>
+        </ul>
+        <p>Since $g(0) > f(0)$, the function $g(x) = 6 - x^2$ is the **top function** and $f(x) = x^2 - 4x$ is the **bottom function** on this interval.</p>
+        
+        <h4>Step 3: Set Up and Evaluate the Integral</h4>
+        <p>The area $A$ is given by the integral of (top - bottom):</p>
+        $$ A = \int_{-1}^{3} \left[ (6 - x^2) - (x^2 - 4x) \right] dx $$
+        $$ A = \int_{-1}^{3} (6 + 4x - 2x^2) dx $$
+        <p>Now, we find the antiderivative and apply the Fundamental Theorem of Calculus:</p>
+        $$ A = \left[ 6x + 4\frac{x^2}{2} - 2\frac{x^3}{3} \right]_{-1}^{3} = \left[ 6x + 2x^2 - \frac{2}{3}x^3 \right]_{-1}^{3} $$
+        <p>Evaluate at the upper and lower bounds:</p>
+        $$ \text{At } x=3: \quad (6(3) + 2(3)^2 - \frac{2}{3}(3)^3) = (18 + 18 - 18) = 18 $$
+        $$ \text{At } x=-1: \quad (6(-1) + 2(-1)^2 - \frac{2}{3}(-1)^3) = (-6 + 2 + \frac{2}{3}) = -4 + \frac{2}{3} = -\frac{10}{3} $$
+        <p>Finally, subtract the lower bound evaluation from the upper bound evaluation:</p>
+        $$ A = 18 - \left(-\frac{10}{3}\right) = 18 + \frac{10}{3} = \frac{54}{3} + \frac{10}{3} = \frac{64}{3} $$
+
+        <h3>Interactive Visualization</h3>
+        <p>The plot below shows the two functions and the shaded region whose area we calculated. You can see the intersection points and confirm that $g(x)$ is above $f(x)$ in the interval.</p>
+        <div id="area-plot" style="height: 500px;"></div>
+    
+            <img src="image.png" class="ref-image" alt="Reference image 1 for series">
+
+    
+      </div>
+    
+    <div class="card">
+        <h2>Question 4: Multivariable Extrema</h2>
+        <img src="question2.png" class="question-image" alt="Question 4 prompt">
+        
+        <div class="why-box">
+            <h4>How do we approach this?</h4>
+            <p>This is a classic optimization problem for a function of two variables. The process is always the same:
+            <br>1. <strong>Find Candidates:</strong> Locate all the "flat spots" on the surface by finding the critical points where the gradient $\nabla f = \vec{0}$. These are the only possible locations for local minima, maxima, or saddle points.
+            <br>2. <strong>Classify Candidates:</strong> Use the Second Derivative Test to analyze the curvature of the surface at each critical point to determine its nature.
+            <br>3. <strong>Consider the Big Picture:</strong> Check for global extrema by analyzing the function's overall behavior.
+            </p>
+        </div>
+
+        <h4>Step 1: Find the Critical Points</h4>
+        <p>First, we expand the function $f(x, y) = (2x + y)^2 + 2(x^2 - 1)^2$ for easier differentiation:</p>
+        $$ f(x,y) = (4x^2 + 4xy + y^2) + 2(x^4 - 2x^2 + 1) = 4x^2 + 4xy + y^2 + 2x^4 - 4x^2 + 2 $$
+        $$ f(x,y) = 2x^4 + 4xy + y^2 + 2 $$
+        <p>Now, compute the partial derivatives and set them to zero:</p>
+        $$ \frac{\partial f}{\partial x} = 8x^3 + 4y = 0 \quad \implies \quad y = -2x^3 \quad \text{(1)} $$
+        $$ \frac{\partial f}{\partial y} = 4x + 2y = 0 \quad \implies \quad y = -2x \quad \text{(2)} $$
+        <p>We have two expressions for $y$, so we can set them equal:</p>
+        $$ -2x^3 = -2x \implies x^3 = x \implies x^3 - x = 0 \implies x(x^2-1) = 0 $$
+        This gives us three possible values for $x$: $x=0$, $x=1$, and $x=-1$. We use equation (2) to find the corresponding $y$ value for each:</p>
+        <ul>
+            <li>If $x=0$, then $y = -2(0) = 0$. Point: $(0,0)$.</li>
+            <li>If $x=1$, then $y = -2(1) = -2$. Point: $(1,-2)$.</li>
+            <li>If $x=-1$, then $y = -2(-1) = 2$. Point: $(-1,2)$.</li>
+        </ul>
+        <img src="3.png" class="ref-image" alt="Reference image 3">
+
+        <h4>Step 2: The Second Derivative Test</h4>
+        <p>We calculate the second partial derivatives to find the discriminant $D = f_{xx}f_{yy} - (f_{xy})^2$.</p>
+        $$ f_{xx} = \frac{\partial}{\partial x}(8x^3+4y) = 24x^2 $$
+        $$ f_{yy} = \frac{\partial}{\partial y}(4x+2y) = 2 $$
+        $$ f_{xy} = \frac{\partial}{\partial x}(4x+2y) = 4 $$
+        So, $D = (24x^2)(2) - (4)^2 = 48x^2 - 16$.
+        
+        <p>Now we test each critical point:</p>
+        <ul>
+            <li><strong>At (0, 0):</strong> $D(0,0) = 48(0)^2 - 16 = -16$. Since $D < 0$, this is a **saddle point**.</li>
+            <li><strong>At (1, -2):</strong> $D(1,-2) = 48(1)^2 - 16 = 32$. Since $D > 0$, we check $f_{xx}$. $f_{xx}(1,-2) = 24(1)^2 = 24 > 0$. This is a **local minimum**.</li>
+            <li><strong>At (-1, 2):</strong> $D(-1,2) = 48(-1)^2 - 16 = 32$. Since $D > 0$, we check $f_{xx}$. $f_{xx}(-1,2) = 24(-1)^2 = 24 > 0$. This is also a **local minimum**.</li>
+        </ul>
+
+        <h4>Step 3: Check for Global Extrema</h4>
+        <p>Here we can use a powerful observation. Look at the original form of the function:</p>
+        $$ f(x, y) = (2x + y)^2 + 2(x^2 - 1)^2 $$
+        <p>This is a sum of squared terms. Since any real number squared is non-negative, the smallest possible value for $f(x,y)$ is 0. Can our function actually equal 0? Let's check our local minima:</p>
+        $$ f(1,-2) = (2(1) + (-2))^2 + 2((1)^2 - 1)^2 = (0)^2 + 2(0)^2 = 0 $$
+        $$ f(-1,2) = (2(-1) + 2)^2 + 2((-1)^2 - 1)^2 = (0)^2 + 2(0)^2 = 0 $$
+        <p>Since the function value at these points is 0, and the function can never be less than 0, these two local minima are also **global minima**.</p>
+        
+        <h3>Interactive 3D Visualization</h3>
+        <p>The plot below shows the surface of $f(x,y)$. You can clearly see the two "valleys" where the global minima occur and the saddle point between them at the origin.</p>
+        <div id="multivar-plot" style="height: 600px;"></div>
+        <img src="4.png" class="ref-image" alt="Reference image 4">
+    </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    // --- Plot for Area Between Curves ---
+    function createAreaPlot() {
+        const x_f = [], y_f = [], x_g = [], y_g = [];
+        for (let x = -2; x <= 4; x += 0.1) {
+            x_f.push(x);
+            y_f.push(x*x - 4*x);
+            x_g.push(x);
+            y_g.push(6 - x*x);
+        }
+
+        const trace_f = {
+            x: x_f, y: y_f,
+            mode: 'lines', name: 'f(x) = x^2 - 4x',
+            line: { color: '#c0392b' }
+        };
+        
+        const trace_g = {
+            x: x_g, y: y_g,
+            mode: 'lines', name: 'g(x) = 6 - x^2',
+            line: { color: '#16a085' },
+            fill: 'tonexty', // This shades the area to the previous trace
+            fillcolor: 'rgba(22, 160, 133, 0.3)'
+        };
+        
+        const intersections = {
+            x: [-1, 3],
+            y: [5, -3],
+            mode: 'markers',
+            name: 'Intersection Points',
+            marker: { size: 10, color: '#34495e' }
+        };
+
+        const layout = {
+            title: 'Area Enclosed by f(x) and g(x)',
+            xaxis: { title: 'x' },
+            yaxis: { title: 'y' }
+        };
+
+        Plotly.newPlot('area-plot', [trace_f, trace_g, intersections], layout, {responsive: true});
+    }
+
+    // --- Plot for Multivariable Extrema ---
+    function createMultivarPlot() {
+        const x_vals = [], y_vals = [];
+        const steps = 80;
+        const x_range = [-2, 2], y_range = [-4, 4];
+
+        for (let i = 0; i < steps; i++) {
+            x_vals.push(x_range[0] + (x_range[1] - x_range[0]) * i / (steps - 1));
+            y_vals.push(y_range[0] + (y_range[1] - y_range[0]) * i / (steps - 1));
+        }
+
+        const z_vals = y_vals.map(y => x_vals.map(x => 2*Math.pow(x,4) + 4*x*y + Math.pow(y,2) + 2));
+
+        const surfaceTrace = {
+            x: x_vals, y: y_vals, z: z_vals,
+            type: 'surface', colorscale: 'Plasma', opacity: 0.9,
+            showscale: false, hoverinfo: 'none'
+        };
+
+        const points_x = [0, 1, -1];
+        const points_y = [0, -2, 2];
+        const points_z = [2, 0, 0];
+        const points_text = ['Saddle Point', 'Global Minimum', 'Global Minimum'];
+        const points_colors = ['#f39c12', '#27ae60', '#27ae60'];
+
+        const pointsTrace = {
+            x: points_x, y: points_y, z: points_z,
+            mode: 'markers', type: 'scatter3d',
+            hovertext: points_text, hoverinfo: 'text',
+            marker: { size: 7, color: points_colors, symbol: 'diamond' }
+        };
+        
+        const layout = {
+            title: 'Surface Plot of f(x,y)',
+            scene: {
+                xaxis: { title: 'X' },
+                yaxis: { title: 'Y' },
+                zaxis: { title: 'Z' },
+                camera: { eye: {x: -1.5, y: -2.5, z: 1.5} }
+            },
+            margin: { l: 10, r: 10, b: 10, t: 50 }
+        };
+        
+        Plotly.newPlot('multivar-plot', [surfaceTrace, pointsTrace], layout, {responsive: true});
+    }
+
+    // Initialize all plots
+    createAreaPlot();
+    createMultivarPlot();
+});
+</script>
+
+</body>
+</html>
