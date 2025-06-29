@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculus Problem Library</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --card-bg: #ffffff;
+      --primary: #2c3e50;
+      --accent: #3498db;
+      --shadow: rgba(0, 0, 0, 0.08);
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--primary);
+    }
+    /* ── Header & Back button ─────────────────────────────── */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      background: var(--card-bg);
+      box-shadow: 0 2px 8px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header a.back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    header a.back:hover {
+      text-decoration: underline;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      margin: 0 auto;
+    }
+    /* ── Tile grid ────────────────────────────────────────── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 18px var(--shadow);
+    }
+    .card a {
+      color: inherit;
+      text-decoration: none;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .card img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+    .card h2 {
+      font-size: 1.2rem;
+      padding: 1rem;
+      margin: 0;
+    }
+    /* ── Footer ───────────────────────────────────────────── */
+    footer {
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #6c7a89;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- TODO: Replace `index.html` with the correct root‑page URL if different. -->
+    <a class="back" href="https://ary-x86.github.io/" title="Back to start">&#x2190; Back</a>
+    <h1>Calculus / Linear Algebra / CS Math Foundation Visualized Problem Tiles</h1>
+  </header>
+
+  <main class="grid">
+    <!-- ── Tile 1 : Existing page you provided ───────────────────────── -->
+    <div class="card">
+      <a href="part-2nd-deriv.html">
+        <!-- TODO: Replace thumbnail with your own image if desired -->
+        <img src="secondderivsteps.png" alt="Second derivative problem thumbnail" />
+        <h2>Calculus 2: Second Derivative Test</h2>
+      </a>
+    </div>
+
+    <!-- ── Placeholder tiles (fill in href and image later) ───────────── -->
+    <!-- Duplicate these blocks as needed -->
+    <div class="card">
+      <a href="#">
+        <img src="https://source.unsplash.com/featured/?math" alt="Thumbnail placeholder" />
+        <h2>Coming Soon #1</h2>
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="#">
+        <img src="https://source.unsplash.com/featured/?geometry" alt="Thumbnail placeholder" />
+        <h2>Coming Soon #2</h2>
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="../Min-Span-Tree-Visual/mst_visualizer.html">
+        <img src="../Min-Span-Tree-Visual/mst.png" alt="Thumbnail placeholder" />
+        <h2>Algorithms & DS: MST Algorithms Visual </h2>
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="#">
+        <img src="https://source.unsplash.com/featured/?graph" alt="Thumbnail placeholder" />
+        <h2>Coming Soon #4</h2>
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="#">
+        <img src="https://source.unsplash.com/featured/?derivative" alt="Thumbnail placeholder" />
+        <h2>Coming Soon #5</h2>
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="../visual 1/main.html">
+        <img src="../visual 1/Projection_and_rejection.png" alt="Thumbnail placeholder" />
+        <h2>LinAlg: Least Squares Visual</h2>
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    More problems and explanations coming soon. Stay tuned!
+  </footer>
+</body>
+</html>

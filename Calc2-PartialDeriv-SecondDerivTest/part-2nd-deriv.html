@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In-Depth Analysis of f(x, y)</title>
+    
+    <!-- MathJax Configuration and Library (as per your working example) -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$']],
+          displayMath: [['$$', '$$']]
+        },
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+    <!-- Plotly.js (Updated CDN Link) -->
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
+
+    <!-- CSS for Styling -->
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --card-bg: #ffffff;
+            --text-color: #34495e;
+            --body-bg: #ecf0f1;
+            --border-color: #bdc3c7;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--body-bg);
+            margin: 0;
+            padding: 2em;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: var(--card-bg);
+            box-shadow: 0 2px 8px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            }
+            header a.back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            }
+            header a.back:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+        h1, h2, h3, h4 {
+            color: var(--primary-color);
+            margin-top: 1.5em;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.8em;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+        h2 {
+            font-size: 1.8em;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 0.4em;
+        }
+        h3 {
+            font-size: 1.4em;
+            color: var(--secondary-color);
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1em 2em 2em 2em;
+            margin-bottom: 2.5em;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            overflow: hidden; /* Ensures box shadow respects border radius */
+        }
+        .card img {
+            max-width: 100%;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            margin-top: 1em;
+        }
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95em;
+        }
+        .summary-table th, .summary-table td {
+            border: 1px solid #ccc;
+            padding: 14px;
+            text-align: center;
+        }
+        .summary-table th {
+            background-color: #f2f6fa;
+        }
+        .min { background-color: #d4edda; color: #155724; }
+        .max { background-color: #f8d7da; color: #721c24; }
+        .saddle { background-color: #fff3cd; color: #856404; }
+        .math-box {
+            background-color: #fdfdfe;
+            border: 1px dashed var(--border-color);
+            padding: 0 1.5em;
+            margin: 1.5em 0;
+            border-radius: 5px;
+        }
+        details {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-top: 1.5em;
+            background-color: #fafbfd;
+        }
+        summary {
+            font-weight: bold;
+            padding: 1em;
+            cursor: pointer;
+            background-color: #f2f6fa;
+            border-radius: 5px;
+        }
+        details[open] > summary {
+            border-bottom: 1px solid var(--border-color);
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+               /* Slider controls styling */
+        .slider-controls {
+            display: flex;
+            justify-content: space-around;
+            padding: 1em;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+        }
+        .slider-controls label {
+            font-weight: bold;
+        }
+        .slider-controls input[type="range"] {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+<details>
+
+    <div class="container">
+
+        <h1>In-Depth Analysis of $f(x, y) = x^5 + xy^2 - 5x$</h1>
+
+        <!-- Part (a) -->
+        <div class="card">
+            <h2>Part a) Finding Critical Points</h2>
+            <img src="question1.png" alt="Question prompt for Part A">
+            <h3>Extensive Explanation</h3>
+            <p>A <strong>critical point</strong> of a multivariable function is a point where the surface is "flat," meaning a tangent plane at that point would be perfectly horizontal. Mathematically, this occurs where the gradient vector, $\nabla f = \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right)$, is the zero vector. We must therefore find all points $(x, y)$ that satisfy both partial derivative equations simultaneously.</p>
+            
+            <h4>Step 1: Compute the Partial Derivatives</h4>
+            <p>We differentiate $f(x, y) = x^5 + xy^2 - 5x$ with respect to each variable independently.</p>
+            <div class="math-box">
+                <p>Derivative with respect to $x$ (treating $y$ as a constant):</p>
+                $$ \frac{\partial f}{\partial x} = \frac{\partial}{\partial x}(x^5) + \frac{\partial}{\partial x}(xy^2) - \frac{\partial}{\partial x}(5x) = 5x^4 + y^2 - 5 $$
+                <p>Derivative with respect to $y$ (treating $x$ as a constant):</p>
+                $$ \frac{\partial f}{\partial y} = \frac{\partial}{\partial y}(x^5) + \frac{\partial}{\partial y}(xy^2) - \frac{\partial}{\partial y}(5x) = 0 + 2xy - 0 = 2xy $$
+            </div>
+            
+            <h4>Step 2: Solve the System of Equations</h4>
+            <p>We set both derivatives to zero to find the points where the gradient is $\vec{0}$.</p>
+            $$ 5x^4 + y^2 - 5 = 0 \quad \text{(1)} $$
+            $$ 2xy = 0 \quad \text{(2)} $$
+            <p>Equation (2) is the key. For $2xy=0$, it must be that either $x=0$ or $y=0$. We analyze these two cases separately.</p>
+            <ul>
+                <li><strong>Case 1: Assume $x = 0$.</strong><br> We substitute this into Equation (1):
+                    $$ 5(0)^4 + y^2 - 5 = 0 \implies y^2 = 5 \implies y = \pm\sqrt{5} $$
+                    This gives us two critical points: $(0, \sqrt{5})$ and $(0, -\sqrt{5})$.</li>
+                <li><strong>Case 2: Assume $y = 0$.</strong><br> We substitute this into Equation (1):
+                    $$ 5x^4 + (0)^2 - 5 = 0 \implies 5x^4 = 5 \implies x^4 = 1 \implies x = \pm 1 $$
+                    This gives us two more critical points: $(1, 0)$ and $(-1, 0)$.</li>
+            </ul>
+            <p><strong>Conclusion for Part (a):</strong> The four critical points of the function are $(1, 0)$, $(-1, 0)$, $(0, \sqrt{5})$, and $(0, -\sqrt{5})$.</p>
+        </div>
+
+        <!-- Part (b) -->
+        <div class="card">
+            <h2>Part b) Equation of the Tangent Plane</h2>
+            <img src="question2.png" alt="Question prompt for Part B">
+            <h3>Extensive Explanation</h3>
+            <p>The tangent plane is a flat surface that "just touches" the 3D graph of a function at a single point. It's the 3D equivalent of a tangent line. The formula is a natural extension of the point-slope form of a line:</p>
+            $$ z - z_0 = f_x(x_0, y_0)(x - x_0) + f_y(x_0, y_0)(y - y_0) $$
+            <p>Here, $(x_0, y_0, z_0)$ is the point of tangency, and the partial derivatives $f_x$ and $f_y$ give the slopes of the plane in the x and y directions, respectively.</p>
+
+            <h4>Step 1: Identify the Point of Tangency $(x_0, y_0, z_0)$</h4>
+            <p>We are given $(x_0, y_0) = (1, 1)$. We find $z_0$ by plugging this into the function:</p>
+            $$ z_0 = f(1, 1) = (1)^5 + (1)(1)^2 - 5(1) = 1 + 1 - 5 = -3 $$
+            So, the point is $(1, 1, -3)$.
+            
+            <h4>Step 2: Calculate the Slopes at the Point</h4>
+            <p>We evaluate the partial derivatives (from Part a) at $(1, 1)$:</p>
+            $$ f_x(1, 1) = 5(1)^4 + (1)^2 - 5 = 1 $$
+            $$ f_y(1, 1) = 2(1)(1) = 2 $$
+
+            <h4>Step 3: Assemble the Equation</h4>
+            <p>Plug all the components into the tangent plane formula:</p>
+            $$ z - (-3) = 1(x - 1) + 2(y - 1) $$
+            <p>Simplifying this gives the final equation:</p>
+            $$ z + 3 = x - 1 + 2y - 2 \implies z = x + 2y - 6 $$
+            <p><strong>Conclusion for Part (b):</strong> The equation of the tangent plane is $z = x + 2y - 6$.</p>
+        </div>
+        
+        <!-- Part (c) -->
+        <div class="card">
+            <h2>Part c) Classifying Critical Points</h2>
+            <h3>The Theory: An Extensive Dive into the Second Derivative Test</h3>
+            <p>Once we find a "flat spot" (a critical point), we need to determine its nature. Is it the bottom of a valley (local minimum), the top of a hill (local maximum), or a Pringles-like shape (saddle point)? In single-variable calculus, the sign of the second derivative, $f''(x)$, tells us this. In 3D, we need a more powerful tool.</p>
+
+            <h4>1. The Hessian Matrix: Capturing 3D Curvature</h4>
+            <p>The **Hessian matrix** is a matrix of all the second-order partial derivatives. It captures how the slopes are changing in every direction.</p>
+            $$ H_f = \begin{bmatrix} f_{xx} & f_{xy} \\ f_{yx} & f_{yy} \end{bmatrix} $$
+            <ul>
+                <li>$f_{xx} = \frac{\partial^2 f}{\partial x^2}$: Measures the concavity in the pure x-direction. A positive value means it curves up (like a smile) along the x-axis.</li>
+                <li>$f_{yy} = \frac{\partial^2 f}{\partial y^2}$: Measures the concavity in the pure y-direction.</li>
+                <li>$f_{xy} = f_{yx}$: Measures the "twist" or "warp" of the surface. It tells us how the slope in the x-direction changes as we move in the y-direction.</li>
+            </ul>
+
+            <h4>2. The Discriminant: The Deciding Factor</h4>
+            <p>The **discriminant**, $D$, is the determinant of the Hessian matrix. It cleverly combines all the curvature information into a single number.</p>
+            $$ D = \det(H_f) = f_{xx}f_{yy} - (f_{xy})^2 $$
+            <p>Think of $D$ as a battle between pure curvature ($f_{xx}f_{yy}$) and the twist ($(f_{xy})^2$):</p>
+            <ul>
+                <li>If $D > 0$: The pure-axis curvature ($f_{xx}f_{yy}$) dominates the twist. The surface has the same type of curvature in all directions (either all up or all down). This results in a <strong>local minimum or maximum</strong>. We then check the sign of $f_{xx}$ to see which it is.</li>
+                <li>If $D < 0$: The twist term ($(f_{xy})^2$) dominates. This means the surface is curving up in one direction and down in another. This is the definition of a <strong>saddle point</strong>.</li>
+                <li>If $D = 0$: The test is inconclusive. The curvature and twist effects are perfectly balanced, and we can't draw a conclusion from this test alone.</li>
+            </ul>
+
+            <h3>Application to $f(x, y) = x^5 + xy^2 - 5x$</h3>
+            
+            <h4>Step 1: Calculate the Second Partial Derivatives</h4>
+            $$ f_{xx} = \frac{\partial}{\partial x}(5x^4 + y^2 - 5) = 20x^3 $$
+            $$ f_{yy} = \frac{\partial}{\partial y}(2xy) = 2x $$
+            $$ f_{xy} = \frac{\partial}{\partial y}(5x^4 + y^2 - 5) = 2y $$
+            
+            <h4>Step 2: Formulate the Discriminant</h4>
+            $$ D(x,y) = (20x^3)(2x) - (2y)^2 = 40x^4 - 4y^2 $$
+
+            <h4>Step 3: Analyze Each Critical Point</h4>
+            <table class="summary-table">
+                <thead><tr><th>Critical Point $(x,y)$</th><th>$f_{xx} = 20x^3$</th><th>$D = 40x^4 - 4y^2$</th><th>Analysis</th><th>Classification</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td>$(1, 0)$</td>
+                        <td>$20(1)^3 = 20$</td>
+                        <td>$40(1)^4 - 4(0)^2 = 40$</td>
+                        <td>$D > 0$ and $f_{xx} > 0$</td>
+                        <td class="min">Local Minimum</td>
+                    </tr>
+                    <tr>
+                        <td>$(-1, 0)$</td>
+                        <td>$20(-1)^3 = -20$</td>
+                        <td>$40(-1)^4 - 4(0)^2 = 40$</td>
+                        <td>$D > 0$ and $f_{xx} < 0$</td>
+                        <td class="max">Local Maximum</td>
+                    </tr>
+                    <tr>
+                        <td>$(0, \sqrt{5})$</td>
+                        <td>$20(0)^3 = 0$</td>
+                        <td>$40(0)^4 - 4(\sqrt{5})^2 = -20$</td>
+                        <td>$D < 0$</td>
+                        <td class="saddle">Saddle Point</td>
+                    </tr>
+                    <tr>
+                        <td>$(0, -\sqrt{5})$</td>
+                        <td>$20(0)^3 = 0$</td>
+                        <td>$40(0)^4 - 4(-\sqrt{5})^2 = -20$</td>
+                        <td>$D < 0$</td>
+                        <td class="saddle">Saddle Point</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Interactive Visualization: See the Results</h3>
+            <p>The interactive 3D plot below confirms our findings. You can rotate and zoom to inspect the surface's shape at each labeled critical point.</p>
+            <div id="plot" style="height: 600px; border: 1px solid var(--border-color); border-radius: 6px;"></div>
+
+            <h3>Step 4: Global vs. Local Analysis</h3>
+            <p>A "local" extremum is just a hill or valley in its immediate neighborhood. A "global" extremum is the absolute highest or lowest point on the entire surface. To check for global extrema, we must see what the function does as its inputs get very large.</p>
+            <p>Consider the function's behavior along the x-axis (where $y=0$):</p>
+            $$ f(x, 0) = x^5 - 5x $$
+            As we let $x$ grow infinitely large or small:
+            $$ \lim_{x \to \infty} (x^5 - 5x) = +\infty $$
+            $$ \lim_{x \to -\infty} (x^5 - 5x) = -\infty $$
+            <p><strong>Conclusion for Part (c):</strong> Since the function goes to both positive and negative infinity, it is unbounded. Therefore, it has no global maximum or global minimum. The extrema we found at $(1,0)$ and $(-1,0)$ are strictly <strong>local</strong>.</p>
+            
+            <details>
+                <summary>Click to see relevant problem images</summary>
+                <div style="padding: 1.5em; display: flex; flex-wrap: wrap; gap: 1em;">
+                    <img src="question3.png" alt="Provided solution key for Part C" style="flex: 1; min-width: 400px;">
+                    <img src="secondderivsteps.png" alt="Whiteboard explaining the steps" style="flex: 1; min-width: 400px;">
+                    <img src="ex1.png" alt="Whiteboard with a full worked example" style="flex: 1; min-width: 400px;">
+                </div>
+            </details>
+        </div>
+    </div>
+</details>
+
+<div class="container">
+
+    <h1>In-Depth Analysis of $f(x, y) = x^5 + xy^2 - 5x$</h1>
+
+    <div class="card">
+        <h2>Part a) Finding Critical Points</h2>
+        <img src="question1.png" alt="Question prompt for Part A" class="question-image">
+        <h3>Extensive Explanation</h3>
+        <p>A <strong>critical point</strong> of a multivariable function is a point where the surface is "flat," meaning a tangent plane at that point would be perfectly horizontal. Mathematically, this occurs where the gradient vector, $\nabla f = \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right)$, is the zero vector.</p>
+        
+        <h4>Step 1 & 2: Compute Derivatives and Solve the System</h4>
+        <p>We set both partial derivatives to zero: $ \frac{\partial f}{\partial x} = 5x^4 + y^2 - 5 = 0 $ and $ \frac{\partial f}{\partial y} = 2xy = 0 $. The second equation implies $x=0$ or $y=0$, which leads to the four critical points: $(1, 0)$, $(-1, 0)$, $(0, \sqrt{5})$, and $(0, -\sqrt{5})$.</p>
+    </div>
+
+    <div class="card">
+        <h2>Part b) Equation of the Tangent Plane</h2>
+        <img src="question2.png" alt="Question prompt for Part B" class="question-image">
+        <h3>Extensive Explanation</h3>
+        <p>The tangent plane is a flat surface that "just touches" the 3D graph of a function at a single point. Its formula is derived from the partial derivatives, which give the slopes in the x and y directions.</p>
+        $$ z - z_0 = f_x(x_0, y_0)(x - x_0) + f_y(x_0, y_0)(y - y_0) $$
+        <p>For the point $(1, 1)$, we found the tangent plane equation to be $z = x + 2y - 6$.</p>
+    </div>
+    
+    <div class="card">
+        <h3>Interactive Tangent Plane Visualization</h3>
+        <p>Use the sliders below to move the point of tangency $(x_0, y_0)$ across the surface. The 3D plot will update in real-time to show the tangent plane at your chosen location. This demonstrates how the plane's tilt (determined by the partial derivatives) changes as you move.</p>
+        <div id="tangent-plot" style="height: 500px;"></div>
+        <div class="slider-controls">
+            <div>
+                <label for="x_slider">x-coordinate ($x_0$): <span id="x_slider_value">1.0</span></label><br>
+                <input type="range" min="-2" max="2" value="1" step="0.1" id="x_slider">
+            </div>
+            <div>
+                <label for="y_slider">y-coordinate ($y_0$): <span id="y_slider_value">1.0</span></label><br>
+                <input type="range" min="-3" max="3" value="1" step="0.1" id="y_slider">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <h2>Part c) Classifying Critical Points</h2>
+        <h3>The Theory: An Extensive Dive into the Second Derivative Test</h3>
+        <p>To determine if a critical point is a local minimum, maximum, or saddle point, we use the Second Derivative Test. This involves the **Hessian matrix** of second-order partial derivatives and its determinant, the **discriminant** $D = f_{xx}f_{yy} - (f_{xy})^2$.</p>
+        
+        <h3>Application and Analysis</h3>
+        <p>By calculating the discriminant $D$ at each critical point, we classify them as follows:</p>
+        <table class="summary-table">
+            <thead><tr><th>Critical Point $(x,y)$</th><th>$f_{xx}$</th><th>$D$</th><th>Classification</th></tr></thead>
+            <tbody>
+                <tr><td>$(1, 0)$</td><td>$20 > 0$</td><td>$40 > 0$</td><td class="min">Local Minimum</td></tr>
+                <tr><td>$(-1, 0)$</td><td>$-20 < 0$</td><td>$40 > 0$</td><td class="max">Local Maximum</td></tr>
+                <tr><td>$(0, \sqrt{5})$</td><td>$0$</td><td>$-20 < 0$</td><td class="saddle">Saddle Point</td></tr>
+                <tr><td>$(0, -\sqrt{5})$</td><td>$0$</td><td>$-20 < 0$</td><td class="saddle">Saddle Point</td></tr>
+            </tbody>
+        </table>
+        
+        <h3>Interactive Visualization: Critical Points</h3>
+        <p>The interactive plot below shows the locations of all four critical points on the surface, visually confirming our classifications.</p>
+        <div id="critical-points-plot" style="height: 600px; border: 1px solid var(--border-color); border-radius: 6px;"></div>
+
+        <h3>Global vs. Local Analysis</h3>
+        <p>Since the function is unbounded (it goes to $\pm\infty$), it has no global maximum or minimum. The extrema found are strictly <strong>local</strong>.</p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // --- Shared data for plots ---
+        const steps = 60; // Lower resolution for faster tangent plane updates
+        const x_range = [-2.2, 2.2];
+        const y_range = [-3.5, 3.5];
+        const x_vals = Array.from({length: steps}, (_, i) => x_range[0] + (x_range[1] - x_range[0]) * i / (steps - 1));
+        const y_vals = Array.from({length: steps}, (_, i) => y_range[0] + (y_range[1] - y_range[0]) * i / (steps - 1));
+        
+        const mainSurfaceZ = y_vals.map(y => x_vals.map(x => Math.pow(x, 5) + x * Math.pow(y, 2) - 5 * x));
+        const mainSurfaceTrace = { 
+            x: x_vals, y: y_vals, z: mainSurfaceZ, type: 'surface', 
+            colorscale: 'Viridis', opacity: 0.7, showscale: false, hoverinfo: 'none'
+        };
+
+        // --- Plot 1: Critical Points Visualization ---
+        function createCriticalPointsPlot() {
+            const crit_x = [1, -1, 0, 0];
+            const crit_y = [0, 0, Math.sqrt(5), -Math.sqrt(5)];
+            const crit_z = [-4, 4, 0, 0];
+            const crit_text = ['Local Minimum', 'Local Maximum', 'Saddle Point', 'Saddle Point'];
+            const crit_colors = ['#27ae60', '#c0392b', '#f39c12', '#f39c12'];
+
+            const pointsTrace = {
+                x: crit_x, y: crit_y, z: crit_z, mode: 'markers', type: 'scatter3d',
+                hovertext: crit_text, hoverinfo: 'text',
+                marker: { color: crit_colors, size: 8, symbol: 'diamond', line: { color: '#000000', width: 1 } }
+            };
+
+            const layout = {
+                title: 'Surface with Critical Points',
+                scene: {
+                    xaxis: { title: 'X' }, yaxis: { title: 'Y' }, zaxis: { title: 'Z' },
+                    camera: { eye: { x: -1.8, y: -1.8, z: 1.5 } }
+                },
+                margin: { l: 10, r: 10, b: 10, t: 50 }
+            };
+
+            Plotly.newPlot('critical-points-plot', [mainSurfaceTrace, pointsTrace], layout, {responsive: true});
+        }
+        
+        // --- Plot 2: Interactive Tangent Plane ---
+        function createTangentPlot() {
+            const xSlider = document.getElementById('x_slider');
+            const ySlider = document.getElementById('y_slider');
+            const xValueSpan = document.getElementById('x_slider_value');
+            const yValueSpan = document.getElementById('y_slider_value');
+
+            let x0 = parseFloat(xSlider.value);
+            let y0 = parseFloat(ySlider.value);
+
+            function updatePlot(x0, y0) {
+                // Update slider value text
+                xValueSpan.textContent = x0.toFixed(1);
+                yValueSpan.textContent = y0.toFixed(1);
+
+                // 1. Calculate point of tangency
+                const z0 = Math.pow(x0, 5) + x0 * Math.pow(y0, 2) - 5 * x0;
+
+                // 2. Calculate partial derivatives at the point
+                const fx = 5 * Math.pow(x0, 4) + Math.pow(y0, 2) - 5;
+                const fy = 2 * x0 * y0;
+
+                // 3. Generate tangent plane data
+                const tangentZ = y_vals.map(y => x_vals.map(x => z0 + fx * (x - x0) + fy * (y - y0)));
+                
+                // Traces for the plot
+                const tangencyPointTrace = {
+                    x: [x0], y: [y0], z: [z0], type: 'scatter3d', mode: 'markers',
+                    marker: { color: 'red', size: 7, symbol: 'circle' },
+                    name: 'Point of Tangency'
+                };
+
+                const tangentPlaneTrace = {
+                    x: x_vals, y: y_vals, z: tangentZ, type: 'surface',
+                    colorscale: 'Reds', opacity: 0.5, showscale: false, name: 'Tangent Plane'
+                };
+                
+                Plotly.react('tangent-plot', [mainSurfaceTrace, tangentPlaneTrace, tangencyPointTrace], {
+                    title: 'Exploring the Tangent Plane',
+                    scene: {
+                        xaxis: { title: 'X' }, yaxis: { title: 'Y' }, zaxis: { title: 'Z' },
+                        camera: { eye: { x: -1.5, y: -1.5, z: 1 } }
+                    },
+                    margin: { l: 10, r: 10, b: 10, t: 40 }
+                });
+            }
+
+            // Event listeners for sliders
+            xSlider.addEventListener('input', () => updatePlot(parseFloat(xSlider.value), parseFloat(ySlider.value)));
+            ySlider.addEventListener('input', () => updatePlot(parseFloat(xSlider.value), parseFloat(ySlider.value)));
+
+            // Initial plot render
+            updatePlot(x0, y0);
+        }
+
+        // --- Initialize both plots ---
+        createCriticalPointsPlot();
+        createTangentPlot();
+    });
+</script>
+
+</body>
+</html>
