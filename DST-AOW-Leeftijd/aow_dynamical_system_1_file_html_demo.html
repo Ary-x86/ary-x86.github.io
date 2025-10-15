@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynamical Systems Toy Model — AOW, Migratie & Participatie</title>
+  <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
+  <style>
+    :root{
+      --bg:#0f172a;      /* slate-900 */
+      --card:#111827;    /* gray-900 */
+      --muted:#94a3b8;   /* slate-400 */
+      --text:#e5e7eb;    /* gray-200 */
+      --accent:#38bdf8;  /* sky-400 */
+      --ok:#16a34a;      /* green-600 */
+      --bad:#dc2626;     /* red-600 */
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial; background:linear-gradient(180deg,#0b1224,#0f172a 20%); color:var(--text)}
+    header{max-width:1100px;margin:24px auto 8px;padding:0 16px}
+    h1{font-weight:700;letter-spacing:.2px;margin:.3rem 0 0;font-size:clamp(20px,3vw,28px)}
+    h2{font-weight:600;margin:2rem 0 .75rem;font-size:clamp(16px,2.2vw,20px)}
+    p{color:var(--muted);line-height:1.5}
+    a{color:var(--accent)}
+
+    .wrap{max-width:1100px;margin:8px auto 32px;padding:0 16px;display:grid;gap:16px;grid-template-columns: 350px 1fr}
+    .card{background:linear-gradient(180deg,#0d1427,#0a1221);border:1px solid #1f2937;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+    .panel{padding:16px 16px}
+    .row{display:grid;grid-template-columns: 1fr auto;gap:12px;align-items:center;margin:.9rem 0}
+    .row label{font-size:14px;color:#cbd5e1}
+    .row output{min-width:96px;text-align:right;font-variant-numeric:tabular-nums}
+
+    input[type=range]{width:100%}
+    .badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid #334155;color:#cbd5e1}
+    .hint{font-size:12px;color:#9ca3af;margin-top:.4rem}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid #334155;background:#0b1222;color:#e5e7eb;border-radius:12px;padding:8px 12px;cursor:pointer}
+    .btn:hover{border-color:#475569}
+
+    #plot2d,#plot3d{height:560px}
+    #plot3d{display:none}
+
+    details{border:1px solid #1f2937;border-radius:12px;overflow:hidden}
+    summary{background:#0b1222;padding:10px 14px;cursor:pointer}
+    details > div{padding:12px 14px}
+    code{background:#0b1222;border:1px solid #1f2937;border-radius:8px;padding:2px 6px}
+
+    footer{max-width:1100px;margin:12px auto 64px;color:#94a3b8;padding:0 16px;font-size:12px}
+  
+    /* clickable glossary terms */
+    .gloss{border-bottom:1px dotted #60a5fa; cursor:pointer; padding:0 1px}
+    .gloss:hover{color:var(--accent)}
+    #glossTip{position:fixed;display:none;max-width:340px;background:#0b1222;border:1px solid #334155;border-radius:12px;padding:12px 14px;box-shadow:0 12px 28px rgba(0,0,0,.45);z-index:9999}
+    #glossTip h4{margin:0 20px 6px 0;font-size:14px;color:#e5e7eb}
+    #glossTip p{margin:0;font-size:13px;line-height:1.35;color:#cbd5e1}
+    #glossTip .close{position:absolute;top:6px;right:8px;border:0;background:transparent;color:#9ca3af;font-size:16px;cursor:pointer}
+  </style>
+</head>
+<body>
+<div id="glossTip" role="dialog" aria-live="polite" aria-hidden="true">
+  <button class="close" aria-label="Sluiten">×</button>
+  <h4 id="glossTitle"></h4>
+  <p id="glossText"></p>
+</div>
+<header>
+      <a class="back" href="https://ary-x86.github.io/" title="Back to start">&#x2190; Back</a>
+    
+ 
+  <h1>Een simpel dynamisch‑systeemmodel voor AOW‑leeftijd × migratie × arbeidsparticipatie</h1>
+
+  <p><strong>TL;DR (black‑box):</strong> beleidsonderdelen grijpen in elkaar (begroting, demografie, capaciteit). Meestal is er geen één magische knop, maar wel een <em>lijn van combinaties</em> waarop het systeem in evenwicht blijft. Hieronder tonen we zo’n lijn (de <em>null‑lijn</em>) met een eenvoudig model. <strong>Tip:</strong> termen met een <span class="gloss" data-term="help">stippellijn</span> kun je aanklikken voor uitleg.</p>
+   
+  <hr>
+  <section>
+    <h2>🌍 Deel 1 — Democratie en waarom ze wiskundig niet altijd “werkt”</h2>
+        <p>In een democratie stemt de meerderheid, en wat de meerderheid wil, gebeurt meestal.<br>
+      Dat klinkt eerlijk — maar <strong>wiskundig</strong> gezien hoeft wat de meerderheid wil niet hetzelfde te zijn als wat <strong>het systeem stabiel houdt</strong>.
+    </p>
+    <h3>1.1 Democratie in het kort</h3>
+    <p>Democratie is een procedure om gezamenlijke keuzes te maken uit verschillende voorkeuren. Kiezers rangschikken; een verkiezing/coalitie zet die rangordes om in beleid. Dat waarborgt legitimiteit, niet automatisch de “beste” uitkomst.</p>
+    <p><em>In gewone taal:</em> stemmen bepaalt <strong>wie</strong> beslist, niet dat er vanzelf de wiskundig/financieel optimale combinatie uit rolt.</p>
+  
+
+  
+    <h3>1.2 Waarom het soms “wiskundig niet werkt”</h3>
+    <p>Voorkeuren optellen kent harde grenzen (denk aan Arrow/Condorcet): er bestaat geen perfecte stemregel die altijd eerlijk én consistent is. Daarnaast dwingen <em>randvoorwaarden</em> (begroting, bevolkingsopbouw, productiviteit) het beleid in een kleiner <em>haalbaarheidsgebied</em>.</p>
+    <p><em>In gewone taal:</em> zelfs als veel losse plannen populair zijn, kunnen ze <strong>samen</strong> niet kloppen met de rekenkundige werkelijkheid.</p>
+  
+    <h3>1.3 Wat betekent dat concreet?</h3>
+        <p>➡️ In systeemtermen:<br>
+      De samenleving is een <strong>dynamisch systeem</strong> met variabelen (zoals leeftijdsverdeling, migratie, belastinginkomsten, en productiviteit).<br>
+      Beleid verandert de waarden van die variabelen.<br>
+      Wanneer mensen op <strong>eigenbelang</strong> stemmen (dus: wat nú goed is voor henzelf), negeren ze de <strong>terugkoppelingen</strong> en <strong>vertragingen</strong> die dat beleid op het systeem heeft.
+    </p>
+    <p><strong>Kort gezegd:</strong><br>
+      &gt; Democratie is lokaal stabiel (goed voor de meerderheid op korte termijn),<br>
+      &gt; maar kan globaal instabiel zijn (leidend tot instorting van het systeem op lange termijn).
+    </p>
+    <p>Dat is waarom het <strong>wiskundig niet werkt</strong> als mensen puur vanuit eigenbelang stemmen.</p>
+
+  </section>
+
+   <hr>
+
+  <section>
+    <h2>💰 Deel 2 — Waarom stemmen op eigenbelang gevaarlijk is</h2>
+        <p>Stel dat elke groep alleen stemt voor wat voor hén het beste is:</p>
+    <ul>
+      <li>Jongeren stemmen voor lage belastingen, hoge lonen.</li>
+      <li>Ouderen stemmen voor een lage AOW-leeftijd en hoge pensioenen.</li>
+      <li>Bedrijven stemmen voor lage winstbelasting.</li>
+      <li>Milieugroepen stemmen voor dure klimaatmaatregelen.</li>
+    </ul>
+    <p>Allemaal logisch — <strong>voor elk individu</strong>.<br>
+      Maar het probleem is dat die belangen <strong>samen één systeem vormen</strong>.<br>
+      Wat voor één groep gunstig is, kan een <strong>feedback effect</strong> hebben dat het hele systeem schaadt.
+    </p>
+    <p>&gt; Eigenbelang is geen probleem in één stem, maar in het totaal van miljoenen stemmen zonder systeembegrip.</p>
+
+    <h3></h3>
+    <p>Beleid heeft kruisverbanden en bijwerkingen. Als iedereen vooral op eigen voordeel stemt zonder die koppelingen te zien, kan de som van prima deelkeuzes eindigen in een slecht <em>systeemresultaat</em> (tekorten, lagere kwaliteit van voorzieningen).</p>
+    <p><em>In gewone taal:</em> vijf keer “lekker voor mij” kan samen uitkomen op “slecht voor ons allemaal”.</p>
+  </section>
+
+  <hr>
+
+  <section>
+        <h2>👴 Deel 3 — De AOW-leeftijd als voorbeeld van een dynamisch systeem</h2>
+    <p>Stel een versimpeld model met drie variabelen:</p>
+    <ol>
+      <li><strong>Leeftijdsverdeling (L)</strong> — hoeveel ouderen vs werkenden.</li>
+      <li><strong>Migratie (M)</strong> — hoeveel nieuwe werkenden erbij komen.</li>
+      <li><strong>Productiviteit (P)</strong> — hoeveel één werkende gemiddeld verdient (of produceert).</li>
+    </ol>
+    <p>De <strong>AOW-leeftijd (A)</strong> is afhankelijk van deze drie:<br>
+      Als L stijgt (meer ouderen), dan moet óf M stijgen, óf A stijgen, óf P stijgen — anders stort het systeem economisch in.
+    </p>
+    <p>We kunnen dat zien als een <strong>3D-ruimte</strong> (L, M, A).<br>
+      Er bestaat één <strong>lijn van stabiele combinaties</strong> — dat noemen we het <strong>haalbaarheidsgebied</strong> of de <strong>equilibrium line</strong>.
+    </p>
+    <p>➡️ Alles wat <strong>op</strong> die lijn ligt, houdt de economie stabiel.<br>
+      ➡️ Alles <strong>eronder</strong> leidt tot tekorten (te veel ouderen, te weinig werkenden).<br>
+      ➡️ Alles <strong>erboven</strong> is politiek onhaalbaar (mensen moeten te lang werken of migratie stijgt te snel).
+    <br> Hieronder zie je een voorbeeld in 2D om het duidelijk te maken.
+    </p>
+
+    <img src="concept_line.jpg">
+
+    <p>Die diagonale lijn is dus de <strong>set van oplossingen</strong> waarbij het systeem nog werkt.</p>
+
+    
+    <p>Bij vergrijzing stijgt de uitkeringsdruk. Als veel kiezers een <em>lagere</em> AOW‑leeftijd willen, is er een compensatie nodig (meer werkenden, hogere participatie/productiviteit, of migratie). Zonder die compensatie moet iedere werkende relatief meer uitkeringen financieren.</p>
+    <p><em>In gewone taal:</em> als er meer ontvangers en minder betalers zijn, moet je óf meer betalers krijgen óf minder uitkeren. Anders kloppen de rekenregels niet.</p>
+  </section>
+
+  <hr>
+  <section>
+      <h3>⚖️ Deel 4 — Hoe partijen daarin kunnen bewegen en waarom links of rechts niet uitmaakt.</h3>
+    <ul>
+      <li><strong>Rechtse partijen</strong>: willen <strong>lage migratie (M↓)</strong> én <strong>lage AOW-leeftijd (A↓)</strong>.<br>
+        → Dat duwt het systeem <strong>onder</strong> de stabiele lijn → onhoudbaar.
+      </li>
+      <li><strong>Linkse partijen</strong>: willen <strong>hogere migratie (M↑)</strong> en <strong>hogere AOW-leeftijd (A↑)</strong>.<br>
+        → Dat blijft <strong>dichter bij de stabiele lijn</strong>, maar botst met kiezersbelang omdat het politiek onhaalbaar is (mensen moeten te lang werken of migratie stijgt te snel).
+      </li>
+    </ul>
+    <p>Met andere woorden:<br>
+      &gt; De “stabiele lijn” is de wiskundige realiteit,<br>
+      &gt; maar partijen bewegen vaak <strong>langs de assen</strong> in plaats van <strong>op de lijn</strong> —<br>
+      &gt; omdat ze stemmen willen winnen, niet systemen stabiel houden.
+    </p>
+    </section>
+
+    <hr>
+    <section>
+    <h3>📊 Deel 5 — Het JA21-voorbeeld</h3>
+    <p>Een concreet voorbeeld laat zien hoe politiek <strong>afwijkt van systeemdenken</strong>.</p>
+    <p>Volgens nieuwsberichten en CPB-analyses:</p>
+    <ul>
+      <li>In hun <strong>partijprogramma</strong> zegt JA21: winstbelasting 20%.<br>
+        → Tegen het <strong>CPB</strong> zeggen ze: 22%.
+      </li>
+      <li>In het programma: <strong>vliegbelasting afschaffen</strong>.<br>
+        → Tegen het CPB: <strong>behouden</strong>.
+      </li>
+      <li>Over <strong>pensioenleeftijd</strong>: in programma niets,<br>
+        → Tegen het CPB: <strong>verhogen</strong>.
+      </li>
+    </ul>
+    <p>👉 Wat dit laat zien:<br>
+      Ze proberen <strong>tegelijk</strong> geloofwaardig te zijn voor kiezers (korte termijn eigenbelang)<br>
+      én voor het CPB (lange termijn houdbaarheid) — maar dat zijn <strong>twee verschillende punten in het systeem</strong>, niet één stabiele oplossing.
+    </p>
+        <p><em>In gewone taal:</em> voor een doorrekening moet je met <strong>één consistente set</strong> cijfers komen die door alle koppelingen heen klopt. Dat dwingt eerlijkheid over trade‑offs.</p>
+ 
+    </section>
+
+    <hr>
+    <section>
+    <h3>🧠 Deel 6 — Wat ik met de visualisatie wil laten zien</h3>
+    <p><strong>Wat ik laat zien:</strong><br>
+      Een abstract maar begrijpelijk dynamisch model van politieke beslissingen.
+    </p>
+    <p><strong>Wat ik ermee wil aantonen:</strong></p>
+    <ol>
+      <li>Dat beleid niet in losse punten moet worden gezien, maar als <strong>delen van een systeem</strong>.</li>
+      <li>Dat de “beste” oplossing vaak een <strong>smalle lijn van evenwicht</strong> is — niet één partijstandpunt.</li>
+      <li>Dat democratie pas écht werkt als mensen begrijpen dat hun stem invloed heeft op het <strong>systeemgedrag</strong>, niet alleen op hun portemonnee.</li>
+      <li>Dat de filosofische strijd tussen links en rechts secundair zou moeten zijn in de politiek. De nadruk moet liggen op het in kaart brengen van Dynamische Systemen en de factoren die erbij betrokken zijn. Niet de exacte werking, niet alle factoren exact. De methode is wetenschappelijk, maar het doel is <strong>beschrijven</strong>, niet voorspellen. Wat je dan ziet is dat balans belangrijker is om gecalculeerde beslissingen te maken.</li>
+    </ol>
+    <p>&gt; Je kunt niet kiezen voor “geen migratie” én “lage AOW-leeftijd” én “lage belasting”<br>
+      &gt; — want dat ligt buiten het <strong>haalbaarheidsgebied</strong> van het systeem.
+    </p>
+    </section>
+    <hr>
+
+    <h3>✳️ Deel 7 - Het doel van de visualisatie</h3>
+    <p><strong>Wat ik bewijs:</strong><br>
+      Dat een samenleving met democratische stemmers die puur op eigenbelang stemmen, vanzelf buiten haar economisch evenwicht beweegt.<br>
+      Alleen systeemdenken (zoals in dynamical systems theory) kan verklaren <strong>waar het evenwicht ligt</strong> — en waarom politiek zonder dat inzicht <strong>wiskundig instabiel</strong> wordt.
+    </p>
+
+
+
+  <section>
+    <h2>7.1 Wat je hieronder ziet (doel van de visualisatie)</h2>
+    <ul>
+      <li><strong>Black‑box claim:</strong> voor vaste participatie <code>L</code> is er in het vlak (AOW, migratie) een <em>null‑lijn</em> met <code>F(A,M,L)=0</code> (begroting in evenwicht).</li>
+      <li><strong>Interpretatie:</strong> punten naast die lijn vragen om compensatie (meer/ minder migratie, andere AOW‑leeftijd of andere knoppen).</li>
+      <li><strong>Beperking:</strong> didactisch model; de echte wereld is rijker (cohorten, gedrag, sectorale knelpunten).</li>
+    </ul>
+    <p><em>In gewone taal:</em> de zwarte lijn is de <strong>balans‑lijn</strong>: combinaties waar de simpele rekensom uitkomt. Eraf? Dan moet je elders draaien.</p>
+  </section>
+
+
+  <section>
+    <h2>7) Hoe lees je de plot?</h2>
+    <ul>
+      <li>De kaart toont <code>F(A,M,L)</code> = <em>begrotingssaldo</em> in dit model. <strong>Blauw</strong> ≈ overschot (<code>F&gt;0</code>), <strong>rood</strong> ≈ tekort (<code>F&lt;0</code>).</li>
+      <li>De <strong>zwarte lijn</strong> is de <em>null‑lijn</em> (<code>F=0</code>): combinaties waar het saldo precies in evenwicht is.</li>
+      <li>De <strong>witte stip</strong> is jouw keuze. Met <em>Snap naar null‑lijn</em> projecteer je je AOW‑keuze op de dichtstbijzijnde evenwichtige migratie.</li>
+      <li>De schuif <code>L</code> (arbeidsparticipatie) staat voor het aandeel van de beroepsgeschikte bevolking dat werkt; verander je <code>L</code>, dan verschuift de hele balans‑lijn.</li>
+    </ul>
+    <p><em>In gewone taal:</em> blauw = ruimte over, rood = geld tekort. De zwarte lijn is “precies goed”.</p>
+  </section>
+
+  <section>
+    <h2>8) Wat betekenen alle knoppen, kleuren en symbolen?</h2>
+    <ul>
+      <li><strong>AOW‑leeftijd (A):</strong> wanneer recht op AOW start. Lager A → meer ontvangers.</li>
+      <li><strong>Netto migratie (M):</strong> jaarlijkse instroom minus uitstroom als % van de bevolking. Positief M → meestal meer potentiële werkenden.</li>
+      <li><strong>Arbeidsparticipatie (L):</strong> % van 15–67 dat werkt. Hoger L → meer betalers.</li>
+      <li><strong>F (saldo):</strong> simpele rekensom: <code>F = inkomsten − uitgaven</code>. <code>F&gt;0</code> overschot (blauw), <code>F&lt;0</code> tekort (rood).</li>
+      <li><strong>τ (tau):</strong> gemiddelde belastingdruk per werkende.</li>
+      <li><strong>p:</strong> uitgaven per gepensioneerde (relatief).</li>
+      <li><strong>G₀:</strong> overige vaste overheidsuitgaven.</li>
+      <li><strong>k<sub>A</sub>, k<sub>M</sub>, k<sub>R</sub>:</strong> vereenvoudigde gevoeligheden: hoe A en M doorwerken in de verhouding werkenden/gepensioneerden.</li>
+      <li><strong>Null‑lijn:</strong> alle (A,M) combinaties met <code>F=0</code> (evenwicht) voor de gekozen <code>L</code>.</li>
+      <li><strong>2D‑slice:</strong> we kijken naar het vlak (A,M) bij <em>vaste</em> <code>L</code> (jij bedient L met de schuif).</li>
+      <li><strong>3D‑plot:</strong> het hele oppervlak <code>F(A,M)</code> voor de gekozen <code>L</code>; het semitransparante vlak is <code>F=0</code>.</li>
+    </ul>
+    <p><em>In gewone taal:</em> <strong>A</strong> = wanneer je met pensioen mag, <strong>M</strong> = hoeveel mensen erbij komen, <strong>L</strong> = hoeveel van de mensen werken. <strong>F</strong> zegt of de rekensom uitkomt.</p>
+  </section>
+</header>
+
+<div class="wrap">
+  <aside class="card panel">
+    <div class="badge">Regelaars (vereenvoudigd)</div>
+
+    <div class="row">
+      <label for="aow">AOW-leeftijd (jaar)</label>
+      <output id="aow_val">67.0</output>
+      <input id="aow" type="range" min="65" max="72" step="0.1" value="67" />
+    </div>
+
+    <div class="row">
+      <label for="migr">Netto migratie (% v/d bevolking / jaar)</label>
+      <output id="migr_val">0.00%</output>
+      <input id="migr" type="range" min="-1" max="2" step="0.05" value="0" />
+    </div>
+
+    <div class="row">
+      <label for="part">Arbeidsparticipatie (% van 15–67 die werkt)</label>
+      <output id="part_val">72%</output>
+      <input id="part" type="range" min="60" max="85" step="1" value="72" />
+    </div>
+
+    <details>
+      <summary>Geavanceerde aannames (optioneel openklappen)</summary>
+      <div class="grid2 panel">
+        <div>
+          <div class="row">
+            <label>Gem. belastingdruk per werkende (τ)</label>
+            <output id="tau_val">0.40</output>
+            <input id="tau" type="range" min="0.25" max="0.55" step="0.01" value="0.40" />
+          </div>
+          <div class="row">
+            <label>Uitgave per gepensioneerde (p)</label>
+            <output id="p_val">0.70</output>
+            <input id="p" type="range" min="0.50" max="1.00" step="0.01" value="0.70" />
+          </div>
+          <div class="row">
+            <label>Overige vaste uitgaven (G₀)</label>
+            <output id="g0_val">0.04</output>
+            <input id="g0" type="range" min="0.00" max="0.10" step="0.005" value="0.04" />
+          </div>
+        </div>
+        <div>
+          <div class="row">
+            <label>Effect AOW op samenstelling (k<sub>A</sub>)</label>
+            <output id="kA_val">0.015</output>
+            <input id="kA" type="range" min="0.005" max="0.030" step="0.001" value="0.015" />
+          </div>
+          <div class="row">
+            <label>Effect migratie op werkend aandeel (k<sub>M</sub>)</label>
+            <output id="kM_val">2.00</output>
+            <input id="kM" type="range" min="0.5" max="3.0" step="0.1" value="2.0" />
+          </div>
+          <div class="row">
+            <label>Effect migratie op AOW-druk (k<sub>R</sub>)</label>
+            <output id="kR_val">0.20</output>
+            <input id="kR" type="range" min="0.00" max="0.50" step="0.01" value="0.20" />
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <div class="panel">
+      <button class="btn" id="snap">🔗 Snap naar null‑lijn (vind dichtstbijzijnde oplossing)</button>
+      <button class="btn" id="toggle3d" style="margin-left:8px">🧊 3D aan/uit</button>
+      <div class="hint">De <em>null‑lijn</em> (zwarte lijn) zijn combinaties waarvoor het simpele begrotingssaldo <code>F(A,M,L)=0</code> is.<br/>De stip toont jouw huidige keuze.</div>
+    </div>
+
+    <details class="panel">
+      <summary>Wat is hier wiskundig aan de hand?</summary>
+      <div>
+        <p>
+          We modelleren drie <strong>toestand/beleidsvariabelen</strong>:
+          AOW‑leeftijd <code>A</code>, netto migratie <code>M</code> (per jaar als % van de bevolking), en arbeidsparticipatie <code>L</code>.
+          Uit deze drie leiden we een (sterk vereenvoudigd) begrotingssaldo af:
+        </p>
+        <pre style="white-space:pre-wrap;line-height:1.45"><code>Werknemers:   W(A,M,L) = L · (S<sub>W0</sub> + k<sub>A</sub>(A−A<sub>0</sub>) + k<sub>M</sub>M)
+Gepensioneerden: R(A,M) = clamp(E<sub>0</sub> − k<sub>A</sub>(A−A<sub>0</sub>) + k<sub>R</sub>M)
+Saldo:        F(A,M,L) = τ·W − p·R − G<sub>0</sub></code></pre>
+        <p>
+          De <em>null‑lijn</em> is de set <code>{(A,M): F(A,M,L)=0}</code> — een 1D <strong>oplossingsverzameling</strong> (manifold) binnen de 2D slice 
+          (A, M) bij vaste <code>L</code>. In dynamical‑systems‑taal is dit een <em>beperkingsmanifold</em>: beleid dat erop blijft behoudt (hier) begrotingsevenwicht;
+          er vanaf wijken duwt het systeem richting tekort/overschot.
+        </p>
+      </div>
+    </details>
+  </aside>
+
+  <main class="card panel">
+    <div id="plot2d"></div>
+    <div id="plot3d"></div>
+    <section style="margin-top:12px">
+      <h2>9) Wat haal je hieruit?</h2>
+      <ol>
+        <li>Kies een AOW‑leeftijd die jij wenselijk vindt.</li>
+        <li>Druk op <em>Snap naar null‑lijn</em> om te zien welke migratie daarbij (in dit model) de begroting ongeveer in evenwicht houdt.</li>
+        <li>Varieer <code>L</code> om te zien hoe hogere/lager participatie de balans‑lijn verschuift.</li>
+      </ol>
+      <p><em>Voorbeeld:</em> zet AOW op 66. Daalt de kaart naar rood? Dan heb je ofwel een hogere <code>M</code>, of een hogere <code>L</code> (of andere aannames) nodig om naar de zwarte lijn terug te komen.</p>
+      <p><em>In gewone taal:</em> deze tool laat zien dat je vaak <strong>twee knoppen tegelijk</strong> moet draaien om de som te laten kloppen.</p>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <p>⚠️ <strong>Didactische eenvoud:</strong> alle parameters en gevoeligheden zijn gekozen om het principe zichtbaar te maken. De echte wereld kent cohorten, gedrag, productiviteitsschokken, sectorale tekorten, enz.</p>
+  <p>📚 <strong>Kader (voor wie termen herkent):</strong> dit document leunt qua terminologie op <em>dynamische systemen</em>, <em>publieke financiën/macro‑economie</em> en <em>besluitvormingstheorie</em> (o.a. Arrow/Condorcet). Zie het als een bèta‑uitleg bij een politiek onderwerp.</p>
+  <p><em>In gewone taal:</em> het is een vereenvoudigde reken‑demo om te laten zien dat beleidsonderdelen elkaar omhoog/omlaag moeten compenseren.</p>
+</footer>
+
+<script>
+  // ---------- Parameters & helpers ----------
+  const A0 = 67, SW0 = 0.65, E0 = 0.20; // baselines
+  const clamp = (x, lo, hi) => Math.max(lo, Math.min(hi, x));
+  const linspace = (a,b,n) => Array.from({length:n},(_,i)=> a + (b-a)*i/(n-1));
+
+  const el = id => document.getElementById(id);
+  const fmtPct = v => (v*100).toFixed(0)+"%";
+  const fmtPct1 = v => (v*100).toFixed(1)+"%";
+
+  // UI elements
+  const aow = el('aow'), migr = el('migr'), part = el('part');
+  const tau = el('tau'), p = el('p'), g0 = el('g0'), kA = el('kA'), kM = el('kM'), kR = el('kR');
+
+  const out = {
+    aow: el('aow_val'), migr: el('migr_val'), part: el('part_val'),
+    tau: el('tau_val'), p: el('p_val'), g0: el('g0_val'), kA: el('kA_val'), kM: el('kM_val'), kR: el('kR_val')
+  };
+
+  function readParams(){
+    return {
+      A: +aow.value,
+      M: (+migr.value)/100,      // slider in procentpunten → fractie
+      L: (+part.value)/100,
+      tau: +tau.value,
+      p: +p.value,
+      G0: +g0.value,
+      kA: +kA.value,
+      kM: +kM.value,
+      kR: +kR.value
+    };
+  }
+
+  function updateOutputs(){
+    out.aow.textContent = (+aow.value).toFixed(1);
+    out.migr.textContent = (+migr.value).toFixed(2) + '%';
+    out.part.textContent = (+part.value) + '%';
+    out.tau.textContent = (+tau.value).toFixed(2);
+    out.p.textContent = (+p.value).toFixed(2);
+    out.g0.textContent = (+g0.value).toFixed(3);
+    out.kA.textContent = (+kA.value).toFixed(3);
+    out.kM.textContent = (+kM.value).toFixed(2);
+    out.kR.textContent = (+kR.value).toFixed(2);
+  }
+
+  // Core toy model
+  function shares(A, M, pars){
+    const {kA,kM,kR} = pars;
+    const dA = kA*(A - A0);
+    const SW = clamp(SW0 + dA + kM*M, 0.45, 0.80);          // werkend aandeel (potentieel)
+    const E  = clamp(E0 - dA + kR*M, 0.05, 0.40);            // gepensioneerd aandeel
+    return {SW, E};
+  }
+
+  function budgetF(A, M, L, pars){
+    const {tau,p,G0} = pars;
+    const {SW,E} = shares(A,M,pars);
+    const W = L * SW;                    // effectieve werknemers
+    const R = E;                         // vereenvoudigd: alle E zijn AOW-uitkeringsontvangers
+    const Rev = tau * W;
+    const Exp = p * R + G0;
+    return {F: Rev - Exp, W, R, Rev, Exp};
+  }
+
+  // Find M so that F(A, M, L)=0 using bisection on [mLo, mHi]
+  function findZeroInM(A, L, pars, mLo=-0.01, mHi=0.02, maxIter=50){
+    let fLo = budgetF(A, mLo, L, pars).F;
+    let fHi = budgetF(A, mHi, L, pars).F;
+    if (fLo*fHi>0){
+      // No sign change → return M with |F| minimum by coarse search
+      let bestM = mLo, bestVal = Math.abs(fLo);
+      const steps = 100;
+      for(let i=1;i<=steps;i++){
+        const m = mLo + (mHi-mLo)*i/steps;
+        const val = Math.abs(budgetF(A,m,L,pars).F);
+        if (val < bestVal){ bestVal = val; bestM = m; }
+      }
+      return {M:bestM, hit:false};
+    }
+    for(let i=0;i<maxIter;i++){
+      const mid = 0.5*(mLo+mHi);
+      const fMid = budgetF(A, mid, L, pars).F;
+      if (Math.abs(fMid) < 1e-6) return {M:mid, hit:true};
+      if (fLo*fMid <= 0){ mHi = mid; fHi = fMid; } else { mLo = mid; fLo = fMid; }
+    }
+    return {M:0.5*(mLo+mHi), hit:true};
+  }
+
+  // ---------- Plotting ----------
+  const Ax = linspace(65, 72, 71);
+  const My = linspace(-0.01, 0.02, 61);         // fractie
+  const MyPct = My.map(m => m*100);
+
+  let plotMode3D = false;
+
+  function computeZ(L, pars){
+    const Z = My.map(() => Array(Ax.length).fill(0)); // dims [y][x]
+    for(let yi=0; yi<My.length; yi++){
+      for(let xi=0; xi<Ax.length; xi++){
+        Z[yi][xi] = budgetF(Ax[xi], My[yi], L, pars).F;
+      }
+    }
+    return Z;
+  }
+
+  function make2D(L, pars){
+    const Z = computeZ(L, pars);
+    const heat = {
+      type:'contour', x: Ax, y: MyPct, z: Z,
+      colorscale: 'RdBu', reversescale: true, zmid: 0,
+      contours: { coloring: 'heatmap' },
+      colorbar: { title:'F (begrotingssaldo)  + = overschot, − = tekort', titleside:'right' },
+      hovertemplate: 'AOW=%{x:.1f} jaar<br>Netto migratie=%{y:.2f}%/jr<br>F=%{z:.3f}<extra></extra>'
+    };
+    const zero = {
+      type:'contour', x: Ax, y: MyPct, z: Z,
+      contours: { start:0, end:0, size:1 },
+      line: { color: '#000', width: 3 }, showscale:false, hoverinfo:'skip', name:'null‑lijn'
+    };
+    const {A,M,L:LL} = readParams();
+    const point = {
+      type:'scatter', mode:'markers+text',
+      x:[A], y:[M*100],
+      marker:{ size:10, symbol:'circle', line:{width:1,color:'#111'}, color:'#ffffff' },
+      text:[`F=${budgetF(A,M,LL,pars).F.toFixed(3)}`], textposition:'bottom center', name:'jouw keuze'
+    };
+
+    const layout = {
+      title:{text:'2D‑slice: AOW vs migratie (bij vaste arbeidsparticipatie L — te bedienen met de schuif links)',font:{size:16}},
+      xaxis:{title:'AOW‑leeftijd (jaar)'},
+      yaxis:{title:'Netto migratie (% van bevolking / jaar)'},
+      margin:{l:50,r:10,t:40,b:45},
+      paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
+    };
+    Plotly.newPlot('plot2d', [heat, zero, point], layout, {displayModeBar:false, responsive:true});
+  }
+
+  function make3D(L, pars){
+    const Z = computeZ(L, pars);
+    const surf = {
+      type:'surface', x: Ax, y: MyPct, z: Z, name:'F(A,M)',
+      colorscale:'RdBu', reversescale:true, showscale:true,
+      hovertemplate: 'AOW=%{x:.1f} jaar<br>Netto migratie=%{y:.2f}%/jr<br>F=%{z:.3f}<extra></extra>'
+    };
+    const zeroPlane = {
+      type:'surface', x: Ax, y: MyPct, z: Z.map(row=>row.map(_=>0)),
+      opacity:0.35, showscale:false, colorscale:[[0,'#000000'],[1,'#000000']], name:'F=0 vlak'
+    };
+    const layout = {
+      title:{text:'3D‑oppervlak: F(A,M) met F=0‑vlak',font:{size:16}},
+      scene:{
+        xaxis:{title:'AOW (jaar)'}, yaxis:{title:'Migratie (%/jr)'}, zaxis:{title:'F (saldo)'}
+      },
+      margin:{l:0,r:0,t:40,b:0}, paper_bgcolor:'rgba(0,0,0,0)'
+    };
+    Plotly.newPlot('plot3d', [surf, zeroPlane], layout, {displayModeBar:false, responsive:true});
+  }
+
+  function refreshPlots(){
+    updateOutputs();
+    const pars = readParams();
+    make2D(pars.L, pars);
+    if (plotMode3D){ make3D(pars.L, pars); }
+  }
+
+  // Snap button: project huidige A op null-lijn → vind M met F=0
+  el('snap').addEventListener('click', () => {
+    const pars = readParams();
+    const A = pars.A;
+    const res = findZeroInM(A, pars.L, pars);
+    migr.value = (res.M*100).toFixed(2);
+    updateOutputs();
+    refreshPlots();
+  });
+
+  // Toggle 3D visibility
+  el('toggle3d').addEventListener('click', () => {
+    plotMode3D = !plotMode3D;
+    el('plot3d').style.display = plotMode3D ? 'block':'none';
+    refreshPlots();
+  });
+
+  // Wire up inputs
+  [aow,migr,part,tau,p,g0,kA,kM,kR].forEach(inp=> inp.addEventListener('input', refreshPlots));
+
+  // First render
+  updateOutputs();
+  refreshPlots();
+</script>
+<script>
+// === Klikbare woorden (glossary) ===
+const GLOSS = {
+  "dynamisch systeemmodel": "Eenvoudig rekenmodel dat laat zien hoe variabelen elkaar beïnvloeden en waar evenwicht ligt. Hier: A (AOW), M (migratie), L (participatie) en F (saldo).",
+  "AOW-leeftijd": "Leeftijd waarop recht op AOW ingaat. Lager = meer ontvangers nu; hoger = minder ontvangers nu.",
+  "arbeidsparticipatie": "% van de beroepsgeschikte bevolking (hier ruwweg 15–67) dat werkt. Hoger = meer betalers.",
+  "beleidsonderdelen": "Losse beleidsknoppen zoals AOW, migratie, belastingen. Samen vormen ze het beleidspakket.",
+  "begroting": "Overheidsbudget: inkomsten (belastingen e.d.) en uitgaven. Als inkomsten lager zijn dan uitgaven is er een tekort.",
+  "demografie": "Eigenschappen van de bevolking: grootte, groei, leeftijdsverdeling, migratie.",
+  "capaciteit": "Wat het land aankan in mensen en middelen: zorg, onderwijs, woningen, arbeidskrachten, infrastructuur.",
+  "randvoorwaarden": "Harde beperkingen waar beleid aan moet voldoen: rekenregels van de begroting, demografie, wetten/normen.",
+  "bevolkingsopbouw": "Hoe de bevolking is samengesteld naar leeftijd e.d. Veel ouderen = hogere uitkeringsdruk zonder compensatie.",
+  "productiviteit": "Output per werkende (of per uur). Hoger = meer inkomen bij hetzelfde aantal werkenden.",
+  "haalbaarheidsgebied": "De set combinaties die met alle randvoorwaarden kloppen. Buiten dat gebied kan het rekenkundig niet.",
+  "kruisverbanden": "Onderlinge afhankelijkheden: aan knop A draaien verandert ook wat er bij knop B gebeurt.",
+  "begrotingssaldo": "Uitkomst F = inkomsten − uitgaven. F>0 = overschot (blauw), F<0 = tekort (rood)."
+};
+
+function isWordChar(ch){ return /[A-Za-zÀ-ž0-9_]/.test(ch); }
+function hyVariants(term){
+  if(term.indexOf('-') === -1 && term.indexOf('‑') === -1) return [term];
+  const base = term.replace(/‑/g,'-');
+  return [base, base.replace(/-/g,'‑'), base.replace(/-/g,'–'), base.replace(/-/g,'—')];
+}
+
+function wrapGlossary(root){
+  const excluded = new Set(['CODE','PRE','SCRIPT','STYLE','TEXTAREA','BUTTON','A','INPUT','SELECT','OPTION']);
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node){
+      const p = node.parentElement;
+      if(!p) return NodeFilter.FILTER_REJECT;
+      if(excluded.has(p.tagName)) return NodeFilter.FILTER_REJECT;
+      if(p.closest('#glossTip')) return NodeFilter.FILTER_REJECT;
+      if(!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+
+  const terms = Object.keys(GLOSS).sort((a,b)=>b.length-a.length);
+  const nodes = [];
+  while(walker.nextNode()) nodes.push(walker.currentNode);
+
+  for(const textNode of nodes){
+    const text = textNode.nodeValue;
+    const lower = text.toLowerCase();
+    let i = 0;
+    let frag = document.createDocumentFragment();
+    let changed = false;
+
+    outer: while(i < text.length){
+      for(const key of terms){
+        const variants = hyVariants(key);
+        for(const v of variants){
+          const vl = v.toLowerCase();
+          if(lower.substr(i, vl.length) === vl){
+            const beforeOk = (i===0) || !isWordChar(text[i-1]);
+            const afterOk = (i+vl.length>=text.length) || !isWordChar(text[i+vl.length]);
+            if(beforeOk && afterOk){
+              const span = document.createElement('span');
+              span.className = 'gloss';
+              span.textContent = text.substr(i, v.length);
+              span.setAttribute('data-term', key);
+              frag.appendChild(span);
+              i += v.length;
+              changed = true;
+              continue outer;
+            }
+          }
+        }
+      }
+      frag.appendChild(document.createTextNode(text[i]));
+      i++;
+    }
+
+    if(changed){
+      textNode.parentNode.replaceChild(frag, textNode);
+    }
+  }
+}
+
+function showTip(target){
+  const key = target.getAttribute('data-term');
+  const tip = document.getElementById('glossTip');
+  document.getElementById('glossTitle').textContent = target.textContent.trim();
+  document.getElementById('glossText').textContent = GLOSS[key] || '';
+
+  const rect = target.getBoundingClientRect();
+  const pad = 8;
+  let top = rect.bottom + pad + window.scrollY;
+  let left = rect.left + window.scrollX;
+  tip.style.display = 'block';
+  tip.style.visibility = 'hidden';
+  // meten en bijsturen
+  const tw = tip.offsetWidth, th = tip.offsetHeight;
+  if(left + tw > window.scrollX + window.innerWidth - 10){ left = window.scrollX + window.innerWidth - tw - 10; }
+  if(top + th > window.scrollY + window.innerHeight - 10){ top = rect.top + window.scrollY - th - pad; }
+  tip.style.left = left + 'px';
+  tip.style.top = top + 'px';
+  tip.style.visibility = 'visible';
+  tip.setAttribute('aria-hidden','false');
+}
+function hideTip(){ const tip = document.getElementById('glossTip'); tip.style.display='none'; tip.setAttribute('aria-hidden','true'); }
+
+document.addEventListener('click', (e)=>{
+  const t = e.target.closest('.gloss');
+  if(t){ showTip(t); e.stopPropagation(); return; }
+  if(!e.target.closest('#glossTip')) hideTip();
+});
+document.querySelector('#glossTip .close').addEventListener('click', hideTip);
+
+// activeer
+wrapGlossary(document.body);
+</script>
+</body>
+</html>
