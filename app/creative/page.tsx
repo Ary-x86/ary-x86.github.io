@@ -3,6 +3,7 @@ import CreativeHero from "@/components/CreativeHero";
 import SectionFade from "@/components/SectionFade";
 import ProjectCard from "@/components/ProjectCard";
 import HorizontalScroll from "@/components/HorizontalScroll";
+import ModeToggle from "@/components/ModeToggle";
 import { uniProjects, essayProjects, projects } from "@/lib/projects";
 
 export const metadata = {
@@ -21,12 +22,7 @@ export default function Creative() {
       <header className="absolute top-0 left-0 right-0 z-20 mx-auto flex max-w-6xl items-center justify-between px-6 pt-8 sm:pt-10">
         <p className="label">ary-x86 · creative</p>
         <nav className="flex items-center gap-6 text-xs uppercase tracking-widest text-[color:var(--muted)]">
-          <Link
-            href="/"
-            className="rounded-full border border-[color:var(--border)] px-3 py-1 text-[color:var(--foreground)] hover:border-[color:var(--accent)] transition-colors"
-          >
-            ← Pro
-          </Link>
+          <ModeToggle variant="creative" />
         </nav>
       </header>
 

@@ -2,6 +2,7 @@ import Link from "next/link";
 import RadialGlows from "@/components/RadialGlows";
 import SectionFade from "@/components/SectionFade";
 import ProjectCard from "@/components/ProjectCard";
+import ModeToggle from "@/components/ModeToggle";
 import { archiveProjects } from "@/lib/projects";
 
 export const metadata = {
@@ -23,12 +24,7 @@ export default function Archive() {
           >
             ← Creative
           </Link>
-          <Link
-            href="/"
-            className="rounded-full border border-[color:var(--border)] px-3 py-1 text-[color:var(--foreground)] hover:border-[color:var(--accent)] transition-colors"
-          >
-            Pro
-          </Link>
+          <ModeToggle variant="creative" />
         </nav>
       </header>
 
