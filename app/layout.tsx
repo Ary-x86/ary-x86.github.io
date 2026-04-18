@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import ModeReveal from "@/components/ModeReveal";
+import EasterEggListener from "@/components/EasterEggListener";
 import "./globals.css";
 
 const inter = Inter({
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body className="antialiased">
         {children}
         <ModeReveal />
+        <EasterEggListener />
       </body>
     </html>
   );

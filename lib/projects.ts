@@ -94,6 +94,64 @@ export const projects: Project[] = [
     bucket: "archive",
     tags: ["Coursework"],
   },
+
+  // Vault — meme / nostalgia / secret
+  {
+    id: "electrolight",
+    title: "Electrolight Sport",
+    blurb: "A small music / vibes site. Turn it up.",
+    href: "/electrolight_sport/electrolight_sport.html",
+    bucket: "vault",
+    tags: ["Music", "Vibes"],
+  },
+  {
+    id: "stopspongeclock",
+    title: "Stop Sponge Clock",
+    blurb: "Deeply important work.",
+    href: "/stopspongeclock/spongeclock.html",
+    bucket: "vault",
+    tags: ["Nonsense"],
+  },
+  {
+    id: "sisi-incident",
+    title: "The SiSi Incident",
+    blurb: "Cat. Documented.",
+    href: "/sisi_incident/sisi.html",
+    bucket: "vault",
+    tags: ["SiSi"],
+  },
+  {
+    id: "insane-sisi2",
+    title: "Insane SiSi II",
+    blurb: "Further developments.",
+    href: "/insane_sisi2/sisi2.html",
+    bucket: "vault",
+    tags: ["SiSi"],
+  },
+  {
+    id: "sisi-v3",
+    title: "SiSi Update v3",
+    blurb: "Kiwi era.",
+    href: "/sisi_update_v3/sisi3.html",
+    bucket: "vault",
+    tags: ["SiSi"],
+  },
+  {
+    id: "best-edits",
+    title: "Best Edits",
+    blurb: "CapCut gallery — do not judge.",
+    href: "/best_edits/gallery.html",
+    bucket: "vault",
+    tags: ["Video"],
+  },
+  {
+    id: "legacy-flat",
+    title: "Legacy flat index",
+    blurb: "The original tile page — kept exactly as it was.",
+    href: "/legacy/",
+    bucket: "vault",
+    tags: ["Archive"],
+  },
 ];
 
 export const proProjects = projects.filter((p) => p.bucket === "pro");
@@ -101,3 +159,4 @@ export const uniProjects = projects.filter((p) => p.bucket === "uni");
 export const essayProjects = projects.filter((p) => p.bucket === "essay");
 export const researchProjects = projects.filter((p) => p.bucket === "research");
 export const archiveProjects = projects.filter((p) => p.bucket === "archive");
+export const vaultProjects = projects.filter((p) => p.bucket === "vault");
