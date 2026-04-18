@@ -38,3 +38,8 @@ public/Application Security - C Exploits Assignment 2A/build_old.py
 
 # editor / tooling
 .claude/
+
+
+#claude context backup folder
+claude-context-ignore/
+claude-context-ignore/*
