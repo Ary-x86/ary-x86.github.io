@@ -11,7 +11,7 @@ type Props = {
 };
 
 export default function SectionFade({ children, className, delay = 0, as = "section" }: Props) {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     let cleanup: (() => void) | undefined;
@@ -29,13 +29,13 @@ export default function SectionFade({ children, className, delay = 0, as = "sect
       const ctx = gsap.context(() => {
         gsap.fromTo(
           el,
-          { opacity: 0, y: 36 },
+          { opacity: 0, y: 40 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.9,
+            duration: 1.1,
             delay,
-            ease: "power3.out",
+            ease: "expo.out",
             scrollTrigger: {
               trigger: el,
               start: "top 85%",
@@ -54,10 +54,43 @@ export default function SectionFade({ children, className, delay = 0, as = "sect
     };
   }, [delay]);
 
-  const Tag = as as React.ElementType;
+  const style = { opacity: 0 };
+
+  if (as === "div") {
+    return (
+      <div
+        ref={(node) => {
+          ref.current = node;
+        }}
+        className={className}
+        style={style}
+      >
+        {children}
+      </div>
+    );
+  }
+  if (as === "article") {
+    return (
+      <article
+        ref={(node) => {
+          ref.current = node;
+        }}
+        className={className}
+        style={style}
+      >
+        {children}
+      </article>
+    );
+  }
   return (
-    <Tag ref={ref} className={className} style={{ opacity: 0 }}>
+    <section
+      ref={(node) => {
+        ref.current = node;
+      }}
+      className={className}
+      style={style}
+    >
       {children}
-    </Tag>
+    </section>
   );
 }

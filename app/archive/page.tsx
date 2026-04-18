@@ -30,9 +30,27 @@ export default function Archive() {
 
       <main className="mx-auto max-w-6xl px-6 py-20">
         <SectionFade className="mb-16" as="section">
-          <p className="label mb-4">Archive</p>
-          <h1 className="text-4xl sm:text-6xl">Older coursework.</h1>
-          <p className="mt-6 max-w-2xl text-[color:var(--muted)] leading-relaxed">
+          <div className="flex items-center gap-3 mb-8">
+            <span
+              className="font-mono text-xs text-[color:var(--muted)]"
+              style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
+            >
+              07
+            </span>
+            <span className="h-px w-10 bg-[color:var(--border)]" />
+            <span className="label">Archive</span>
+          </div>
+          <h1 className="text-[clamp(2.5rem,7vw,5.5rem)] leading-[0.95]">
+            Older
+            <br />
+            <span
+              className="italic font-medium text-[color:var(--muted)]"
+              style={{ fontFamily: "ui-serif, Georgia, Cambria, serif" }}
+            >
+              coursework.
+            </span>
+          </h1>
+          <p className="mt-8 max-w-2xl text-[color:var(--muted)] leading-relaxed">
             Kept for posterity rather than promotion. Not actively maintained, not
             representative of current work — just preserved so links don&apos;t die.
           </p>
@@ -40,8 +58,8 @@ export default function Archive() {
 
         <SectionFade as="section">
           <div className="grid gap-5 md:grid-cols-2">
-            {archiveProjects.map((p) => (
-              <ProjectCard key={p.id} project={p} />
+            {archiveProjects.map((p, i) => (
+              <ProjectCard key={p.id} project={p} index={i} />
             ))}
           </div>
         </SectionFade>

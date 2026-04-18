@@ -28,7 +28,7 @@ export default function ModeToggle({ variant }: Props) {
     try {
       sessionStorage.setItem("modeTransition", "1");
     } catch {}
-    window.setTimeout(() => router.push(target), 520);
+    window.setTimeout(() => router.push(target), 600);
   };
 
   return (
@@ -62,7 +62,7 @@ export default function ModeToggle({ variant }: Props) {
             initial={{ clipPath: "circle(0% at calc(100% - 3rem) 3rem)" }}
             animate={{ clipPath: "circle(160% at calc(100% - 3rem) 3rem)" }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: [0.65, 0, 0.35, 1] }}
+            transition={{ duration: 0.72, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-[100] pointer-events-none"
             style={{ background: bg }}
           />

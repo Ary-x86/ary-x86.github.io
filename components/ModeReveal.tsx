@@ -36,7 +36,7 @@ export default function ModeReveal() {
           initial={{ clipPath: "circle(160% at calc(100% - 3rem) 3rem)" }}
           animate={{ clipPath: "circle(0% at calc(100% - 3rem) 3rem)" }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.75, ease: [0.65, 0, 0.35, 1] }}
+          transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
           className="fixed inset-0 z-[100] pointer-events-none"
           style={{ background: bg }}
         />
