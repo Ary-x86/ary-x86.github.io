@@ -1,8 +1,40 @@
-Application Security - C Exploits Assignment 2A/extracted_answers.html
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
 
+# next.js build artifacts
+/.next/
+/out/
+/build
+*.tsbuildinfo
+next-env.d.ts
 
-Application Security - C Exploits Assignment 2A/build_old.py
+# testing
+/coverage
 
-3-vids-how-to-make-good-site/*
+# misc
+.DS_Store
+*.pem
 
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files
+.env*
+
+# vercel
+.vercel
+
+# local-only reference material (not published)
 3-vids-how-to-make-good-site/
+
+# legacy assets excluded from repo
+public/Application Security - C Exploits Assignment 2A/extracted_answers.html
+public/Application Security - C Exploits Assignment 2A/build_old.py
+
+# editor / tooling
+.claude/
