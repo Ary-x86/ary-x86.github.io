@@ -19,12 +19,12 @@ export default function Archive() {
         <p className="label">ary-x86 · archive</p>
         <nav className="flex items-center gap-6 text-xs uppercase tracking-widest text-[color:var(--muted)]">
           <Link
-            href="/creative/"
+            href="/fun/"
             className="hover:text-[color:var(--foreground)] transition-colors"
           >
-            ← Creative
+            ← /fun
           </Link>
-          <ModeToggle variant="creative" />
+          <ModeToggle variant="fun" />
         </nav>
       </header>
 
@@ -72,8 +72,8 @@ export default function Archive() {
             <Link href="/" className="hover:text-[color:var(--foreground)]">
               /
             </Link>
-            <Link href="/creative/" className="hover:text-[color:var(--foreground)]">
-              /creative
+            <Link href="/fun/" className="hover:text-[color:var(--foreground)]">
+              /fun
             </Link>
           </span>
         </div>

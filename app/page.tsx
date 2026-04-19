@@ -17,14 +17,21 @@ const RAIL = [
 ];
 
 const MARQUEE = [
-  "Data Science",
-  "Applied ML",
-  "Systems Thinking",
-  "AgriAI",
-  "DROS",
-  "Research",
-  "C + Security",
-  "Leafshift",
+  "Leiden University",
+  "Data Science & AI",
+  "Machine Learning",
+  "Deep Learning",
+  "Low-level + High-level",
+  "Cybersecurity",
+  "Mathematics",
+  "Dynamical Systems",
+];
+
+const INTERESTS = [
+  ["Studying", "Data Science & AI at Leiden University"],
+  ["Into", "ML, DL, math (low + high level), programming languages"],
+  ["Also curious about", "Cybersecurity, policy as dynamical systems"],
+  ["Based", "The Netherlands"],
 ];
 
 export default function Home() {
@@ -40,7 +47,6 @@ export default function Home() {
         >
           <span className="h-2 w-2 rotate-45 bg-[color:var(--foreground)]" aria-hidden />
           <span className="text-[color:var(--foreground)]">ary-x86</span>
-          <span className="text-[color:var(--muted)]">/ pro</span>
         </Link>
         <nav className="flex items-center gap-6 text-xs uppercase tracking-widest text-[color:var(--muted)]">
           <a href="#work" className="hidden sm:inline hover:text-[color:var(--foreground)] transition-colors">
@@ -52,85 +58,94 @@ export default function Home() {
           <a href="#contact" className="hidden sm:inline hover:text-[color:var(--foreground)] transition-colors">
             Contact
           </a>
-          <ModeToggle variant="pro" />
+          <ModeToggle variant="main" />
         </nav>
       </header>
 
       <main className="mx-auto max-w-6xl px-6">
         {/* Hero */}
-        <section id="hero" className="relative flex min-h-[90vh] flex-col justify-center py-20">
-          <div aria-hidden className="absolute inset-x-0 top-0 bottom-20 -z-0 opacity-80">
-            <ProAccentLoader />
-          </div>
+        <section id="hero" className="relative flex min-h-[88vh] flex-col justify-center py-20">
+          <div className="grid items-center gap-10 md:grid-cols-[1.3fr_1fr]">
+            <div className="relative">
+              <div className="flex items-center gap-3 mb-8">
+                <span
+                  className="font-mono text-xs text-[color:var(--muted)]"
+                  style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
+                >
+                  00
+                </span>
+                <span className="h-px w-10 bg-[color:var(--border)]" />
+                <span className="label">Student · Leiden University</span>
+              </div>
 
-          <div className="relative">
-            <div className="flex items-center gap-3 mb-8">
-              <span
-                className="font-mono text-xs text-[color:var(--muted)]"
-                style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
-              >
-                00
-              </span>
-              <span className="h-px w-10 bg-[color:var(--border)]" />
-              <span className="label">Data Science · AI · Research</span>
+              <h1 className="text-[clamp(2.5rem,8vw,6.5rem)] leading-[0.95]">
+                Aryan<br />
+                <span
+                  className="italic font-medium"
+                  style={{
+                    fontFamily: "ui-serif, Georgia, Cambria, serif",
+                    letterSpacing: "-0.035em",
+                  }}
+                >
+                  Swami-Persaud.
+                </span>
+              </h1>
+
+              <p className="mt-8 max-w-xl text-base sm:text-lg text-[color:var(--muted)] leading-relaxed">
+                Data Science &amp; AI student at Leiden. Curious about machine
+                learning, deep learning, low-level and high-level programming,
+                mathematics, cybersecurity, and modelling systems as dynamical
+                ones. I like working on projects, collaborating, and trading
+                thoughts.
+              </p>
+
+              <div className="mt-10 flex flex-wrap items-center gap-4">
+                <a
+                  href="#work"
+                  className="rounded-full bg-[color:var(--foreground)] px-6 py-3 text-sm font-medium text-[color:var(--background)] hover:bg-[color:var(--accent)] transition-colors"
+                >
+                  See my work →
+                </a>
+                <a
+                  href="#contact"
+                  className="rounded-full border border-[color:var(--border)] px-6 py-3 text-sm font-medium text-[color:var(--foreground)] hover:border-[color:var(--foreground)] transition-colors"
+                >
+                  Get in touch
+                </a>
+                <Link
+                  href="/fun/"
+                  className="group flex items-center gap-2 px-2 py-3 text-sm text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors"
+                >
+                  or wander into /fun
+                  <span className="transition-transform group-hover:translate-x-1">↗</span>
+                </Link>
+              </div>
             </div>
 
-            <h1 className="text-[clamp(3rem,10vw,9rem)] leading-[0.9]">
-              Aryan<br />
-              <span
-                className="italic font-medium"
+            {/* 3D accent — beside name, not behind */}
+            <div
+              aria-hidden
+              className="relative mx-auto aspect-square w-full max-w-[420px] md:mx-0"
+            >
+              <div className="absolute inset-0">
+                <ProAccentLoader />
+              </div>
+              <div
+                className="pointer-events-none absolute inset-0 rounded-full opacity-40 blur-3xl -z-10"
                 style={{
-                  fontFamily: "ui-serif, Georgia, Cambria, serif",
-                  letterSpacing: "-0.035em",
+                  background:
+                    "radial-gradient(closest-side, rgba(124,58,237,0.45), transparent 70%)",
                 }}
-              >
-                Swami-Persaud.
-              </span>
-            </h1>
-
-            <p className="mt-10 max-w-2xl text-lg sm:text-xl text-[color:var(--muted)] leading-relaxed">
-              Data Science &amp; AI student. Founder of{" "}
-              <span className="text-[color:var(--foreground)]">Leafshift</span>. Building{" "}
-              <span className="text-[color:var(--foreground)]">AgriAI</span> and{" "}
-              <span className="text-[color:var(--foreground)]">DROS</span> — a bio-inspired
-              decision system that fuses sparse mixture-of-experts with selective
-              state-spaces.
-            </p>
-
-            <div className="mt-12 flex flex-wrap items-center gap-4">
-              <a
-                href="#work"
-                className="rounded-full bg-[color:var(--foreground)] px-6 py-3 text-sm font-medium text-[color:var(--background)] hover:bg-[color:var(--accent)] transition-colors"
-              >
-                See work →
-              </a>
-              <a
-                href="#contact"
-                className="rounded-full border border-[color:var(--border)] px-6 py-3 text-sm font-medium text-[color:var(--foreground)] hover:border-[color:var(--foreground)] transition-colors"
-              >
-                Get in touch
-              </a>
-              <Link
-                href="/creative/"
-                className="group flex items-center gap-2 px-2 py-3 text-sm text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors"
-              >
-                or browse the creative side
-                <span className="transition-transform group-hover:translate-x-1">↗</span>
-              </Link>
+              />
             </div>
           </div>
 
-          {/* Hero meta strip */}
-          <div className="relative mt-24 grid grid-cols-2 gap-8 border-t border-[color:var(--border)] pt-8 sm:grid-cols-4">
-            {[
-              ["Role", "DS / AI Student"],
-              ["Company", "Leafshift"],
-              ["Research", "DROS"],
-              ["Based", "The Netherlands"],
-            ].map(([k, v]) => (
+          {/* Interests strip */}
+          <div className="relative mt-20 grid grid-cols-2 gap-8 border-t border-[color:var(--border)] pt-8 sm:grid-cols-4">
+            {INTERESTS.map(([k, v]) => (
               <div key={k}>
                 <p className="label mb-2">{k}</p>
-                <p className="text-sm text-[color:var(--foreground)]">{v}</p>
+                <p className="text-sm text-[color:var(--foreground)] leading-relaxed">{v}</p>
               </div>
             ))}
           </div>
@@ -138,7 +153,7 @@ export default function Home() {
 
         {/* Marquee */}
         <div className="mt-6">
-          <Marquee items={MARQUEE} speed={45} />
+          <Marquee items={MARQUEE} speed={50} />
         </div>
 
         {/* About */}
@@ -149,34 +164,34 @@ export default function Home() {
               label="About"
               title={
                 <>
-                  Applied ML, systems thinking,
+                  A student who likes
                   <br />
                   <span
                     className="italic font-medium text-[color:var(--muted)]"
                     style={{ fontFamily: "ui-serif, Georgia, Cambria, serif" }}
                   >
-                    eco-tech.
+                    a lot of things.
                   </span>
                 </>
               }
               subtitle={
                 <>
-                  I translate research into tools that hold up in the field. Through
-                  Leafshift, I&apos;m building an agriculture stack that treats farms as
-                  dynamical systems. The DROS paper combines sparse
-                  mixture-of-experts, selective state-spaces, and bio-inspired control into
-                  a single resilient architecture. Alongside the research I do low-level
-                  security work, math &amp; CS visualisers, and the occasional
-                  systems-thinking essay.
+                  I study Data Science &amp; AI at Leiden. I spend a lot of time
+                  programming — from memory-level C work to higher-level
+                  Python/TypeScript — and I&apos;m genuinely interested in most
+                  of it. I like mathematics, machine learning and deep
+                  learning, cybersecurity, and treating social / policy
+                  questions as dynamical systems. Outside coursework I build
+                  small things, write, and talk to people who know things I
+                  don&apos;t.
                 </>
               }
             />
-            <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {[
-                ["Research", "Sparse MoE · Selective SSMs · Bio-inspired"],
-                ["Build", "Next.js · PyTorch · C"],
-                ["Think", "Dynamical systems · Policy · Essays"],
-                ["Ship", "AgriAI · DROS · Coursework"],
+                ["I code in", "Python · TypeScript · C · a bit of Rust"],
+                ["Tools I use", "PyTorch · Next.js · Linux · Git"],
+                ["Open to", "Research, collaboration, questions"],
               ].map(([k, v]) => (
                 <div
                   key={k}
@@ -196,25 +211,26 @@ export default function Home() {
             <div className="flex items-end justify-between gap-6">
               <NumberedHeading
                 num="02"
-                label="Selected work"
+                label="My work"
                 title={
                   <>
-                    Research, systems,
+                    What I&apos;m
                     <br />
                     <span
                       className="italic font-medium text-[color:var(--muted)]"
                       style={{ fontFamily: "ui-serif, Georgia, Cambria, serif" }}
                     >
-                      exploits.
+                      building.
                     </span>
                   </>
                 }
+                subtitle="The career-facing projects. University coursework, essays and hobby research live on /fun."
               />
               <Link
-                href="/creative/"
+                href="/fun/"
                 className="hidden shrink-0 sm:block text-sm text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors"
               >
-                More in /creative →
+                Wander into /fun →
               </Link>
             </div>
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -226,6 +242,14 @@ export default function Home() {
                   <ProjectCard project={p} featured={i === 0} index={i} />
                 </div>
               ))}
+              <div className="card-surface rounded-2xl p-6 sm:p-7 border-dashed border-[color:var(--border)]/60">
+                <p className="label mb-2">More coming</p>
+                <p className="text-sm text-[color:var(--muted)] leading-relaxed">
+                  I&apos;m a student, so this section is intentionally small.
+                  Serious projects will land here as they happen. Poke /fun for
+                  everything else.
+                </p>
+              </div>
             </div>
           </div>
         </SectionFade>
@@ -246,17 +270,17 @@ export default function Home() {
               label="Contact"
               title={
                 <>
-                  Research, collaboration,
+                  Questions, collaboration,
                   <br />
                   <span
                     className="italic font-medium text-[color:var(--muted)]"
                     style={{ fontFamily: "ui-serif, Georgia, Cambria, serif" }}
                   >
-                    or something weird.
+                    or just saying hi.
                   </span>
                 </>
               }
-              subtitle="All welcome. Email gets read first."
+              subtitle="Recruiters, researchers, fellow students — all welcome. Email gets read first."
             />
             <div className="relative mt-12 flex flex-wrap gap-3">
               <a
@@ -274,10 +298,10 @@ export default function Home() {
                 GitHub ↗
               </a>
               <Link
-                href="/creative/"
+                href="/fun/"
                 className="rounded-full border border-[color:var(--border)] px-6 py-3 text-sm font-medium hover:border-[color:var(--accent)] transition-colors"
               >
-                Creative side →
+                /fun →
               </Link>
             </div>
           </div>
@@ -290,11 +314,11 @@ export default function Home() {
             className="font-mono"
             style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
           >
-            © {new Date().getFullYear()} · Aryan Swami-Persaud · Leafshift
+            © {new Date().getFullYear()} · Aryan Swami-Persaud
           </span>
           <span className="flex gap-5">
-            <Link href="/creative/" className="hover:text-[color:var(--foreground)]">
-              /creative
+            <Link href="/fun/" className="hover:text-[color:var(--foreground)]">
+              /fun
             </Link>
             <Link href="/archive/" className="hover:text-[color:var(--foreground)]">
               /archive

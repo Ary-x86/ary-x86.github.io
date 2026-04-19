@@ -12,9 +12,14 @@ type Props = {
 };
 
 export default function ProjectCard({ project, featured, index = 0 }: Props) {
+  const isExternal = project.external || project.href.startsWith("http");
+  const newTab = isExternal
+    ? { target: "_blank" as const, rel: "noopener noreferrer" }
+    : {};
   return (
     <motion.a
       href={project.href}
+      {...newTab}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-8%" }}

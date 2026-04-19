@@ -11,7 +11,7 @@ type Props = {
 
 const BOOT_LINES = [
   "> booting vault...",
-  "> bypassing pro/creative separation",
+  "> bypassing main/fun separation",
   "> ACCESS GRANTED — VAULT OPEN",
 ];
 

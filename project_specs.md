@@ -13,8 +13,8 @@ Living spec for the redesign. Update as decisions evolve.
 | Path | Purpose |
 |---|---|
 | `/` | Pro landing — hero, about, selected work, contact |
-| `/creative` | Creative landing — University Goodies / Essay Goodies / Fun Research / Art |
-| `/archive` | TFA+U Explain, ITP Mock. Subtle footer link from `/creative` |
+| `/fun` | Student-side landing — category-filtered 3D carousel (assignments / explainers / visualizations / essays / hobby research / fun). Wave-spline hero + robot accent + first-of-session boot screen |
+| `/archive` | TFA+U Explain, ITP Mock. Subtle footer link from `/fun` |
 | `/legacy/` | Preserved original flat index (`public/legacy/index.html`) |
 | Vault (overlay) | Easter egg reveal — not a URL. Triggered by typing `sisi` / `meow` |
 

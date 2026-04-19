@@ -1,16 +1,23 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import SplineHero from "./SplineHero";
+
+const SplineWave = dynamic(() => import("./SplineWave"), {
+  ssr: false,
+  loading: () => null,
+});
 
 const EASE_OUT = [0.22, 1, 0.36, 1] as const;
 
-export default function CreativeHero() {
+export default function FunHero() {
   return (
     <section className="relative min-h-[100vh] overflow-hidden">
       <div aria-hidden className="absolute inset-0 -z-10">
-        <div className="mesh" />
-        <SplineHero />
+        <div className="fun-mesh" />
+        <div className="absolute inset-x-0 top-[28%] bottom-[12%] opacity-80 mix-blend-screen">
+          <SplineWave />
+        </div>
         <div className="grid-lines" />
         <div className="vignette" />
       </div>
@@ -22,7 +29,7 @@ export default function CreativeHero() {
           transition={{ duration: 0.8, ease: EASE_OUT }}
           className="flex items-center gap-3 mb-6"
         >
-          <span className="label">Creative · 02</span>
+          <span className="label">/fun · 01</span>
           <span className="h-px flex-1 max-w-[8rem] bg-[color:var(--border)]" aria-hidden />
         </motion.div>
 
@@ -30,9 +37,9 @@ export default function CreativeHero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: EASE_OUT, delay: 0.1 }}
-          className="text-[clamp(3rem,9vw,8rem)] leading-[0.95]"
+          className="text-[clamp(2.75rem,8vw,7rem)] leading-[0.95]"
         >
-          Other side
+          The other
           <br />
           <span
             className="italic font-medium tracking-tight"
@@ -44,7 +51,7 @@ export default function CreativeHero() {
               backgroundClip: "text",
             }}
           >
-            of the brain.
+            half of me.
           </span>
         </motion.h1>
 
@@ -54,8 +61,10 @@ export default function CreativeHero() {
           transition={{ duration: 0.8, ease: EASE_OUT, delay: 0.3 }}
           className="mt-10 max-w-xl text-base sm:text-lg text-[color:var(--muted)] leading-relaxed"
         >
-          Math + CS visualisers, systems-thinking essays, fun research, stray art.
-          Less pitch deck, more sketchbook.
+          Student-side of the site. University coursework, explainers,
+          visualisations of math and CS I wanted to understand, essays about
+          systems and policy, and experiments that don&apos;t fit anywhere
+          else. Less résumé, more workshop.
         </motion.p>
 
         <motion.div
@@ -70,14 +79,13 @@ export default function CreativeHero() {
       </div>
 
       <style jsx>{`
-        .mesh {
+        .fun-mesh {
           position: absolute;
           inset: 0;
           background:
-            radial-gradient(60rem 40rem at 12% 18%, rgba(124, 58, 237, 0.45), transparent 60%),
-            radial-gradient(50rem 35rem at 88% 8%, rgba(14, 165, 233, 0.4), transparent 60%),
-            radial-gradient(55rem 40rem at 50% 95%, rgba(236, 72, 153, 0.35), transparent 60%),
-            radial-gradient(40rem 30rem at 15% 90%, rgba(34, 197, 94, 0.28), transparent 60%);
+            radial-gradient(60rem 40rem at 12% 18%, rgba(124, 58, 237, 0.35), transparent 60%),
+            radial-gradient(50rem 35rem at 88% 8%, rgba(14, 165, 233, 0.3), transparent 60%),
+            radial-gradient(55rem 40rem at 50% 95%, rgba(236, 72, 153, 0.25), transparent 60%);
           filter: blur(46px) saturate(1.1);
           animation: drift 26s ease-in-out infinite alternate;
         }
@@ -97,7 +105,7 @@ export default function CreativeHero() {
           background: radial-gradient(
             ellipse at center,
             transparent 40%,
-            rgba(11, 11, 15, 0.85) 100%
+            rgba(11, 11, 15, 0.8) 100%
           );
           pointer-events: none;
         }

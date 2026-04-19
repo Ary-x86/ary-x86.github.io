@@ -5,7 +5,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 type Props = {
-  variant?: "pro" | "creative";
+  variant?: "main" | "fun";
 };
 
 export default function ModeToggle({ variant }: Props) {
@@ -13,12 +13,15 @@ export default function ModeToggle({ variant }: Props) {
   const pathname = usePathname();
   const [transitioning, setTransitioning] = useState(false);
 
-  const onCreative = variant === "creative" || pathname?.startsWith("/creative");
-  const target = onCreative ? "/" : "/creative/";
-  const label = onCreative ? "Pro" : "Creative";
-  const arrow = onCreative ? "←" : "→";
+  const onFun =
+    variant === "fun" ||
+    pathname?.startsWith("/fun") ||
+    pathname?.startsWith("/archive");
+  const target = onFun ? "/" : "/fun/";
+  const label = onFun ? "to main" : "to fun";
+  const arrow = onFun ? "←" : "→";
 
-  const bg = onCreative
+  const bg = onFun
     ? "rgb(11, 11, 15)"
     : "linear-gradient(135deg, #0ea5e9, #7c3aed 50%, #ec4899)";
 
@@ -36,7 +39,7 @@ export default function ModeToggle({ variant }: Props) {
       <button
         type="button"
         onClick={handleClick}
-        aria-label={`Switch to ${label} mode`}
+        aria-label={`Switch ${label}`}
         className="group flex items-center gap-3 rounded-full border border-[color:var(--border)] px-3 py-1.5 text-xs uppercase tracking-widest text-[color:var(--foreground)] hover:border-[color:var(--accent)] transition-colors"
       >
         <span className="cube-wrap" aria-hidden>

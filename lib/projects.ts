@@ -1,4 +1,12 @@
-export type Bucket = "pro" | "uni" | "essay" | "research" | "archive" | "vault";
+export type Bucket = "pro" | "fun" | "archive" | "vault";
+export type Category =
+  | "career"
+  | "assignments"
+  | "explainers"
+  | "visualizations"
+  | "essays"
+  | "research"
+  | "fun";
 
 export type Project = {
   id: string;
@@ -6,50 +14,72 @@ export type Project = {
   blurb: string;
   href: string;
   bucket: Bucket;
+  category?: Category;
   tags: string[];
   thumbnail?: string;
   external?: boolean;
 };
 
 export const projects: Project[] = [
+  // Pro — career-relevant work
+  {
+    id: "leafshift",
+    title: "Leafshift",
+    blurb:
+      "Co-founded AgriTech venture. We build AI models that optimize crop yield across fields — sensing, forecasting, in-field decisions. Open to research collaborations and company questions.",
+    href: "mailto:leafshiftsolutions@gmail.com",
+    bucket: "pro",
+    category: "career",
+    tags: ["Co-founder", "AgriTech", "AI", "Collaboration"],
+  },
+
+  // Fun — student, hobby, creative, university work
   {
     id: "agriai-dros",
-    title: "AgriAI + DROS",
+    title: "AgriAI · DROS prototype",
     blurb:
-      "Leafshift's flagship — precision-agriculture system paired with DROS (Digital Resilience and Optimization System) for in-field decision support.",
+      "Early prototype tying crop-sensing to a decision system. Hobby-stage — kept here as a thinking-out-loud page.",
     href: "/AgriAI-DROS/dros.html",
-    bucket: "pro",
-    tags: ["Leafshift", "AI", "Agriculture", "Systems"],
+    bucket: "fun",
+    category: "research",
+    tags: ["AI", "Agriculture", "Prototype"],
     thumbnail: "/AgriAI-DROS/Crops-Challenges.jpg",
+    external: true,
   },
   {
     id: "dros-research",
-    title: "DROS Research Paper",
+    title: "DROS — Resilience & Optimization Research",
     blurb:
-      "Architecture synthesis: Sparse MoE + selective state-space models + bio-inspired control. Core research backing the DROS system.",
+      "Hobby research draft: sparse MoE + selective state-spaces + bio-inspired control. Shared to trade notes with fellow students.",
     href: "/AgriAI-DROS-Paper-Research-Possib-Usefull/research.html",
-    bucket: "pro",
-    tags: ["Research", "ML", "State-Space", "MoE"],
+    bucket: "fun",
+    category: "research",
+    tags: ["ML", "State-Space", "MoE", "Research"],
     thumbnail: "/AgriAI-DROS-Paper-Research-Possib-Usefull/aerialAI.jpg",
+    external: true,
   },
   {
     id: "app-security-a2",
     title: "Application Security — C Exploits A2",
     blurb:
-      "Full assignment write-up covering buffer overflows, underflows, format-string attacks, and defensive strategies.",
+      "University assignment: buffer overflows, underflows, format-string attacks, defensive strategies.",
     href: "/Application Security - C Exploits Assignment 2A/assignment/1.html",
-    bucket: "pro",
-    tags: ["Security", "C", "Exploits", "Coursework"],
+    bucket: "fun",
+    category: "assignments",
+    tags: ["Security", "C", "Exploits"],
     thumbnail: "/Application Security - C Exploits Assignment 2A/SecurityA2.png",
+    external: true,
   },
   {
     id: "calc2-2nd-deriv",
-    title: "Calc II — 2nd Derivative Test (Partial Derivatives)",
+    title: "Calc II — 2nd Derivative Test",
     blurb:
       "Interactive visualiser for the multivariable 2nd-derivative test. Hessian, discriminant, critical-point classification.",
     href: "/Calc2-PartialDeriv-SecondDerivTest/Calculus2.html",
-    bucket: "uni",
-    tags: ["Math", "Calculus", "Visualizer"],
+    bucket: "fun",
+    category: "visualizations",
+    tags: ["Math", "Calculus"],
+    external: true,
   },
   {
     id: "mst-visual",
@@ -57,8 +87,10 @@ export const projects: Project[] = [
     blurb:
       "Step-through of Prim's and Kruskal's algorithms on an interactive graph.",
     href: "/Min-Span-Tree-Visual/mst_visualizer.html",
-    bucket: "uni",
-    tags: ["DSA", "Graph", "Visualizer"],
+    bucket: "fun",
+    category: "visualizations",
+    tags: ["DSA", "Graph"],
+    external: true,
   },
   {
     id: "least-squares",
@@ -66,18 +98,24 @@ export const projects: Project[] = [
     blurb:
       "Linear algebra visualiser for projection / rejection decomposition and least-squares fits.",
     href: "/visual 1/main.html",
-    bucket: "uni",
-    tags: ["LinAlg", "Visualizer"],
+    bucket: "fun",
+    category: "visualizations",
+    tags: ["LinAlg"],
+    external: true,
   },
   {
     id: "dst-aow",
-    title: "DST × AOW-Leeftijd — Systems Thinking × Politics",
+    title: "AOW-Leeftijd — Policy as a Dynamical System",
     blurb:
-      "Essay modelling the Dutch state-pension age as a dynamical system — feedback loops, equilibria, policy levers.",
+      "Essay modelling the Dutch state-pension age as a dynamical system. Feedback loops, equilibria, policy levers.",
     href: "/DST-AOW-Leeftijd/aow_dynamical_system_1_file_html_demo.html",
-    bucket: "essay",
+    bucket: "fun",
+    category: "essays",
     tags: ["Systems", "Politics", "Essay"],
+    external: true,
   },
+
+  // Archive — older coursework
   {
     id: "tfa-u",
     title: "TFA+U Explain",
@@ -85,6 +123,7 @@ export const projects: Project[] = [
     href: "/TFA U Explain/TFA_U.html",
     bucket: "archive",
     tags: ["CS", "Coursework"],
+    external: true,
   },
   {
     id: "itp-mock",
@@ -93,9 +132,10 @@ export const projects: Project[] = [
     href: "/ITP-Test/Digital test · Mock exam q2.html",
     bucket: "archive",
     tags: ["Coursework"],
+    external: true,
   },
 
-  // Vault — meme / nostalgia / secret
+  // Vault — secret
   {
     id: "electrolight",
     title: "Electrolight Sport",
@@ -103,6 +143,7 @@ export const projects: Project[] = [
     href: "/electrolight_sport/electrolight_sport.html",
     bucket: "vault",
     tags: ["Music", "Vibes"],
+    external: true,
   },
   {
     id: "stopspongeclock",
@@ -111,6 +152,7 @@ export const projects: Project[] = [
     href: "/stopspongeclock/spongeclock.html",
     bucket: "vault",
     tags: ["Nonsense"],
+    external: true,
   },
   {
     id: "sisi-incident",
@@ -119,6 +161,7 @@ export const projects: Project[] = [
     href: "/sisi_incident/sisi.html",
     bucket: "vault",
     tags: ["SiSi"],
+    external: true,
   },
   {
     id: "insane-sisi2",
@@ -127,6 +170,7 @@ export const projects: Project[] = [
     href: "/insane_sisi2/sisi2.html",
     bucket: "vault",
     tags: ["SiSi"],
+    external: true,
   },
   {
     id: "sisi-v3",
@@ -135,6 +179,7 @@ export const projects: Project[] = [
     href: "/sisi_update_v3/sisi3.html",
     bucket: "vault",
     tags: ["SiSi"],
+    external: true,
   },
   {
     id: "best-edits",
@@ -143,6 +188,7 @@ export const projects: Project[] = [
     href: "/best_edits/gallery.html",
     bucket: "vault",
     tags: ["Video"],
+    external: true,
   },
   {
     id: "legacy-flat",
@@ -151,12 +197,20 @@ export const projects: Project[] = [
     href: "/legacy/",
     bucket: "vault",
     tags: ["Archive"],
+    external: true,
   },
 ];
 
 export const proProjects = projects.filter((p) => p.bucket === "pro");
-export const uniProjects = projects.filter((p) => p.bucket === "uni");
-export const essayProjects = projects.filter((p) => p.bucket === "essay");
-export const researchProjects = projects.filter((p) => p.bucket === "research");
+export const funProjects = projects.filter((p) => p.bucket === "fun");
 export const archiveProjects = projects.filter((p) => p.bucket === "archive");
 export const vaultProjects = projects.filter((p) => p.bucket === "vault");
+
+export const FUN_CATEGORIES: { key: Category; label: string; description: string }[] = [
+  { key: "assignments", label: "Assignments", description: "University coursework write-ups." },
+  { key: "explainers", label: "Explainers", description: "Things I wrote out to understand." },
+  { key: "visualizations", label: "Visualizations", description: "Math + CS I turned into interactive tools." },
+  { key: "essays", label: "Essays", description: "Longer-form thinking — systems, policy, books." },
+  { key: "research", label: "Hobby research", description: "Working drafts I share with other students." },
+  { key: "fun", label: "Fun", description: "Art, experiments, misc." },
+];

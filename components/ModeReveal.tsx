@@ -23,8 +23,8 @@ export default function ModeReveal() {
     return () => window.clearTimeout(t);
   }, [pathname]);
 
-  const onCreative = pathname?.startsWith("/creative");
-  const bg = onCreative
+  const onFun = pathname?.startsWith("/fun") || pathname?.startsWith("/archive");
+  const bg = onFun
     ? "linear-gradient(135deg, #0ea5e9, #7c3aed 50%, #ec4899)"
     : "rgb(11, 11, 15)";
 
