@@ -98,7 +98,7 @@ export default function Home() {
                 ones. I like working on projects, collaborating, and trading
                 ideas. My goal in life is polymathy. I believe studying any field
                 is simply a case study for understanding the world at large. To understand
-                one field deeply is to gain a lens through which all other fields become clearer."
+                one field deeply is to gain a lens through which all other fields become clearer.&quot;
               </p>
 
               <div className="mt-10 flex flex-wrap items-center gap-4">
