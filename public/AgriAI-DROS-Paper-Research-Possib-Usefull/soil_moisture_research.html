@@ -856,88 +856,132 @@
         </ol>
 
         <div class="qa-section" id="internal-qa">
-            <h2>10. Appendix: Internal Strategic Q&A</h2>
-            <p><em>Addressed from recent founder alignment discussions regarding cloud costs, installation logistics, IP strategy, and operating cadence.</em></p>
+            <h2>10. Appendix: Information questions answered</h2>
+            <p><em>Based on questions my buddy Gijs asked:</em></p>
 
             <div class="qa-block">
-                <div class="qa-q">Do we need to budget heavily for GPU costs, especially as we scale?</div>
+                <div class="qa-q" style="display: block;">
+                    <p style="margin-top:0;"><strong>[06:36, 4/30/2026] Gijs (mens):</strong> dus geen gpu kosten rekenen?</p>
+                    <p style="margin-bottom:0;"><strong>[07:07, 4/30/2026] Gijs (mens):</strong> ook niet als we gaan scalen</p>
+                </div>
                 <div class="qa-a">
                     <div class="qa-a-content">
-                        <p>Yes and no, but overall it is a negligible cost per customer. The architecture relies on a <strong>Foundation model + per-farm fine-tuning</strong>. We train one large base model on aggregated data to capture universal soil/crop physics (this happens infrequently). Then, for each specific farm, we only fine-tune the last few layers—fitting a thin "adapter" or LoRA-style low-rank update to capture the local soil bias. This per-farm tuning takes 1–5 minutes on a standard CPU.</p>
-                        <p><strong>Financial Plan Budgeting (3 Line Items):</strong></p>
+                        <p><strong>My ans:</strong> Ja en nee. Ik train 'een basis model' thuis, dit is gratis. En dan voor elke farm fine-tunen we op basis van hun data, het is het meest scalable als we dat ik gehuurde GPU's doen.<br>
+                        Het trainen gaat voor nu prima op mijn gpu.</p>
+
+                        <p>Foundation model + per-farm fine-tuning: Train one large base model on aggregated data across all customers, capturing universal soil/crop physics. Then per farm you only fine-tune the last few layers, or fit a thin "adapter" — a small per-farm polynomial correction or LoRA-style low-rank update — that captures the soil-specific bias. This is much cheaper per farm at scale because the expensive part (the base model) is trained once. Base model retrain = a few hundred GPU-hours twice a year. Per-farm adapter = 1–5 minutes on CPU. At 10,000 farms this is still under €1k/month total.</p>
+
+                        <p>Dat is trainen van de AI, het dure gedeelte.</p>
+
+                        <p>dat is eenmalig. De AI zelf runt gewoon op een aardappel dan. Dat kan op de edge computer van de farm, of we kunnen een LeafShift server maken. Ik stel beide voor als een optie.</p>
+
+                        <p>Hier de kosten per klant, per 1000 klanten + ik hou rekening met data protection laws van EU volledig hier. Ik ga hier uit van dat niemand een eigen edge computer, en alle Inference compute (CPU cloud) op onze kosten moeten zijn, maar die kosten zijn werkelijk niks dus mnu.</p>
+
+                        <p>What to actually budget in the financial plan. Three line items:</p>
                         <ul>
-                            <li><strong>Training compute (cloud GPU):</strong> €100–300/month in years 1–2; scaling to €2k–5k/month at 10,000 customers. We will use spot cloud instances (RunPod, Lambda Labs, AWS) instead of buying hardware.</li>
-                            <li><strong>Inference compute (CPU cloud):</strong> €50–500/month scaling with customers. Very cheap.</li>
-                            <li><strong>Data storage + hosting:</strong> €100–500/month early, €1k–3k/month at scale (Postgres + time-series DB).</li>
+                            <li>Training compute (cloud GPU): €100–300/month in years 1–2; €500–1,500/month at 1,000+ customers; €2k–5k/month at 10k customers. Use cloud (RunPod, Lambda Labs, Vast.ai for cheap; AWS/GCP for production) — never buy a GPU, the depreciation, electricity, and idle time make it 3–5× more expensive than spot cloud over 24 months.</li>
+                            <li>Inference compute (CPU cloud): €50–500/month scaling with customers. Tiny.</li>
+                            <li>Data storage + dashboard hosting: €100–500/month early, €1k–3k/month at scale (Postgres + time-series DB like InfluxDB or TimescaleDB + a frontend host).</li>
                         </ul>
-                        <p><em>Data Compliance Note:</em> To comply with the EU Data Act, GDPR, and the German farmer-data sovereignty expectations, all hosting must be on EU infrastructure (e.g., AWS Frankfurt, Hetzner). This adds a ~10-20% premium but is non-negotiable.</p>
+
+                        <blockquote style="border-left: 4px solid var(--brand-accent); padding-left: 15px; margin-left: 0; background-color: #f8fafc; padding: 10px 15px;">
+                            <p>Total ML/cloud opex at 1,000 customers: ~€1,000–3,000/month, or ~€1–3 per customer per month. That's a rounding error against per-customer ARR which will be in the hundreds to thousands of euros. So Gijs's intuition that this might be a big cost is understandable from the LLM headlines, but for tabular/time-series ML it really is negligible.</p>
+                            <p>On data protection: you're right that this matters but it's not really a GPU question. EU Data Act + GDPR + AI Act + the German farmer-data sovereignty expectations from the GTAI fact sheet mean you should host on EU infrastructure (AWS Frankfurt, Hetzner, OVH, Scaleway, or a German provider). That adds ~10–20 % to compute cost vs. the cheapest US options but is non-negotiable for the German market. Build it in from day one.</p>
+                        </blockquote>
                     </div>
                 </div>
             </div>
 
             <div class="qa-block">
-                <div class="qa-q">What exactly is the difference between "Retrofit" and "Greenfield" deployments?</div>
+                <div class="qa-q" style="display: block;">
+                    <p style="margin:0;"><strong>[10:35, 4/30/2026] Gijs (mens):</strong> wat bedoel je met retrofit en greenfield?</p>
+                </div>
                 <div class="qa-a">
                     <div class="qa-a-content">
-                        <p><strong>Greenfield</strong> means the farm has zero existing smart infrastructure. We arrive at empty soil and install our sensors, gateways, and dashboard. We sell hardware + software + install labor. This results in the highest deal value, but highest install cost and slowest deployment.</p>
-                        <p><strong>Retrofit / Integrate</strong> means the farm already has sensors or climate computers (e.g., Priva, Sentek, CropX), but they lack intelligent decision-making. LeafShift plugs in via API, ingests their data, and adds our AI decision layer on top. We sell mostly SaaS software and integration work. This has a lower total deal value, but a much higher gross margin and a faster sales cycle.</p>
+                        <p><strong>my ans:</strong> Quick definitions:</p>
+                        <blockquote style="border-left: 4px solid var(--brand-accent); padding-left: 15px; margin-left: 0; background-color: #f8fafc; padding: 10px 15px;">
+                            <p>Greenfield = the farm has no existing sensor or automation infrastructure relevant to LeafShift. You arrive with empty soil, install LeafShift sensors, LeafShift gateway, LeafShift dashboard. You sell hardware + software + install. Highest deal value, highest install cost, slowest to deploy.</p>
+                            <p>Retrofit / integrate = the farm already has sensors or a climate computer or a weather station from someone else (Priva, Sentek, Pessl METOS, CropX, etc.), but those sensors aren't doing intelligent decision-making. LeafShift plugs in via API, ingests the existing data, and adds the AI/decision layer on top. You sell mostly software + integration work, sometimes a few extra sensors to fill gaps. Lower deal value, much higher gross margin (it's mostly SaaS), faster sales cycle.</p>
+                            <p>AI-compatible already = a sub-case of retrofit where the existing sensors are already research-grade and properly outputting quantitative VWC data via an open API. Almost pure SaaS deal, very few of these in either market.</p>
+                        </blockquote>
+                        <p>The strategic point: greenfield deals are bigger but heavier; retrofit deals are smaller but more profitable per euro of effort. Your segment mix in years 1–2 will be ~80 % greenfield (so hardware revenue dominates), and as you mature into UAE high-tech greenhouses and German horticulture the retrofit share grows (so SaaS margin improves).</p>
                     </div>
                 </div>
             </div>
 
             <div class="qa-block">
-                <div class="qa-q">Should we outsource the physical installation of the hardware?</div>
+                <div class="qa-q" style="display: block;">
+                    <p style="margin-top:0;"><strong>[10:37, 4/30/2026] Gijs (mens):</strong> en wil je installation outsourcen?</p>
+                    <p style="margin-bottom:0;"><strong>[10:37, 4/30/2026] Gijs (mens):</strong> Install labor: 1–2 hours per station (auger borehole + sensor placement + node mounting + commissioning) at €50–100/hr fully loaded → €60–200 per station. Sentek Drill & Drop is faster (slot-and-drop, no slurry) than horizontal-trench installs.</p>
+                </div>
                 <div class="qa-a">
                     <div class="qa-a-content">
-                        <p>We will execute this in a strict three-phase approach:</p>
+                        <p><strong>my ans:</strong> Ik zou zeggen voor de eerste 10 klanten doen we het zelf (PHASE 1), want we moeten zelf iets van training opzetten en instructies voor installatie dus we moeten het zelf hebben gedaan om het goed te begrijpen. Ook door dit:</p>
+                        <blockquote style="border-left: 4px solid var(--brand-accent); padding-left: 15px; margin-left: 0; background-color: #f8fafc; padding: 10px 15px;">
+                            <p>You cannot debug an AI system that takes data from sensors you've never personally placed in the ground. You will learn calibration, soil contact, cable routing, gateway placement, and what breaks. This is irreplaceable founder knowledge.</p>
+                            <p>The unit economics don't matter yet — the goal is reference customers, not gross margin.</p>
+                            <p>You are studying data science full-time. You can afford the time on weekends and during fieldwork sprints; you cannot afford a €5k installer bill on a €15k pilot deal.</p>
+                        </blockquote>
+                        <p>Dan als dat goed gaat: PHASE 2: Hire one or two field technicians, or use freelancers per region. Don't outsource yet to a third-party installer company because they'll do it badly and your customers will blame LeafShift. Dus het is de extra kost waar, als het krap is met kosten: student freelancers! wij kennen genoeg,.</p>
+                        <p>Dan als dat lekker loopt en we hebben goede instructies en alles en +75 klanten: PHASE 3: Now outsource selectively. Partner with irrigation installers (Beregnungsverbände, drip-irrigation contractors, Netafim/Lindsay dealers) and <em>certify them on LeafShift install procedure.</em> They already visit the farms, they already have the auger and the trucks. You pay them €100–250 per station as a per-job fee. This is when the €50–100/hr "fully loaded" number from the memo becomes real — that's the cost of an external technician with truck, tools, insurance, and overhead, not your own time.</p>
+                        <blockquote style="border-left: 4px solid var(--brand-accent); padding-left: 15px; margin-left: 0; background-color: #f8fafc; padding: 10px 15px;">
+                            <p>What Gijs should put in the model: in PHASE 1–2, install cost is founder/employee labor, capitalized into customer acquisition cost, ~€80–150 per station. In PHASE 3+, install cost is outsourced at €150–250 per station, but at higher volume and so total install cost per hectare per customer drops because you've also moved to faster install methods (Sentek Drill & Drop slot-and-drop, pre-built telemetry boxes).</p>
+                            <p>Important nuance: the install economics are dramatically better with Sentek Drill & Drop than with horizontal-trench installs (where you dig a trench, lay sensors at multiple depths, backfill with native soil slurry, and wait a week for the soil to re-settle). Drill & Drop = drill one vertical hole, push the probe in, done in 30 minutes. Horizontal trench = 2–4 hours per station. This is a real lever — the choice of probe affects your installation cost structure as much as the sensor accuracy does.</p>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-block">
+                <div class="qa-q" style="display: block;">
+                    <p style="margin-top:0;"><strong>[10:42, 4/30/2026] Gijs (mens):</strong> bestaat de sensor samenstelling die we bouwen al? zo nee evt patent?</p>
+                    <p style="margin-bottom:0;"><strong>[10:44, 4/30/2026] Gijs (mens):</strong> of trade secret houden zodat ze niet kunnen imiteren</p>
+                </div>
+                <div class="qa-a">
+                    <div class="qa-a-content">
+                        <p><strong>my answer:</strong> Ik heb hier research over gedaan en samenvatting gemaakt met ai:</p>
+                        <p>The question is essentially: Does the combination of sensor + LoRaWAN node + AI architecture + calibration method that LeafShift is selling already exist as a commercial product? If not, can it be patented? If not patentable, should it be a trade secret?<br>
+                        The honest IP landscape:</p>
                         <ul>
-                            <li><strong>Phase 1 (First 10 Customers): DIY.</strong> We do it ourselves. You cannot debug an AI system if you don't understand how the sensors were placed. We need this hands-on time to learn calibration, soil contact, cable routing, and gateway placement to write the training manuals. Founder time is capitalized; we cannot afford a €5k external installer bill on a €15k pilot.</li>
-                            <li><strong>Phase 2 (Scaling Initial Base): Freelancers.</strong> Hire agricultural student freelancers or dedicated field technicians to handle the labor using our newly drafted instructions.</li>
-                            <li><strong>Phase 3 (75+ Customers): Selective Outsourcing.</strong> Partner with existing irrigation installers (Beregnungsverbände, Netafim dealers) and certify them on LeafShift. We pay them a per-job fee (€150–250 per station).</li>
+                            <li>The sensor itself (e.g., SMT50, TEROS 12, Sentek Drill & Drop) — already exists, made by Truebner, METER, Sentek. You're buying these off the shelf. Zero IP for LeafShift here.</li>
+                            <li>The LoRaWAN node design (ESP32 + RFM95 + battery + enclosure) — open-source reference designs everywhere. Zero IP.</li>
+                            <li>The combination of "soil moisture sensors + LoRaWAN + LSTM + ETo for irrigation" — already published in dozens of academic papers (the Sasime/Stojanova et al. paper you referenced is one of them). Not patentable because it's prior art.</li>
+                            <li>What might be patentable / defensible IP:</li>
                         </ul>
-                        <p><em>Nuance:</em> Hardware choice matters here. A Sentek Drill & Drop takes 30 minutes to install. A horizontal trench install takes 2–4 hours. Fast hardware drastically improves install economics.</p>
-                    </div>
-                </div>
-            </div>
+                        <blockquote style="border-left: 4px solid var(--brand-accent); padding-left: 15px; margin-left: 0; background-color: #f8fafc; padding: 10px 15px;">
+                            <p>A specific algorithm that auto-calibrates sensors using post-hoc Bayesian drift detection from yield/weather data — if this is novel and non-obvious, it's patentable. Probably worth filing if you can write it up.</p>
+                            <p>A foundation model + per-farm adapter architecture for irrigation that handles cross-soil generalization (the "base model + polynomial fit" idea). If implemented in a specific novel way, this could be patentable.</p>
+                            <p>A specific multi-sensor-fusion method for detecting compromised/drifted sensors and weighting them — useful and likely novel for this domain.</p>
+                            <p>Plant-stress trajectory tracking with a specific RDI control law for vineyards/dates — if your method is genuinely different from Stojanova/Allen/etc., maybe patentable.</p>
+                        </blockquote>
+                        <p>The brand and customer relationship and data — these are your real moat, not patents.</p>
 
-            <div class="qa-block">
-                <div class="qa-q">Does our specific sensor combination already exist? Should we patent it or keep it a trade secret?</div>
-                <div class="qa-a">
-                    <div class="qa-a-content">
-                        <p>The hardware components (Sensors, LoRaWAN nodes) are off-the-shelf, and the basic combination of "soil moisture + IoT + ML" is heavily published prior art. We cannot patent the basic concept.</p>
-                        <p>However, specific novel algorithms (like auto-calibrating sensors using post-hoc Bayesian drift detection, or specific multi-sensor fusion weighting) <em>might</em> be patentable later. For now, a pre-revenue startup should not misallocate €15k–30k on EU patents without the budget to enforce them.</p>
+                        <p><em>!! Kijk naar de tabel in de foto !!</em></p>
                         <div class="figure-container" style="margin: 20px 0; padding: 20px;">
-                            <h3 style="margin-top: 0; font-size: 1.05rem;">IP Strategy Matrix: Patent vs. Trade Secret</h3>
-                            <img src="tradesecret_vs_patent.jpg" alt="Table comparing Patents vs Trade Secrets for Startups" style="margin-bottom: 10px;">
+                            <img src="tradesecret_vs_patent.jpg" alt="Patent vs. Trade Secret Comparison Table" style="max-width: 100%; height: auto; border: 1px solid #cbd5e1; border-radius: 4px;">
                         </div>
-                        <p><strong>Recommendation:</strong> Rely on Trade Secrets. Ensure strict NDAs and IP-assignments for all team members. Keep our training pipelines private. Our true defensible moat is <strong>Data + Customer Relationships + Iteration Speed</strong>. Every customer provides calibrated training data that no competitor has.</p>
+
+                        <p>My honest recommendation for LeafShift at the stage:</p>
+                        <blockquote style="border-left: 4px solid var(--brand-accent); padding-left: 15px; margin-left: 0; background-color: #f8fafc; padding: 10px 15px;">
+                            <p>Don't file patents now. A pre-revenue startup spending €15–30k on EU patent filings is misallocating capital. Patents only matter when (a) you have something genuinely novel to defend, and (b) you have the legal budget to enforce them. You are not there yet.</p>
+                            <p>Treat the AI architecture, training pipeline, calibration method, and customer data as trade secrets. Make sure all team members and contractors sign NDAs and IP-assignment agreements. Don't publish your training code on a public GitHub. Keep architectural details out of marketing materials.</p>
+                            <p>File a provisional patent if and when you discover a genuinely novel algorithm. This costs €1–3k and gives you 12 months of priority before deciding to convert it into a full patent. Smart hedge.</p>
+                            <p>Your real defensibility is data + customer relationships + the speed of your iteration. Every customer that runs LeafShift for a year produces calibrated training data that no competitor has. That data is your moat. Make sure the customer contracts give LeafShift the right to train on aggregated/anonymized data — this is a clause in your sales contract, not a patent.</p>
+                        </blockquote>
                     </div>
                 </div>
             </div>
 
             <div class="qa-block">
-                <div class="qa-q">What about the USA market? It wasn't in the memo.</div>
-                <div class="qa-a">
-                    <div class="qa-a-content">
-                        <p>Correct. The USA was deliberately excluded from this specific market-sizing exercise to maintain focus on our immediate Phase 1 targets: Germany (DE) and the Gulf (GCC). The US market requires its own dedicated TAM analysis, regulatory review, and capex breakdown, which will be addressed in a subsequent phase.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="qa-block">
-                <div class="qa-q">What is our operational cadence moving forward?</div>
-                <div class="qa-a">
-                    <div class="qa-a-content">
-                        <p>From Day 1, we operate with the discipline of a mature company. We are reinstating strict weekly alignment calls. The operating cadence is as follows:</p>
-                        <div class="cadence-box">
-                            <ul>
-                                <li><strong>Weekly:</strong> Founder sync (priorities, blockers), engineering review, and risk review.</li>
-                                <li><strong>Monthly:</strong> Product review, pilot/deployment status review, and drafting the investor update.</li>
-                                <li><strong>Quarterly:</strong> OKRs, roadmap resets, hiring gates, and security reviews.</li>
-                            </ul>
-                            <p style="margin-top: 10px; font-weight: bold; color: var(--brand-primary);">Golden Rule: "No quality debt that threatens autonomy and safety."</p>
-                        </div>
-                    </div>
+                <div class="qa-q" style="display: block;">
+                    <p style="margin-top:0;"><strong>[10:56, 4/30/2026] Gijs (mens):</strong> en je bent usa vergeten</p>
+                    <p><strong>[13:15, 4/30/2026] Gijs (mens):</strong> Organization & operating cadence (how you run the company)<br>
+                    From day 1 you operate like a real company, even with 2 founders:<br>
+                    Weekly: Founder sync (priorities, blockers), engineering review, risk review<br><br>
+                    Monthly: Product review + pilot/deployment review + investor update draft<br><br>
+                    Quarterly: OKRs + roadmap reset + hiring gate + security review<br><br>
+                    Always: “No quality debt that threatens autonomy and safety”</p>
+                    <p style="margin-bottom:0;"><strong>[13:16, 4/30/2026] Gijs (mens):</strong> we moeten echt weer wekelijkse calls/voicememo's gaan doen met updates</p>
                 </div>
             </div>
         </div>
