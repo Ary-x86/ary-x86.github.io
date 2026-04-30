@@ -47,10 +47,22 @@ export const projects: Project[] = [
     external: true,
   },
   {
+    id: "soil=market-farm-cluster-research",
+    title: "DROS — LeafShift Market-Sizing Farm Clustering Soil Moisture Sensor Research",
+    blurb:
+      "Hobby research draft: document answers three core operational questions across various agricultural segments in Germany and the GCC: exactly how many sensors are needed per hectare, what the total installed hardware cost per hectare will be, and what percentage of farms will need brand new equipment (greenfield) versus just a software integration. Shared to trade notes with fellow students.",
+    href: "/AgriAI-DROS-Paper-Research-Possib-Usefull/soil_moisture_research.html",
+    bucket: "fun",
+    category: "research",
+    tags: ["ML", "Agriculture", "Soil Moisture", "Research"],
+    thumbnail: "/AgriAI-DROS-Paper-Research-Possib-Usefull/soil-sensor.webp",
+    external: true,
+  },
+  {
     id: "dros-research",
     title: "DROS — Resilience & Optimization Research",
     blurb:
-      "Hobby research draft: sparse MoE + selective state-spaces + bio-inspired control. Shared to trade notes with fellow students.",
+    "Hobby research draft: sparse MoE + selective state-spaces + bio-inspired control. Shared to trade notes with fellow students.",
     href: "/AgriAI-DROS-Paper-Research-Possib-Usefull/research.html",
     bucket: "fun",
     category: "research",
@@ -68,6 +80,18 @@ export const projects: Project[] = [
     category: "assignments",
     tags: ["Security", "C", "Exploits"],
     thumbnail: "/Application Security - C Exploits Assignment 2A/SecurityA2.png",
+    external: true,
+  },
+  {
+    id: "app-ML-a3",
+    title: "Machine Learning A3 Questions",
+    blurb:
+    "University assignment: clustering.",
+    href: "/ML_A3_Leiden/1.html",
+    bucket: "fun",
+    category: "assignments",
+    tags: ["Machine Learning", "Clustering", "ML"],
+    thumbnail: "/ML_A3_Leiden/clustering.jpg",
     external: true,
   },
   {

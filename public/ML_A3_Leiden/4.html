@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>A3 Report · Task 4</title>
+  <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --acc:#7c3aed;--acc2:#6d28d9;--acc-l:#ede9fe;--acc-g:rgba(124,58,237,.2);
+  --navy:#0d1117;--navy2:#161b27;--navy3:#1e2535;
+  --bg:#e8ebf0;--card:#ffffff;
+  --border:#d1d5db;--border2:#c0c4d0;
+  --text:#111827;--muted:#6b7280;
+  --code-bg:#1a1b26;--code-fg:#c0caf5;
+  --ans-strip:#6d28d9;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",sans-serif;
+  font-size:15px;background:var(--bg);color:var(--text);
+  min-height:100vh;display:flex;flex-direction:column;}
+.topnav{position:sticky;top:0;z-index:300;background:var(--navy);
+  border-bottom:2px solid var(--acc);display:flex;align-items:center;
+  padding:0 16px;height:48px;gap:10px;box-shadow:0 2px 16px rgba(0,0,0,.45);}
+.back-btn{display:flex;align-items:center;gap:5px;color:#8b949e;
+  text-decoration:none;font-size:12.5px;padding:4px 10px;border-radius:6px;
+  border:1px solid #30363d;transition:color .15s,border-color .15s,background .15s;flex-shrink:0;}
+.back-btn:hover{color:#fff;border-color:var(--acc);background:rgba(124,58,237,.15)}
+.breadcrumb{color:#5c6470;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.breadcrumb b{color:#8b949e}
+.site-title{flex:1;text-align:center;color:var(--acc);font-size:15px;font-weight:700;
+  letter-spacing:.4px;text-shadow:0 0 24px var(--acc-g)}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.nav-date{color:#4b5563;font-size:11.5px}
+.page-body{display:flex;flex:1;max-width:1400px;width:100%;margin:0 auto;
+  padding:0 0 100px;gap:0;justify-content:center;}
+.left-col{width:220px;flex-shrink:0;padding-top:30px;
+  display:flex;flex-direction:column;align-items:center;}
+@media(max-width:1100px){.left-col{display:none}}
+.avatar-float{position:sticky;top:45vh;display:flex;flex-direction:column;
+  align-items:center;gap:5px;animation:float-bob 4s ease-in-out infinite;cursor:pointer;}
+@keyframes float-bob{0%,100%{transform:translateY(0px) rotate(-1.5deg)}
+  50%{transform:translateY(-12px) rotate(1.5deg)}}
+.avatar-ring{position:relative;display:flex;flex-direction:column;align-items:center}
+.avatar-img{width:76px;height:76px;border-radius:50%;object-fit:cover;
+  border:2.5px solid #2a3050;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s,border-color .3s;}
+.avatar-float:hover .avatar-img{transform:scale(1.5);
+  box-shadow:0 0 0 4px var(--acc-g),0 6px 24px rgba(0,0,0,.5);border-color:var(--acc);}
+.avatar-lbl{font-size:10px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;
+  color:#6b7280;margin-top:4px;transition:transform 0.3s cubic-bezier(.34,1.56,.64,1);}
+.avatar-float:hover .avatar-lbl{transform:translateY(22px);}
+.avatar-bubble{position:absolute;bottom:calc(100% + 14px);left:50%;
+  transform:translateX(-50%) translateY(6px);width:260px;
+  background:var(--navy2);border:1px solid #2a3050;border-radius:12px;
+  padding:11px 14px;font-size:12px;color:#c9d1d9;line-height:1.6;
+  pointer-events:none;opacity:0;transition:opacity .22s,transform .22s;
+  box-shadow:0 8px 24px rgba(0,0,0,.55);z-index:400;text-align:left;}
+.avatar-bubble::after{content:'';position:absolute;top:100%;left:50%;
+  transform:translateX(-50%);border:7px solid transparent;border-top-color:#2a3050;}
+.avatar-float:hover .avatar-bubble{opacity:1;transform:translateX(-50%) translateY(0);}
+.main-col{flex:1;min-width:0;max-width:900px;padding:26px 30px 0;animation:fadeIn .3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.level-heading{font-size:20px;font-weight:800;color:var(--text);margin-bottom:18px;
+  display:flex;align-items:center;gap:10px;}
+.level-heading::before{content:'';display:block;width:4px;height:26px;
+  background:linear-gradient(180deg,var(--acc),var(--acc2));border-radius:2px;flex-shrink:0;}
+.question-card{background:var(--card);border:1px solid var(--border);border-radius:14px;
+  overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.1),0 1px 4px rgba(0,0,0,.06);
+  margin-bottom:28px;}
+.question-prompt{padding:20px 22px 16px;display:flex;gap:14px;align-items:flex-start;
+  border-bottom:1px solid var(--border);}
+.q-number{font-weight:800;font-size:13px;color:#fff;min-width:26px;height:26px;
+  background:var(--acc);border-radius:7px;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;}
+.question-text{flex:1;line-height:1.72;color:#2d2d4a;font-size:14.5px}
+.question-text p,.question-text li{margin-bottom:5px}
+.question-text ul{padding-left:20px;margin-bottom:5px}
+.question-text strong{font-weight:700}
+.answer-header{padding:11px 22px 10px;background:var(--ans-strip);
+  display:flex;align-items:center;gap:9px;}
+.answer-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.5);flex-shrink:0;}
+.answer-lbl{font-size:10.5px;font-weight:800;letter-spacing:1.2px;
+  text-transform:uppercase;color:#fff;}
+.answer-body{padding:20px 22px 24px;line-height:1.8;color:#111827;font-size:14.5px;}
+.answer-body p,.answer-body div{margin-bottom:10px}
+.answer-body img{max-width:100%;height:auto;border-radius:8px;display:block;
+  margin:14px 0;box-shadow:0 4px 18px rgba(0,0,0,.15);border:1px solid var(--border);}
+.answer-body strong{font-weight:700}
+.answer-body em{font-style:italic}
+.answer-body code{background:rgba(124,58,237,.1);color:#5b21b6;padding:1px 5px;
+  border-radius:4px;font-family:"Fira Code","Consolas",monospace;font-size:13px;}
+.answer-body ul,.answer-body ol{padding-left:22px;margin-bottom:10px}
+.answer-body li{margin-bottom:4px}
+.answer-body h4{font-size:15px;font-weight:700;color:#111827;margin:14px 0 6px;}
+pre.code-block{font-family:"Fira Code","Cascadia Code","Consolas",monospace;
+  font-size:12.5px;background:var(--code-bg);color:var(--code-fg);
+  padding:14px 18px;border-radius:10px;margin:12px 0;
+  line-height:1.65;overflow-x:auto;white-space:pre;
+  border:1px solid #2a2f42;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 3px 12px rgba(0,0,0,.3);}
+pre.code-block::before{content:attr(data-lang);display:block;font-size:10px;
+  letter-spacing:.8px;text-transform:uppercase;color:#565f89;margin-bottom:8px;
+  font-style:normal;font-family:sans-serif;}
+.kw{color:#bb9af7}.fn{color:#7dcfff}.str{color:#9ece6a}
+.num{color:#ff9e64}.cmt{color:#565f89;font-style:italic}.ty{color:#2ac3de}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;}
+th{background:var(--navy3);color:#c4b5fd;font-weight:700;padding:9px 14px;
+  text-align:left;font-size:13px;}
+td{padding:8px 14px;border-bottom:1px solid #e5e7eb;color:#374151;}
+tr:nth-child(even) td{background:#f9fafb}
+tr.highlight td{background:#ede9fe;font-weight:600;color:#5b21b6}
+.score-table th{background:#1e2535;color:#a5b4fc}
+.bottomnav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.97);
+  backdrop-filter:blur(12px);border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;gap:4px;
+  padding:8px 14px;box-shadow:0 -4px 20px rgba(0,0,0,.08);z-index:200;}
+.page-btn{display:inline-flex;align-items:center;justify-content:center;
+  width:33px;height:33px;border-radius:8px;font-size:13px;font-weight:500;
+  text-decoration:none;color:#374151;background:#eeeae2;border:1px solid #dcd8d0;
+  transition:background .14s,color .14s,transform .1s,box-shadow .14s;}
+.page-btn:hover:not(.active):not(.disabled){background:#e2ddd5;transform:translateY(-2px);
+  box-shadow:0 3px 8px rgba(0,0,0,.1);}
+.page-btn.active{background:var(--acc);color:#fff;border-color:var(--acc2);
+  font-weight:700;box-shadow:0 2px 10px var(--acc-g);transform:translateY(-1px);}
+.page-btn.disabled{color:#d1d5db;background:#f9f9f9;cursor:default;pointer-events:none}
+.arrow-btn{display:inline-flex;align-items:center;justify-content:center;
+  width:33px;height:33px;border-radius:8px;background:#eeeae2;border:1px solid #dcd8d0;
+  color:#374151;text-decoration:none;font-size:15px;margin:0 4px;
+  transition:background .14s,transform .1s,box-shadow .14s;}
+.arrow-btn:hover{background:#e2ddd5;transform:translateY(-2px);
+  box-shadow:0 3px 8px rgba(0,0,0,.1);}
+.arrow-btn.disabled{color:#d1d5db;pointer-events:none;background:#f9f9f9}
+@media(max-width:900px){.main-col{padding:16px 12px 0;min-width:0}}
+</style>
+</head>
+<body>
+<header class="topnav">
+  <a href="https://ary-x86.github.io/" class="back-btn">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+      <path d="M7.5 2L3.5 6L7.5 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>Home
+  </a>
+  <span class="breadcrumb"><b>Assignment 3</b> › ML Course › Clustering &amp; PCA</span>
+  <span class="site-title">A3 Report</span>
+  <span class="nav-right"><span class="nav-date">Apr 2026</span></span>
+</header>
+<div class="page-body">
+  <div class="left-col">
+    <div class="avatar-float">
+      <div class="avatar-ring">
+        <img class="avatar-img" src="data:image/webp;base64,UklGRhoBAABXRUJQVlA4IA4BAABQBwCdASowADAAPlEgjkQjoiGXHAWYOAUEsYBevLOebwGQI5UMK+/8k/ldUq0JUWMcqHgW+Z3dHZaQCgYe7Z9kvhQAAP78sW3/0KJ1/b2crZgULZdyLwr6eNyP3CqcrdhcyuxAOEeznWX6MMJiymGfD1WhdBBaOWVAvFnhgrN3+CXabh0Mc8gZDss6/gDidS1u/nlb1hhPdjLWSXNSZCE87aGshENiDkyx7WXidUe8FOJX7l59Mp0lyTzVcmrOS4reO7mvSOif0oZKPfoIPnSzCevUdmdLxx0VB7zRkg+2lmrTCfmEfFOwEEpNCslKMAqTYIAUA/BpIH5+pbPN0ZCtA85H2qCAEXJN5HPWQAA=" alt="Aryan">
+        <div class="avatar-bubble">Inertia always shrinks with more k. Elbow = rate of decrease breaks. Beyond true k = splitting real clusters, not finding new ones.</div>
+      </div>
+      <span class="avatar-lbl">Aryan</span>
+    </div>
+  </div>
+  <main class="main-col">
+    <h3 class="level-heading">Task 4 — Elbow Method</h3>
+    <div class="question-card">
+  <div class="question-prompt">
+    <span class="q-number">4</span>
+    <div class="question-text">
+<p>Use the elbow method to discover the most likely value of k used to generate datasets 4a and 4b. You can use KMeans, KMedoids, or both.</p>
+<ul>
+  <li>Figures of the elbow plots you generated.</li>
+  <li>A table with the k-values you think were used to generate each dataset.</li>
+  <li>Explanation why you chose those values.</li>
+</ul>
+<p>Notice these datasets are not 2D anymore — the elbow method is especially useful when you can't directly visualise the data.</p>
+</div>
+  </div>
+  <div class="answer-header">
+    <span class="answer-dot"></span>
+    <span class="answer-lbl">Answer</span>
+  </div>
+  <div class="answer-body">
+<h4>Code</h4>
+<pre class="code-block" data-lang="python">k_range = range(1, 11)
+fig, (ax_4a, ax_4b) = plt.subplots(1, 2, figsize=(14, 5))
+
+for ax, (name, fname) in zip([ax_4a, ax_4b],
+                              [(&#x27;4a&#x27;,&#x27;dataset-task-4a.csv&#x27;),(&#x27;4b&#x27;,&#x27;dataset-task-4b.csv&#x27;)]):
+    X_e = pd.read_csv(fname).values
+    inertias = [KMeans(n_clusters=k, random_state=42, n_init=10).fit(X_e).inertia_
+                for k in k_range]
+    ax.plot(list(k_range), inertias, &#x27;bo-&#x27;, markersize=8)
+    ax.set_xlabel(&#x27;k&#x27;);  ax.set_ylabel(&#x27;Inertia&#x27;);  ax.set_title(f&#x27;Dataset {name}: Elbow&#x27;)
+    ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+
+ax_4a.axvline(x=3, color=&#x27;red&#x27;, linestyle=&#x27;--&#x27;, label=&#x27;Elbow k=3&#x27;);  ax_4a.legend()
+ax_4b.axvline(x=6, color=&#x27;red&#x27;, linestyle=&#x27;--&#x27;, label=&#x27;Elbow k=6&#x27;);  ax_4b.legend()
+plt.tight_layout();  plt.show()</pre>
+<h4>How the elbow method works</h4>
+<p><strong>Inertia</strong> = sum of squared distances from each point to its assigned centroid. As k increases, inertia always decreases (more clusters = smaller groups = closer to centroid). If a "true" k clusters exist, the rate of decrease is steep before that k and flattens after it — because beyond the true k we are splitting real clusters, gaining little quality improvement. The "elbow" = the point of steepest curvature = the natural k.</p>
+<h4>Result</h4>
+<img src="task4_elbow.png" alt="Task 4 elbow plots">
+<h4>Inertia values</h4>
+<table>
+  <tr><th>k</th><th>Dataset 4a inertia</th><th>Dataset 4b inertia</th></tr>
+  <tr><td>1</td><td>5900</td><td>73 062</td></tr>
+  <tr><td>2</td><td>1778</td><td>31 452</td></tr>
+  <tr class="highlight"><td>3</td><td>428 ← elbow</td><td>20 063</td></tr>
+  <tr><td>4</td><td>290</td><td>10 551</td></tr>
+  <tr><td>5</td><td>217</td><td>4 565</td></tr>
+  <tr class="highlight"><td>6</td><td>173</td><td>2 558 ← elbow</td></tr>
+  <tr><td>7</td><td>151</td><td>2 466</td></tr>
+  <tr><td>8</td><td>125</td><td>2 380</td></tr>
+</table>
+<h4>Conclusion</h4>
+<table class="score-table">
+  <tr><th>Dataset</th><th>Features</th><th>Rows</th><th>Chosen k</th></tr>
+  <tr><td>4a</td><td>3</td><td>50</td><td><strong>3</strong></td></tr>
+  <tr><td>4b</td><td>5</td><td>500</td><td><strong>6</strong></td></tr>
+</table>
+<p><strong>Dataset 4a — k=3:</strong> Inertia drops sharply from k=2→3 (1778→428, −76%), then slows dramatically at k=3→4 (428→290, −32%). The elbow is clearly at k=3.</p>
+<p><strong>Dataset 4b — k=6:</strong> Inertia drops substantially through k=1→6 (73062→2558), then nearly plateaus: k=6→7 drops only 92 compared to k=5→6's drop of 2007 (−96% reduction in drop rate). The elbow is at k=6.</p>
+</div>
+</div>
+  </main>
+</div>
+<nav class="bottomnav"><a href="3.html" class="arrow-btn">&#8592;</a><a href="1.html" class="page-btn">1</a><a href="2.html" class="page-btn">2</a><a href="3.html" class="page-btn">3</a><a href="4.html" class="page-btn active">4</a><a href="5.html" class="page-btn">5</a><a href="6.html" class="page-btn">6</a><a href="5.html" class="arrow-btn">&#8594;</a></nav>
+<script>
+(function(){
+function highlight(pre){
+  let h = pre.innerHTML;
+  h=h.replace(/&lt;/g,'\x01LT\x01').replace(/&gt;/g,'\x01GT\x01').replace(/&amp;/g,'\x01AMP\x01');
+  const combined=/(?:("(?:[^"\\]|\\.)*")|((?:\/\/|#)[^\n\x01]*)|(\b(?:import|from|as|def|class|return|for|while|if|else|elif|in|not|and|or|True|False|None|print|with|lambda|yield|raise|try|except|finally|pass|break|continue|global|nonlocal|assert|del)\b)|(\b(?:np|pd|plt|KMeans|KMedoids|PCA|DataFrame)\b)|(\b[a-zA-Z_]\w*)(?=\s*\()|(?<![a-zA-Z_])(0x[0-9a-fA-F]+|\b\d+\.?\d*\b))/g;
+  h=h.replace(combined,function(m,str,cmt,kw,ty,fn,num){
+    if(str)return '<span class="str">'+str+'</span>';
+    if(cmt)return '<span class="cmt">'+cmt+'</span>';
+    if(kw)return '<span class="kw">'+kw+'</span>';
+    if(ty)return '<span class="ty">'+ty+'</span>';
+    if(fn){const skip=['if','for','while','return','print','range','len','int','float','str','list','dict','set','zip','enumerate','sorted','sum','max','min','abs'];return skip.includes(fn)?m:'<span class="fn">'+fn+'</span>';}
+    if(num)return '<span class="num">'+num+'</span>';
+    return m;
+  });
+  h=h.replace(/\x01LT\x01/g,'&lt;').replace(/\x01GT\x01/g,'&gt;').replace(/\x01AMP\x01/g,'&amp;');
+  pre.innerHTML=h;
+}
+document.querySelectorAll('pre.code-block').forEach(highlight);
+})();
+</script>
+</body>
+</html>

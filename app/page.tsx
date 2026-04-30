@@ -92,11 +92,13 @@ export default function Home() {
               </h1>
 
               <p className="mt-8 max-w-xl text-base sm:text-lg text-[color:var(--muted)] leading-relaxed">
-                Data Science &amp; AI student at Leiden. Curious about machine
+                Data Science &amp; AI student at Leiden. Curious about everything, mainly machine
                 learning, deep learning, low-level and high-level programming,
                 mathematics, cybersecurity, and modelling systems as dynamical
                 ones. I like working on projects, collaborating, and trading
-                thoughts.
+                ideas. My goal in life is polymathy. I believe studying any field
+                is simply a case study for understanding the world at large. To understand
+                one field deeply is to gain a lens through which all other fields become clearer."
               </p>
 
               <div className="mt-10 flex flex-wrap items-center gap-4">

@@ -195,6 +195,134 @@
             margin-bottom: 0.5em;
         }
 
+        /* Navigation & Button Styles */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .btn-link {
+            display: inline-block;
+            color: var(--brand-accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 10px 18px;
+            background-color: #eff6ff;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .btn-link:hover {
+            background-color: #dbeafe;
+            transform: translateY(-1px);
+        }
+
+        /* Image Figure Styles */
+        .figure-container {
+            background-color: var(--bg-body);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+        .figure-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .figure-caption {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: left;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+            margin-top: 20px;
+            line-height: 1.5;
+        }
+        .level-breakdown {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .level-breakdown h4 {
+            color: var(--brand-primary);
+            font-size: 1.1rem;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        .level-breakdown ul {
+            margin-top: 0;
+        }
+
+        /* Simplified Takeaways Section */
+        .simplified-section {
+            background-color: #f0fdf4; /* Very light green tint */
+            border-left: 5px solid #22c55e; /* Green accent */
+            padding: 35px 40px;
+            margin-top: 60px;
+            border-radius: 0 8px 8px 0;
+        }
+        .simplified-section h2 {
+            color: #166534;
+            border-bottom: 2px solid #bbf7d0;
+            margin-top: 0;
+        }
+        .simplified-section h3 {
+            color: #15803d;
+            font-size: 1.1rem;
+        }
+        .simplified-section h4 {
+            color: var(--brand-primary);
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        .simplified-section ul {
+            font-size: 0.95rem;
+        }
+
+        /* References Section Styles */
+        .references-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid var(--border-color);
+        }
+        .references-section h2 {
+            margin-top: 0;
+        }
+        .reference-category {
+            margin-top: 25px;
+        }
+        .reference-category h4 {
+            color: var(--brand-primary);
+            font-size: 1.05rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .references-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .references-list li {
+            margin-bottom: 8px;
+            padding-left: 1.5em;
+            text-indent: -1.5em;
+            line-height: 1.4;
+        }
+        .references-list a {
+            color: var(--brand-accent);
+            text-decoration: none;
+            word-break: break-all;
+        }
+        .references-list a:hover {
+            text-decoration: underline;
+        }
+
         /* Print Media Queries - optimized for PDF export */
         @media print {
             body {
@@ -246,6 +374,11 @@
     </style>
 </head>
 <body>
+<!--    <div id="top" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; padding: 10px;">
+        <a href="https://ary-x86.github.io/" style="display: inline-block; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-family: sans-serif; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">&#8592; Back to Main Page!</a>
+
+        <a href="#simplified-takeaways" style="display: inline-block; padding: 10px 15px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; font-family: sans-serif; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">Skip to Simplified Takeaways! &#8595;</a>
+    </div>-->
 
     <div class="print-widget">
         <button class="btn-print" onclick="window.print()">
@@ -259,6 +392,11 @@
     </div>
 
     <div class="document-container">
+        <!-- <a class="back" href="https://ary-x86.github.io/" title="Back to start">&#x2190; Back</a> -->
+        <div id="top" class="top-nav">
+            <a href="https://ary-x86.github.io/" class="btn-link">← Back to Main Page</a>
+            <a href="#simplified-takeaways" class="btn-link">↓ Skip to Simplified Key Takeaways</a>
+        </div>
         <h1>LeafShift Market-Sizing Memo: Sensor Density, Hardware Capex, and Existing-Sensor Coverage by Farm Segment</h1>
 
         <div class="metadata-block">
@@ -271,6 +409,57 @@
         <p>The three nested questions — sensor density per hectare, installed-cost per hectare, and the share of farms LeafShift would have to <em>equip</em> versus <em>integrate with</em> versus build <em>greenfield</em> — have very different levels of public-data support. Sensor density is well anchored in extension-service guidance and manufacturer literature. Per-hectare capex is a cost-engineering exercise on top of published list prices. The "usable fraction" question is the <strong>softest</strong> of the three: there is no clean, segment-level statistic anywhere in the public domain for "% of German potato farms running quantitative volumetric-water-content (VWC) telemetry." For that question the numbers below are reasoned estimates triangulated from GTAI/BMLEH 2024–25 adoption surveys, Thünen sensor-irrigation field reports, Mordor/IMARC GCC market reports, and a 2024 Saudi farmer survey published in Frontiers in Agronomy. Ranges, not point estimates, are the honest output, and we flag where the uncertainty is large enough to materially change the financial model.</p>
 
         <p><strong>Key strategic takeaway for the financial plan:</strong> in every segment except UAE high-tech CEA, the dominant deployment mode for LeafShift will be <em>greenfield hardware-plus-software</em> for the first 24 months. Hardware revenue (sensors, LoRaWAN nodes, install) will dominate ARR until the installed base is large enough for the SaaS/decision-layer revenue to become material. Pure "decision-layer-on-top-of-existing-sensors" deals will be a small minority (&lt; 10–15 %) in Germany and even smaller in Saudi open-field, but a meaningful 25–35 % in UAE high-tech greenhouses where Priva/Ridder/Argus climate computers and substrate sensors already exist.</p>
+
+
+
+        <div class="figure-container">
+            <h2>Context: The Evolution of Irrigation Systems</h2>
+            <img src="irrigation-systems.jpg" alt="Diagram showing the five levels of irrigation systems">
+
+            <div class="level-breakdown">
+                <h3>Breakdown of the Five Layers</h3>
+
+                <h4>1. Manual Systems (The Foundation)</h4>
+                <ul>
+                    <li><strong>What it is:</strong> The most basic form of irrigation where a human decides when to water and turns the tap on or off.</li>
+                    <li><strong>What it looks like:</strong> A person using a watering can or manually opening a valve.</li>
+                    <li><strong>The Limitation:</strong> It is labor-intensive and prone to human error—either overwatering or underwatering based on guesswork.</li>
+                </ul>
+
+                <h4>2. Time-controlled Systems</h4>
+                <ul>
+                    <li><strong>What it adds:</strong> Implementation of a single-loop system.</li>
+                    <li><strong>What it looks like:</strong> A simple "dumb" timer connected to a sprinkler.</li>
+                    <li><strong>Function:</strong> It waters at fixed intervals (e.g., every morning at 8:00 AM for 10 minutes). It doesn't care if it rained all night or if the plant is drowning; it follows the schedule regardless.</li>
+                </ul>
+
+                <h4>3. Humidity-controlled Systems</h4>
+                <ul>
+                    <li><strong>What it adds:</strong> Implementation of a feedback loop system.</li>
+                    <li><strong>What it looks like:</strong> A system equipped with a basic soil moisture sensor (like the capacitive sensors discussed in your paper).</li>
+                    <li><strong>Function:</strong> This is the first level of "reactive" irrigation. The sensor provides "feedback" to the controller. If the soil humidity falls below a certain point, the system turns on. Once it reaches the target humidity, it stops.</li>
+                </ul>
+
+                <h4>4. Intelligent Systems</h4>
+                <ul>
+                    <li><strong>What it adds:</strong> Consideration of additional sensor and environmental data.</li>
+                    <li><strong>What it looks like:</strong> A multi-sensor hub measuring not just soil moisture, but also air temperature, sunlight levels, and wind speed.</li>
+                    <li><strong>Function:</strong> Instead of just looking at the ground, it looks at the environment. For example, if it's extremely hot and sunny, the system knows evaporation will be higher and adjusts the watering volume accordingly.</li>
+                </ul>
+
+                <h4>5. AI-supported Systems (The Peak)</h4>
+                <ul>
+                    <li><strong>What it adds:</strong> Determination of the relationship between sensor values and plant behavior.</li>
+                    <li><strong>What it looks like:</strong> A cloud-connected system using Machine Learning (ML) algorithms. (Note the dashed border in the image, indicating this is the most advanced/theoretical tier).</li>
+                    <li><strong>Function:</strong> It doesn't just react to data; it predicts and optimizes. It learns how a specific plant species reacts to different moisture levels and environmental stress. It can "learn" that a plant grows better if the soil is allowed to dry out slightly before the next watering, optimizing for plant health and water conservation simultaneously.</li>
+                </ul>
+            </div>
+
+            <div class="figure-caption">
+                <strong>Source:</strong> Figure 1. Five levels of the irrigation system, considering the control, regulation, and AI technology. Reproduced from <em>Sensors (Basel)</em>. 2025 Feb 27;25(5):1461. doi: <a href="https://doi.org/10.3390/s25051461" target="_blank">10.3390/s25051461</a>. © 2025 by the authors. Licensee MDPI, Basel, Switzerland. Open access article under CC BY 4.0.
+            </div>
+        </div>
+
 
         <hr>
 
@@ -607,7 +796,302 @@
             <li><strong>Bulk hardware procurement</strong> is the single largest gross-margin lever. Moving from 100-unit to 1,000-unit volumes on TEROS 12 / Sentek probes saves ~30 %; building an own-design SMT50-class sensor + ESP32 LoRa node for the lower-tier segments at 10k volume can put hardware gross margin above 55 %. Decide early which segments justify that capex.</li>
             <li><strong>Where to start the GTM sequence (data-driven recommendation):</strong> UAE high-tech greenhouses (highest retrofit %, fastest sales cycle, strongest political/funding tailwinds) → Saudi corporate-farm open-field pilots (high deal size, 60 % capex subsidies via ADF/Vision 2030) → DE potato Beregnungsverbände in Niedersachsen (regulatory-driven greenfield demand 2025–27) → DE/Pfalz premium vineyards (defensibility play) → DE protected horticulture (slow but sticky retrofit revenue) → date palms last (large TAM but conservative buying behavior).</li>
         </ol>
+
+        <div id="simplified-takeaways" class="simplified-section">
+            <h2>Simplified Key Takeaways</h2>
+            <p><em>A condensed breakdown of our hardware strategy, revenue timeline, and exact sensor needs by farm type.</em></p>
+
+            <h3>1. The Starting Point: We Have to Sell Physical Equipment First</h3>
+            <p>To build our financial model, we divided our potential customers into "segments" based on their country and what they grow (e.g., German potato fields vs. Saudi date palm orchards) because different crops have vastly different technical needs. For our first two years, in almost every customer segment, we will be dealing with a "greenfield" scenario. "Greenfield" simply means the farm is starting from scratch; they currently have zero smart technology installed. Because they have nothing, our primary way of doing business (our "deployment mode") requires us to sell them the complete physical package: the hardware (the actual moisture sensors and wireless internet transmitters we physically stick into their dirt) plus the software (the app on their phone/computer that reads the data).</p>
+
+            <h3>2. The Financial Shift: Moving from Hardware Sales to Software Subscriptions</h3>
+            <p>Financially, this means our upfront hardware sales and installation fees will drive almost all of our revenue in the early days. Ultimately, our goal is to transition into a highly profitable SaaS (Software as a Service) business. We want farmers paying a predictable, yearly subscription fee for our "decision layer"—the smart AI brain that reads the dirt and tells them exactly when and how much to water. This predictable yearly money is called ARR (Annual Recurring Revenue). However, this software subscription revenue won't "become material" (meaning, it won't become a massive, highly profitable chunk of our total income) until our "installed base is large enough". In plain English: we have to physically get thousands of our sensors into the ground across hundreds of farms before those small, recurring software fees compound into serious money.</p>
+
+            <h3>3. The Exception: Selling Only Software (High-Margin Shortcut)</h3>
+            <p>There is one major exception where we don't have to sell hardware first: high-tech greenhouses in the United Arab Emirates (referred to as CEA, or Controlled Environment Agriculture). In these highly advanced indoor UAE facilities, 25% to 35% of operations already own the expensive physical sensors and climate computers. In these specific cases, we can sell them just our "decision layer"—our smart AI software that plugs right into their existing equipment to make better watering choices. While these pure software deals will be very rare in Germany (less than 15%) and even rarer in Saudi open-fields, the UAE greenhouse market gives us a great opportunity to sell highly profitable software from day one without having to manufacture or install physical hardware. <em>Note: If we find a client who already has compatible soil moisture sensors, that's good. But we will not assume that that's the case. It might be, but there's no data to guarantee this.</em></p>
+
+            <h3>4. Functional Placement: Grouping by "Hydrozones"</h3>
+            <p>To give our algorithm the best data, industry experts recommend moving away from a strict geometric grid and toward a <strong>functional placement strategy</strong>. Instead of spacing sensors by distance, we must space them by water demand (grouping by "Hydrozones"). Different types of farms have completely different requirements for soil moisture sensing per hectare. Here is the breakdown:</p>
+
+            <h4>Germany Clusters</h4>
+            <ul>
+                <li><strong>Open-Field Potatoes (Niedersachsen):</strong>
+                    <strong>Density:</strong> 0.3 to 2 sensors per hectare (0.1 to 0.5 stations/ha, 2 depths each). <strong>Hardware:</strong> Multi-depth FDR profile probes (e.g., 60 cm Sentek Drill & Drop). <strong>Why:</strong> Sandy soils in Lower Saxony are highly heterogeneous; a single center-pivot might cover 3 to 5 different soil zones that the AI needs to learn. Potatoes are shallow-rooted, so measuring 2 depths (e.g., 20 cm and 40 cm) per station is sufficient.
+                </li>
+                <li><strong>Open-Field Vegetables / Horticulture:</strong>
+                    <strong>Density:</strong> 0.5 to 4 sensors per hectare. <strong>Hardware:</strong> 60 cm multi-depth FDR profile probes. <strong>Why:</strong> Vegetable fields are smaller (1–10 ha) and yield a higher margin per hectare, justifying denser monitoring. Shallower-rooted leafy crops require tighter horizontal coverage, optimally placing one sensor per 0.5–2 ha irrigation zone.
+                </li>
+                <li><strong>Vineyards / Wine (Mosel, Rheingau, Pfalz):</strong>
+                    <strong>Density:</strong> 1.5 to 8 sensors per hectare (0.5 to 2 stations/ha, 3-4 depths each). <strong>Hardware:</strong> Deeper multi-depth FDR probes (e.g., 90 cm Sentek Drill & Drop). <strong>Why:</strong> Mature grapevines extract water from deep underground (>1.5 meters). Deep, precise tracking is mandatory for executing Regulated Deficit Irrigation (RDI)—deliberately stressing vines to improve wine quality.
+                </li>
+            </ul>
+
+            <h4>GCC Clusters</h4>
+            <ul>
+                <li><strong>Open-Field High-Value Crops (Saudi Center Pivots):</strong>
+                    <strong>Density:</strong> 0.15 to 0.6 sensors per hectare. <strong>Hardware:</strong> Very deep multi-depth FDR probes (e.g., 120 cm Sentek Drill & Drop). <strong>Why:</strong> These massive operations use giant 50-ha center-pivot circles. To train the AI optimally, you need 2 stations per pivot (inner span and outer span), digging deep.
+                </li>
+                <li><strong>Date Palms (KSA & UAE):</strong>
+                    <strong>Density:</strong> 0.6 to 4 sensors per hectare. <strong>Hardware:</strong> 120 cm multi-depth FDR probes. <strong>Why:</strong> Date palms have a massive, deep root profile. You must monitor down to 1.2 meters across 3 to 4 depths, placing stations in the specific irrigated zones of representative trees.
+                </li>
+            </ul>
+
+            <h4>Cross-Regional Cluster</h4>
+            <ul>
+                <li><strong>Greenhouses / Protected Horticulture (Germany & GCC):</strong>
+                    <strong>Density:</strong> 5 to 30 sensors per hectare (12 to 24 is the realistic optimum). <strong>Hardware:</strong> Substrate moisture and Electrical Conductivity (EC) sensors (e.g., METER TEROS 12). <strong>Why:</strong> In a modern greenhouse, water is managed by the irrigation zone or individual substrate bag, ignoring the "hectare" metric. Standard practice requires 3 sensors per irrigation zone. Because many UAE facilities are hydroponic (using rockwool or coco coir), standard soil moisture probes will not work.
+                </li>
+            </ul>
+
+            <br>
+            <a href="#top" class="btn-link">↑ Back to Top</a>
+        </div>
+        <div class="references-section">
+            <h2>References & Data Sources</h2>
+            <p><em>The following sources were accessed and synthesized to construct the hardware density models, pricing estimates, and regional adoption fractions detailed in this memo.</em></p>
+
+            <div class="reference-category">
+                <h4>Academic & Institute Research</h4>
+                <ul class="references-list">
+                    <li>Sensors (Basel): <em>Five levels of the irrigation system, considering the control, regulation, and AI technology.</em> <a href="https://doi.org/10.3390/s25051461" target="_blank">https://doi.org/10.3390/s25051461</a></li>
+                    <li>Thünen Institute: <em>Sensor-based potato irrigation field reports (Working Paper 179).</em> <a href="https://literatur.thuenen.de/digbib_extern/dn067370.pdf" target="_blank">https://literatur.thuenen.de/digbib_extern/dn067370.pdf</a></li>
+                    <li>Frontiers in Agronomy (2024): <em>Prioritizing factors for the adoption of IoT-based smart irrigation in Saudi Arabia.</em> <a href="https://www.frontiersin.org/journals/agronomy/articles/10.3389/fagro.2024.1335443/full" target="_blank">https://www.frontiersin.org/journals/agronomy/articles/10.3389/fagro.2024.1335443/full</a></li>
+                    <li>ResearchGate: <em>Impact of soil moisture and temperature on potato production using seepage and center pivot irrigation.</em> <a href="https://www.researchgate.net/publication/284232815_Impact_of_soil_moisture_and_temperature_on_potato_production_using_seepage_and_center_pivot_irrigation" target="_blank">https://www.researchgate.net/publication/284232815_Impact_of_soil_moisture_and_temperature_on_potato_production_using_seepage_and_center_pivot_irrigation</a></li>
+                    <li>arXiv (2407.04273): <em>KSA farmer survey on advanced irrigation technologies.</em> <a href="https://arxiv.org/pdf/2407.04273" target="_blank">https://arxiv.org/pdf/2407.04273</a></li>
+                    <li>Springer / Water Resources Management: <em>Date Palm Water Requirements in Saudi Arabia.</em> <a href="https://link.springer.com/article/10.1007/s13201-019-0936-6" target="_blank">https://link.springer.com/article/10.1007/s13201-019-0936-6</a></li>
+                </ul>
+            </div>
+
+            <div class="reference-category">
+                <h4>Market Intelligence & Industry Reports</h4>
+                <ul class="references-list">
+                    <li>GTAI (Germany Trade & Invest): <em>Smart Farming in Germany Fact Sheet (2024-2025).</em> <a href="https://www.gtai.de/resource/blob/992506/ac77cb31f2c8829d82d121f6f8bc140f/20251008_FactSheet_Smart_Farming_WEB.pdf" target="_blank">https://www.gtai.de/resource/blob/992506/ac77cb31f2c8829d82d121f6f8bc140f/20251008_FactSheet_Smart_Farming_WEB.pdf</a></li>
+                    <li>Mordor Intelligence: <em>Agriculture in the Kingdom of Saudi Arabia Industry Report.</em> <a href="https://www.mordorintelligence.com/industry-reports/agriculture-in-the-kingdom-of-saudi-arabia-industry" target="_blank">https://www.mordorintelligence.com/industry-reports/agriculture-in-the-kingdom-of-saudi-arabia-industry</a></li>
+                    <li>Market Data Forecast: <em>Middle East and Africa Commercial Greenhouse Market.</em> <a href="https://www.marketdataforecast.com/market-reports/middle-east-and-africa-commercial-greenhouse-market" target="_blank">https://www.marketdataforecast.com/market-reports/middle-east-and-africa-commercial-greenhouse-market</a></li>
+                    <li>Ken Research: <em>Saudi Arabia Smart Agriculture & Irrigation Systems Market.</em> <a href="https://www.kenresearch.com/saudi-arabia-smart-agriculture-irrigation-systems-market" target="_blank">https://www.kenresearch.com/saudi-arabia-smart-agriculture-irrigation-systems-market</a></li>
+                    <li>Grand View Research: <em>Soil Moisture Sensors Market Analysis.</em> <a href="https://www.grandviewresearch.com/industry-analysis/soil-moisture-sensors-market" target="_blank">https://www.grandviewresearch.com/industry-analysis/soil-moisture-sensors-market</a></li>
+                </ul>
+            </div>
+
+            <div class="reference-category">
+                <h4>Agronomic Extension Services & Guidelines</h4>
+                <ul class="references-list">
+                    <li>Michigan State University (MSU) Extension: <em>Utilizing soil moisture sensors for efficient irrigation.</em> <a href="https://www.canr.msu.edu/resources/utilizing-soil-moisture-sensors-for-efficient-irrigation-management" target="_blank">https://www.canr.msu.edu/resources/utilizing-soil-moisture-sensors-for-efficient-irrigation-management</a></li>
+                    <li>University of Minnesota (UMN) Extension: <em>Soil moisture sensors for irrigation scheduling.</em> <a href="https://extension.umn.edu/irrigation/soil-moisture-sensors-irrigation-scheduling" target="_blank">https://extension.umn.edu/irrigation/soil-moisture-sensors-irrigation-scheduling</a></li>
+                    <li>Washington State University (WSU): <em>Soil Moisture Sensors For Wine Grapes.</em> <a href="https://irrigation.wsu.edu/Content/Fact-Sheets/Soil-Moisture-Sensors-For-Wine-Grapes.pdf" target="_blank">https://irrigation.wsu.edu/Content/Fact-Sheets/Soil-Moisture-Sensors-For-Wine-Grapes.pdf</a></li>
+                    <li>Clemson University Extension: <em>Soil Moisture Sensor Placement Guidelines.</em> <a href="https://blogs.clemson.edu/savannahvalley/soil-moisture-sensor-placement/" target="_blank">https://blogs.clemson.edu/savannahvalley/soil-moisture-sensor-placement/</a></li>
+                    <li>Greenhouse Grower: <em>Automating Greenhouse Irrigation with Moisture Sensors.</em> <a href="https://www.greenhousegrower.com/technology/how-to-use-moisture-sensors-to-automate-greenhouse-irrigation/" target="_blank">https://www.greenhousegrower.com/technology/how-to-use-moisture-sensors-to-automate-greenhouse-irrigation/</a></li>
+                </ul>
+            </div>
+
+            <div class="reference-category">
+                <h4>Hardware Specifications & Distributor Pricing</h4>
+                <ul class="references-list">
+                    <li>METER Group: <em>TEROS 12 and TEROS 10 Substrate/Soil Sensors.</em> <a href="https://metergroup.com/products/teros-12/" target="_blank">https://metergroup.com/products/teros-12/</a></li>
+                    <li>Sentek Technologies: <em>Drill & Drop Multi-Depth Profile Probes.</em> <a href="https://sentektechnologies.com/products/soil-data-probes/drill-drop/" target="_blank">https://sentektechnologies.com/products/soil-data-probes/drill-drop/</a></li>
+                    <li>Sensoterra: <em>Hardware placement and density recommendations.</em> <a href="https://www.sensoterra.com/news/how-many-sensors-do-we-need-to-install/" target="_blank">https://www.sensoterra.com/news/how-many-sensors-do-we-need-to-install/</a></li>
+                    <li>Evvos European Distribution: <em>TEROS 12 Retail Pricing Insights.</em> <a href="https://www.evvos.com/shop/teros-12-soil-moisture-temperature-and-ec-sensor-38" target="_blank">https://www.evvos.com/shop/teros-12-soil-moisture-temperature-and-ec-sensor-38</a></li>
+                    <li>Vienna Scientific: <em>Sentek EU Distribution & Specifications.</em> <a href="https://www.vienna-scientific.com/products/sentek-drill-drop-soil-moisture-probe/" target="_blank">https://www.vienna-scientific.com/products/sentek-drill-drop-soil-moisture-probe/</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
+
+<!--    <hr style="margin: 40px 0; border: 1px solid #ddd;">
+
+    <section id="simplified-takeaways" style="background-color: #f8f9fa; padding: 30px; border-radius: 8px; font-family: sans-serif; color: #333; line-height: 1.6;">
+        <h2 style="color: #2c3e50; border-bottom: 2px solid #007bff; padding-bottom: 10px;">Versimpelde Key Takeaways voor het Financieel Plan</h2>
+        <p>Hier zijn de versimpelde key takeaways van de research om de vragen te beantwoorden: aantal sensoren per ha voor ons product (ook voor verschillende soorten farms e.g. CEA, greenhouse, arable, vertical farming), kosten van de sensoren, en verhouding van bruikbare sensoren per markt.</p>
+
+        <h3 style="color: #34495e; margin-top: 30px;">The Timeline of Revenue & What We Are Selling</h3>
+
+        <h4 style="color: #007bff;">1. The Starting Point: We Have to Sell Physical Equipment First</h4>
+        <blockquote style="background: #fff; border-left: 4px solid #007bff; padding: 15px; margin-left: 0; font-style: italic; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            To build our financial model, we divided our potential customers into "segments" based on their country and what they grow (e.g., German potato fields vs. Saudi date palm orchards) because different crops have vastly different technical needs. For our first two years, in almost every customer segment, we will be dealing with a "greenfield" scenario. "Greenfield" simply means the farm is starting from scratch; they currently have zero smart technology installed. Because they have nothing, our primary way of doing business (our "deployment mode") requires us to sell them the complete physical package: the hardware (the actual moisture sensors and wireless internet transmitters we physically stick into their dirt) plus the software (the app on their phone/computer that reads the data).
+        </blockquote>
+
+        <h4 style="color: #007bff;">2. The Financial Shift: Moving from Hardware Sales to Software Subscriptions</h4>
+        <blockquote style="background: #fff; border-left: 4px solid #007bff; padding: 15px; margin-left: 0; font-style: italic; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            Financially, this means our upfront hardware sales and installation fees will drive almost all of our revenue in the early days. Ultimately, our goal is to transition into a highly profitable SaaS (Software as a Service) business. We want farmers paying a predictable, yearly subscription fee for our "decision layer"—the smart AI brain that reads the dirt and tells them exactly when and how much to water. This predictable yearly money is called ARR (Annual Recurring Revenue). However, this software subscription revenue won't "become material" (meaning, it won't become a massive, highly profitable chunk of our total income) until our "installed base is large enough". In plain English: we have to physically get thousands of our sensors into the ground across hundreds of farms before those small, recurring software fees compound into serious money.
+        </blockquote>
+
+        <h4 style="color: #007bff;">3. The Exception: Selling Only Software (High-Margin Shortcut)</h4>
+        <blockquote style="background: #fff; border-left: 4px solid #007bff; padding: 15px; margin-left: 0; font-style: italic; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            There is one major exception where we don't have to sell hardware first: high-tech greenhouses in the United Arab Emirates (referred to as CEA, or Controlled Environment Agriculture). In these highly advanced indoor UAE facilities, 25% to 35% of operations already own the expensive physical sensors and climate computers. In these specific cases, we can sell them just our "decision layer"—our smart AI software that plugs right into their existing equipment to make better watering choices. While these pure software deals will be very rare in Germany (less than 15%) and even rarer in Saudi open-fields, the UAE greenhouse market gives us a great opportunity to sell highly profitable software from day one without having to manufacture or install physical hardware.
+        </blockquote>
+
+        <p>If we find a client, and they already have compatible soil moisture sensors, that's good. But we will not assume that that's the case. It might be the case, but there's no data on this.</p>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <h3 style="color: #34495e;">Context: The Five Levels of Irrigation Systems</h3>
+        <p>To understand where our AI-supported system stands in the market, look at the five levels of irrigation control.</p>
+
+        <figure style="text-align: center; margin: 30px 0; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <img src="irrigation-systems.jpg" alt="Five levels of the irrigation system, considering the control, regulation, and AI technology" style="max-width: 100%; height: auto; border: 1px solid #eee;">
+            <figcaption style="font-size: 0.9em; color: #666; margin-top: 15px; text-align: left;">
+                <strong>Figure 1.</strong> Five levels of the irrigation system, considering the control, regulation, and AI technology.<br>
+                <em>Reference:</em> Gümüser et al., <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11902863/" target="_blank" style="color: #007bff;">Sensors (Basel). 2025 Feb 27;25(5):1461. doi: 10.3390/s25051461</a>. © 2025 by the authors. Licensee MDPI, Basel, Switzerland. Open access article distributed under the CC BY 4.0 license.
+            </figcaption>
+        </figure>
+
+        <h4 style="color: #2c3e50;">Breakdown of the Five Layers</h4>
+        <ol style="background: #fff; padding: 25px 25px 25px 40px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <li style="margin-bottom: 15px;"><strong>Manual Systems (The Foundation)</strong>
+                <ul style="margin-top: 5px;">
+                    <li><strong>What it is:</strong> The most basic form of irrigation where a human decides when to water and turns the tap on or off.</li>
+                    <li><strong>What it looks like:</strong> A person using a watering can or manually opening a valve.</li>
+                    <li><strong>The Limitation:</strong> It is labor-intensive and prone to human error—either overwatering or underwatering based on guesswork.</li>
+                </ul>
+            </li>
+            <li style="margin-bottom: 15px;"><strong>Time-controlled Systems</strong>
+                <ul style="margin-top: 5px;">
+                    <li><strong>What it adds:</strong> Implementation of a single-loop system.</li>
+                    <li><strong>What it looks like:</strong> A simple "dumb" timer connected to a sprinkler.</li>
+                    <li><strong>Function:</strong> It waters at fixed intervals (e.g., every morning at 8:00 AM for 10 minutes). It doesn't care if it rained all night or if the plant is drowning; it follows the schedule regardless.</li>
+                </ul>
+            </li>
+            <li style="margin-bottom: 15px;"><strong>Humidity-controlled Systems</strong>
+                <ul style="margin-top: 5px;">
+                    <li><strong>What it adds:</strong> Implementation of a feedback loop system.</li>
+                    <li><strong>What it looks like:</strong> A system equipped with a basic soil moisture sensor (like the capacitive sensors discussed in your paper).</li>
+                    <li><strong>Function:</strong> This is the first level of "reactive" irrigation. The sensor provides "feedback" to the controller. If the soil humidity falls below a certain point, the system turns on. Once it reaches the target humidity, it stops.</li>
+                </ul>
+            </li>
+            <li style="margin-bottom: 15px;"><strong>Intelligent Systems</strong>
+                <ul style="margin-top: 5px;">
+                    <li><strong>What it adds:</strong> Consideration of additional sensor and environmental data.</li>
+                    <li><strong>What it looks like:</strong> A multi-sensor hub measuring not just soil moisture, but also air temperature, sunlight levels, and wind speed.</li>
+                    <li><strong>Function:</strong> Instead of just looking at the ground, it looks at the environment. For example, if it's extremely hot and sunny, the system knows evaporation will be higher and adjusts the watering volume accordingly.</li>
+                </ul>
+            </li>
+            <li><strong>AI-supported Systems (The Peak)</strong>
+                <ul style="margin-top: 5px;">
+                    <li><strong>What it adds:</strong> Determination of the relationship between sensor values and plant behavior.</li>
+                    <li><strong>What it looks like:</strong> A cloud-connected system using Machine Learning (ML) algorithms. (Note the dashed border in the image, indicating this is the most advanced/theoretical tier).</li>
+                    <li><strong>Function:</strong> It doesn't just react to data; it predicts and optimizes. It learns how a specific plant species reacts to different moisture levels and environmental stress. It can "learn" that a plant grows better if the soil is allowed to dry out slightly before the next watering, optimizing for plant health and water conservation simultaneously.</li>
+                </ul>
+            </li>
+        </ol>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <h3 style="color: #34495e;">Sensor Placement Strategy: Functional vs. Geometric</h3>
+        <p style="background: #e9ecef; padding: 15px; border-radius: 5px; border-left: 4px solid #6c757d;">
+            <em>Advies van een Duitse sensor fabrikant:</em> "To give your algorithm the best data, I recommend moving away from a strict geometric grid and toward a functional placement strategy: You need to Group by 'Hydrozones'. Instead of spacing sensors by distance, space them by water demand."
+        </p>
+
+        <h3 style="color: #34495e; margin-top: 30px;">Sensor Density & Hardware Breakdown per Cluster</h3>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+            <div style="flex: 1 1 100%; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <h4 style="color: #28a745; margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px;">Germany Clusters</h4>
+                <ul style="padding-left: 20px;">
+                    <li style="margin-bottom: 10px;"><strong>Open-Field Potatoes (Niedersachsen)</strong>
+                        <ul>
+                            <li><strong>Density:</strong> 0.3 to 2 sensors per hectare. (1 station per 2-10 ha, each measuring 2 depths).</li>
+                            <li><strong>Hardware:</strong> Multi-depth FDR profile probes, specifically the 60 cm Sentek Drill & Drop.</li>
+                            <li><strong>Why:</strong> Sandy soils in Lower Saxony are highly heterogeneous; a center-pivot might cover 3-5 soil zones. Potatoes are shallow-rooted, needing only 2 depths (e.g., 20 cm and 40 cm).</li>
+                        </ul>
+                    </li>
+                    <li style="margin-bottom: 10px;"><strong>Open-Field Vegetables / Horticulture</strong>
+                        <ul>
+                            <li><strong>Density:</strong> 0.5 to 4 sensors per hectare.</li>
+                            <li><strong>Hardware:</strong> 60 cm multi-depth FDR profile probes.</li>
+                            <li><strong>Why:</strong> Fields are smaller (1–10 ha) and yield a higher margin. Shallower-rooted leafy crops require tighter horizontal coverage (one sensor per 0.5–2 ha irrigation zone).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Vineyards / Wine (Mosel, Rheingau, Pfalz)</strong>
+                        <ul>
+                            <li><strong>Density:</strong> 1.5 to 8 sensors per hectare. (Heavily stacked with 3-4 depths each).</li>
+                            <li><strong>Hardware:</strong> Deeper multi-depth FDR probes, like the 90 cm Sentek Drill & Drop.</li>
+                            <li><strong>Why:</strong> Mature grapevines extract water from >1.5 meters. Deep tracking is mandatory for executing Regulated Deficit Irrigation (RDI)—deliberately stressing vines to improve wine quality.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="flex: 1 1 100%; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <h4 style="color: #e67e22; margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px;">GCC Clusters</h4>
+                <ul style="padding-left: 20px;">
+                    <li style="margin-bottom: 10px;"><strong>Open-Field High-Value Crops (Saudi Center Pivots)</strong>
+                        <ul>
+                            <li><strong>Density:</strong> 0.15 to 0.6 sensors per hectare.</li>
+                            <li><strong>Hardware:</strong> Very deep multi-depth FDR probes, like the 120 cm Sentek Drill & Drop.</li>
+                            <li><strong>Why:</strong> Massive operations using giant 50-ha center-pivot circles. Optimal AI training needs 2 stations per pivot (inner/outer span) probing multiple depths.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Date Palms (KSA & UAE)</strong>
+                        <ul>
+                            <li><strong>Density:</strong> 0.6 to 4 sensors per hectare.</li>
+                            <li><strong>Hardware:</strong> 120 cm multi-depth FDR probes.</li>
+                            <li><strong>Why:</strong> Date palms have a massive, deep root profile requiring monitoring down to 1.2 meters. Stations are placed in specific irrigated zones of representative trees.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="flex: 1 1 100%; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <h4 style="color: #8e44ad; margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px;">Cross-Regional Cluster (All Regions)</h4>
+                <ul style="padding-left: 20px;">
+                    <li><strong>Greenhouses / Protected Horticulture (Germany & GCC)</strong>
+                        <ul>
+                            <li><strong>Density:</strong> 5 to 30 sensors per hectare (12 to 24 is optimal).</li>
+                            <li><strong>Hardware:</strong> Substrate moisture and Electrical Conductivity (EC) sensors. The METER TEROS 12 is the industry standard.</li>
+                            <li><strong>Why:</strong> You manage water by the irrigation zone or substrate bag (3 sensors per zone). In the UAE, facilities are hydroponic using soil-less substrates (rockwool/coco coir), where standard soil moisture probes won't work.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; text-align: center;">
+            <a href="#top" style="display: inline-block; padding: 12px 20px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">&#8593; Back to Top</a>
+        </div>
+    </section>
+
+    <section id="references" style="background-color: #ffffff; padding: 30px; border-radius: 8px; font-family: sans-serif; color: #333; line-height: 1.6; margin-top: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <h2 style="color: #2c3e50; border-bottom: 2px solid #6c757d; padding-bottom: 10px;">Sources & References</h2>
+
+        <ul style="list-style-type: decimal; padding-left: 20px; color: #555; font-size: 0.95em;">
+            <li style="margin-bottom: 10px;">
+                <strong>Gümüser et al. (2025)</strong>. <em>Sensors (Basel)</em>. Five levels of the irrigation system, considering the control, regulation, and AI technology. <br>
+                <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11902863/" target="_blank" style="color: #007bff; text-decoration: none;">View Source (NCBI/MDPI)</a>
+            </li>
+            <li style="margin-bottom: 10px;">
+                <strong>Ahmad et al. (2024)</strong>. <em>Frontiers in Agronomy</em>. Prioritizing factors for the adoption of IoT-based smart irrigation in Saudi Arabia. <br>
+                <a href="https://www.frontiersin.org/journals/agronomy/articles/10.3389/fagro.2024.1335443/full" target="_blank" style="color: #007bff; text-decoration: none;">View Source (Frontiers)</a>
+            </li>
+            <li style="margin-bottom: 10px;">
+                <strong>Schröder et al. (2021)</strong>. <em>Thünen Working Paper 179</em>. Sensor-based potato irrigation in Northeast Niedersachsen. <br>
+                <a href="https://literatur.thuenen.de/digbib_extern/dn067370.pdf" target="_blank" style="color: #007bff; text-decoration: none;">View Source (Thünen Institute)</a>
+            </li>
+            <li style="margin-bottom: 10px;">
+                <strong>Germany Trade & Invest (GTAI) (2024/25)</strong>. <em>Smart Farming Industry Fact Sheet</em>. Digital technology adoption in German agriculture. <br>
+                <a href="https://www.gtai.de/resource/blob/992506/ac77cb31f2c8829d82d121f6f8bc140f/20251008_FactSheet_Smart_Farming_WEB.pdf" target="_blank" style="color: #007bff; text-decoration: none;">View Source (GTAI)</a>
+            </li>
+            <li style="margin-bottom: 10px;">
+                <strong>Washington State University (WSU) Extension</strong>. <em>Fact Sheet: Soil Moisture Sensors for Wine Grapes</em>. Sensor density and RDI placement. <br>
+                <a href="https://irrigation.wsu.edu/Content/Fact-Sheets/Soil-Moisture-Sensors-For-Wine-Grapes.pdf" target="_blank" style="color: #007bff; text-decoration: none;">View Source (WSU)</a>
+            </li>
+            <li style="margin-bottom: 10px;">
+                <strong>Mordor Intelligence (2024)</strong>. <em>Agriculture in the Kingdom of Saudi Arabia - Industry Report</em>. Center-pivot and greenhouse hectarage data. <br>
+                <a href="https://www.mordorintelligence.com/industry-reports/agriculture-in-the-kingdom-of-saudi-arabia-industry" target="_blank" style="color: #007bff; text-decoration: none;">View Source (Mordor Intelligence)</a>
+            </li>
+            <li style="margin-bottom: 10px;">
+                <strong>Sensoterra</strong>. <em>Agronomic Guidelines</em>. How many sensors do we need to install per hectare? <br>
+                <a href="https://www.sensoterra.com/news/how-many-sensors-do-we-need-to-install/" target="_blank" style="color: #007bff; text-decoration: none;">View Source (Sensoterra)</a>
+            </li>
+            <li style="margin-bottom: 10px;">
+                <strong>Sentek Technologies</strong>. <em>Drill & Drop Volumetric Soil Moisture Probe Specifications</em>. Multi-depth FDR probe hardware parameters. <br>
+                <a href="https://sentektechnologies.com/products/soil-data-probes/drill-drop/" target="_blank" style="color: #007bff; text-decoration: none;">View Source (Sentek)</a>
+            </li>
+            <li style="margin-bottom: 10px;">
+                <strong>METER Group</strong>. <em>TEROS 12 Advanced Soil Moisture, Temperature, and EC Sensor Specifications</em>. <br>
+                <a href="https://metergroup.com/products/teros-12/" target="_blank" style="color: #007bff; text-decoration: none;">View Source (METER Group)</a>
+            </li>
+        </ul>
+    </section>-->
 
 </body>
 </html>

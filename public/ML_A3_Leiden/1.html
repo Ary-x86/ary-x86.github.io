@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>A3 Report · Task 1</title>
+  <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --acc:#7c3aed;--acc2:#6d28d9;--acc-l:#ede9fe;--acc-g:rgba(124,58,237,.2);
+  --navy:#0d1117;--navy2:#161b27;--navy3:#1e2535;
+  --bg:#e8ebf0;--card:#ffffff;
+  --border:#d1d5db;--border2:#c0c4d0;
+  --text:#111827;--muted:#6b7280;
+  --code-bg:#1a1b26;--code-fg:#c0caf5;
+  --ans-strip:#6d28d9;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",sans-serif;
+  font-size:15px;background:var(--bg);color:var(--text);
+  min-height:100vh;display:flex;flex-direction:column;}
+.topnav{position:sticky;top:0;z-index:300;background:var(--navy);
+  border-bottom:2px solid var(--acc);display:flex;align-items:center;
+  padding:0 16px;height:48px;gap:10px;box-shadow:0 2px 16px rgba(0,0,0,.45);}
+.back-btn{display:flex;align-items:center;gap:5px;color:#8b949e;
+  text-decoration:none;font-size:12.5px;padding:4px 10px;border-radius:6px;
+  border:1px solid #30363d;transition:color .15s,border-color .15s,background .15s;flex-shrink:0;}
+.back-btn:hover{color:#fff;border-color:var(--acc);background:rgba(124,58,237,.15)}
+.breadcrumb{color:#5c6470;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.breadcrumb b{color:#8b949e}
+.site-title{flex:1;text-align:center;color:var(--acc);font-size:15px;font-weight:700;
+  letter-spacing:.4px;text-shadow:0 0 24px var(--acc-g)}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.nav-date{color:#4b5563;font-size:11.5px}
+.page-body{display:flex;flex:1;max-width:1400px;width:100%;margin:0 auto;
+  padding:0 0 100px;gap:0;justify-content:center;}
+.left-col{width:220px;flex-shrink:0;padding-top:30px;
+  display:flex;flex-direction:column;align-items:center;}
+@media(max-width:1100px){.left-col{display:none}}
+.avatar-float{position:sticky;top:45vh;display:flex;flex-direction:column;
+  align-items:center;gap:5px;animation:float-bob 4s ease-in-out infinite;cursor:pointer;}
+@keyframes float-bob{0%,100%{transform:translateY(0px) rotate(-1.5deg)}
+  50%{transform:translateY(-12px) rotate(1.5deg)}}
+.avatar-ring{position:relative;display:flex;flex-direction:column;align-items:center}
+.avatar-img{width:76px;height:76px;border-radius:50%;object-fit:cover;
+  border:2.5px solid #2a3050;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s,border-color .3s;}
+.avatar-float:hover .avatar-img{transform:scale(1.5);
+  box-shadow:0 0 0 4px var(--acc-g),0 6px 24px rgba(0,0,0,.5);border-color:var(--acc);}
+.avatar-lbl{font-size:10px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;
+  color:#6b7280;margin-top:4px;transition:transform 0.3s cubic-bezier(.34,1.56,.64,1);}
+.avatar-float:hover .avatar-lbl{transform:translateY(22px);}
+.avatar-bubble{position:absolute;bottom:calc(100% + 14px);left:50%;
+  transform:translateX(-50%) translateY(6px);width:260px;
+  background:var(--navy2);border:1px solid #2a3050;border-radius:12px;
+  padding:11px 14px;font-size:12px;color:#c9d1d9;line-height:1.6;
+  pointer-events:none;opacity:0;transition:opacity .22s,transform .22s;
+  box-shadow:0 8px 24px rgba(0,0,0,.55);z-index:400;text-align:left;}
+.avatar-bubble::after{content:'';position:absolute;top:100%;left:50%;
+  transform:translateX(-50%);border:7px solid transparent;border-top-color:#2a3050;}
+.avatar-float:hover .avatar-bubble{opacity:1;transform:translateX(-50%) translateY(0);}
+.main-col{flex:1;min-width:0;max-width:900px;padding:26px 30px 0;animation:fadeIn .3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.level-heading{font-size:20px;font-weight:800;color:var(--text);margin-bottom:18px;
+  display:flex;align-items:center;gap:10px;}
+.level-heading::before{content:'';display:block;width:4px;height:26px;
+  background:linear-gradient(180deg,var(--acc),var(--acc2));border-radius:2px;flex-shrink:0;}
+.question-card{background:var(--card);border:1px solid var(--border);border-radius:14px;
+  overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.1),0 1px 4px rgba(0,0,0,.06);
+  margin-bottom:28px;}
+.question-prompt{padding:20px 22px 16px;display:flex;gap:14px;align-items:flex-start;
+  border-bottom:1px solid var(--border);}
+.q-number{font-weight:800;font-size:13px;color:#fff;min-width:26px;height:26px;
+  background:var(--acc);border-radius:7px;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;}
+.question-text{flex:1;line-height:1.72;color:#2d2d4a;font-size:14.5px}
+.question-text p,.question-text li{margin-bottom:5px}
+.question-text ul{padding-left:20px;margin-bottom:5px}
+.question-text strong{font-weight:700}
+.answer-header{padding:11px 22px 10px;background:var(--ans-strip);
+  display:flex;align-items:center;gap:9px;}
+.answer-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.5);flex-shrink:0;}
+.answer-lbl{font-size:10.5px;font-weight:800;letter-spacing:1.2px;
+  text-transform:uppercase;color:#fff;}
+.answer-body{padding:20px 22px 24px;line-height:1.8;color:#111827;font-size:14.5px;}
+.answer-body p,.answer-body div{margin-bottom:10px}
+.answer-body img{max-width:100%;height:auto;border-radius:8px;display:block;
+  margin:14px 0;box-shadow:0 4px 18px rgba(0,0,0,.15);border:1px solid var(--border);}
+.answer-body strong{font-weight:700}
+.answer-body em{font-style:italic}
+.answer-body code{background:rgba(124,58,237,.1);color:#5b21b6;padding:1px 5px;
+  border-radius:4px;font-family:"Fira Code","Consolas",monospace;font-size:13px;}
+.answer-body ul,.answer-body ol{padding-left:22px;margin-bottom:10px}
+.answer-body li{margin-bottom:4px}
+.answer-body h4{font-size:15px;font-weight:700;color:#111827;margin:14px 0 6px;}
+pre.code-block{font-family:"Fira Code","Cascadia Code","Consolas",monospace;
+  font-size:12.5px;background:var(--code-bg);color:var(--code-fg);
+  padding:14px 18px;border-radius:10px;margin:12px 0;
+  line-height:1.65;overflow-x:auto;white-space:pre;
+  border:1px solid #2a2f42;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 3px 12px rgba(0,0,0,.3);}
+pre.code-block::before{content:attr(data-lang);display:block;font-size:10px;
+  letter-spacing:.8px;text-transform:uppercase;color:#565f89;margin-bottom:8px;
+  font-style:normal;font-family:sans-serif;}
+.kw{color:#bb9af7}.fn{color:#7dcfff}.str{color:#9ece6a}
+.num{color:#ff9e64}.cmt{color:#565f89;font-style:italic}.ty{color:#2ac3de}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;}
+th{background:var(--navy3);color:#c4b5fd;font-weight:700;padding:9px 14px;
+  text-align:left;font-size:13px;}
+td{padding:8px 14px;border-bottom:1px solid #e5e7eb;color:#374151;}
+tr:nth-child(even) td{background:#f9fafb}
+tr.highlight td{background:#ede9fe;font-weight:600;color:#5b21b6}
+.score-table th{background:#1e2535;color:#a5b4fc}
+.bottomnav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.97);
+  backdrop-filter:blur(12px);border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;gap:4px;
+  padding:8px 14px;box-shadow:0 -4px 20px rgba(0,0,0,.08);z-index:200;}
+.page-btn{display:inline-flex;align-items:center;justify-content:center;
+  width:33px;height:33px;border-radius:8px;font-size:13px;font-weight:500;
+  text-decoration:none;color:#374151;background:#eeeae2;border:1px solid #dcd8d0;
+  transition:background .14s,color .14s,transform .1s,box-shadow .14s;}
+.page-btn:hover:not(.active):not(.disabled){background:#e2ddd5;transform:translateY(-2px);
+  box-shadow:0 3px 8px rgba(0,0,0,.1);}
+.page-btn.active{background:var(--acc);color:#fff;border-color:var(--acc2);
+  font-weight:700;box-shadow:0 2px 10px var(--acc-g);transform:translateY(-1px);}
+.page-btn.disabled{color:#d1d5db;background:#f9f9f9;cursor:default;pointer-events:none}
+.arrow-btn{display:inline-flex;align-items:center;justify-content:center;
+  width:33px;height:33px;border-radius:8px;background:#eeeae2;border:1px solid #dcd8d0;
+  color:#374151;text-decoration:none;font-size:15px;margin:0 4px;
+  transition:background .14s,transform .1s,box-shadow .14s;}
+.arrow-btn:hover{background:#e2ddd5;transform:translateY(-2px);
+  box-shadow:0 3px 8px rgba(0,0,0,.1);}
+.arrow-btn.disabled{color:#d1d5db;pointer-events:none;background:#f9f9f9}
+@media(max-width:900px){.main-col{padding:16px 12px 0;min-width:0}}
+</style>
+</head>
+<body>
+<header class="topnav">
+  <a href="https://ary-x86.github.io/" class="back-btn">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+      <path d="M7.5 2L3.5 6L7.5 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>Home
+  </a>
+  <span class="breadcrumb"><b>Assignment 3</b> › ML Course › Clustering &amp; PCA</span>
+  <span class="site-title">A3 Report</span>
+  <span class="nav-right"><span class="nav-date">Apr 2026</span></span>
+</header>
+<div class="page-body">
+  <div class="left-col">
+    <div class="avatar-float">
+      <div class="avatar-ring">
+        <div class="avatar-img" style="display:flex;align-items:center;justify-content:center;font-size:40px;background:#1e2535;">&#x1F9E0;</div>
+        <div class="avatar-bubble">k-means finds centroids. k-medoids picks real points. Both like blobs. Rings? Problem.</div>
+      </div>
+      <span class="avatar-lbl">Aryan</span>
+    </div>
+  </div>
+  <main class="main-col">
+    <h3 class="level-heading">Task 1 — Visualizing Clustering Results</h3>
+    <div class="question-card">
+  <div class="question-prompt">
+    <span class="q-number">1</span>
+    <div class="question-text">
+<p><strong>Apply KMeans and KMedoids with k=5</strong> (because we know from the ground truth that there are 5 labels).</p>
+<ul>
+  <li>Make three plots side by side — two showing the clusters your models learned, and the last one showing the ground truth.</li>
+  <li>Each plot must have a title, axis labels, and legend.</li>
+  <li>For the KMeans and KMedoids plots, also plot the centroids using a differently shaped marker (e.g. ×).</li>
+  <li>Put this side-by-side plot in your report and give a brief analysis of how well the models appear to be doing.</li>
+</ul>
+</div>
+  </div>
+  <div class="answer-header">
+    <span class="answer-dot"></span>
+    <span class="answer-lbl">Answer</span>
+  </div>
+  <div class="answer-body">
+<h4>What we did</h4>
+<p>We loaded <code>vehicles.csv</code> (250 rows, features: <em>weight</em> and <em>speed</em>, 5 ground-truth vehicle classes). We fit <code>KMeans(n_clusters=5)</code> and <code>KMedoids(n_clusters=5)</code> with <code>random_state=42</code>, then produced a 3-panel figure using <code>plt.subplots(1,3)</code>:</p>
+<pre class="code-block" data-lang="python">X_t1 = df[[&#x27;weight&#x27;, &#x27;speed&#x27;]].values   # 250×2 feature matrix
+y_t1 = df.iloc[:, -1].values            # ground-truth labels (1–5)
+
+k = 5
+km_t1   = KMeans(n_clusters=k, random_state=42, n_init=10)
+kmed_t1 = KMedoids(n_clusters=k, random_state=42)
+km_t1.fit(X_t1)
+kmed_t1.fit(X_t1)
+
+palette = plt.cm.tab10(np.linspace(0, 0.9, k))
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(21, 6), sharex=True, sharey=True)
+
+# KMeans panel
+for cid in range(k):
+    m = km_t1.labels_ == cid
+    ax1.scatter(X_t1[m, 0], X_t1[m, 1], s=20, color=palette[cid], label=f&#x27;Cluster {cid}&#x27;)
+ax1.scatter(km_t1.cluster_centers_[:, 0], km_t1.cluster_centers_[:, 1],
+            marker=&#x27;x&#x27;, s=200, linewidths=3, color=&#x27;black&#x27;, zorder=5, label=&#x27;Centroids&#x27;)
+ax1.set_title(&#x27;KMeans (k=5)&#x27;);  ax1.set_xlabel(&#x27;Weight&#x27;);  ax1.set_ylabel(&#x27;Speed&#x27;)
+ax1.legend(fontsize=8)
+
+# KMedoids panel
+for cid in range(k):
+    m = kmed_t1.labels_ == cid
+    ax2.scatter(X_t1[m, 0], X_t1[m, 1], s=20, color=palette[cid], label=f&#x27;Cluster {cid}&#x27;)
+ax2.scatter(kmed_t1.cluster_centers_[:, 0], kmed_t1.cluster_centers_[:, 1],
+            marker=&#x27;x&#x27;, s=200, linewidths=3, color=&#x27;black&#x27;, zorder=5, label=&#x27;Medoids&#x27;)
+ax2.set_title(&#x27;KMedoids (k=5)&#x27;);  ax2.set_xlabel(&#x27;Weight&#x27;);  ax2.legend(fontsize=8)
+
+# Ground truth panel
+for lbl in np.unique(y_t1):
+    m = y_t1 == lbl
+    ax3.scatter(X_t1[m, 0], X_t1[m, 1], s=20, label=f&#x27;Vehicle class {int(lbl)}&#x27;)
+ax3.set_title(&#x27;Ground Truth&#x27;);  ax3.set_xlabel(&#x27;Weight&#x27;);  ax3.legend(fontsize=8)
+plt.tight_layout();  plt.show()</pre>
+<h4>How the code works</h4>
+<p><strong>KMeans</strong> iteratively assigns each point to the nearest centroid (arithmetic mean), then recomputes centroids until convergence — minimising within-cluster sum of squared distances. <strong>KMedoids</strong> does the same but constrains each centroid to be an actual data point (the medoid), making it more robust to outliers.</p>
+<p>For plotting, <code>km_t1.labels_</code> gives the cluster index for each point and <code>km_t1.cluster_centers_</code> gives centroid coordinates. Centroids are plotted with <code>marker='x'</code> in black, clearly distinguishable from the data points.</p>
+<h4>Result</h4>
+<img src="task1_clustering.png" alt="Task 1 clustering results">
+<h4>Analysis</h4>
+<p>Both KMeans and KMedoids recover a 5-cluster partition that closely matches the ground truth. The vehicle classes form roughly convex, well-separated blobs in weight-speed space — exactly the structure both algorithms are designed for.</p>
+<p>The key structural difference: <strong>KMeans centroids</strong> lie at the arithmetic mean of each cluster (can sit in empty space), while <strong>KMedoids centroids</strong> are always actual data points. Visually, the two predicted clusterings are nearly identical. Minor disagreements occur at cluster boundaries where classes overlap, but overall performance is strong on this dataset.</p>
+</div>
+</div>
+  </main>
+</div>
+<nav class="bottomnav"><span class="arrow-btn disabled">&#8592;</span><a href="1.html" class="page-btn active">1</a><a href="2.html" class="page-btn">2</a><a href="3.html" class="page-btn">3</a><a href="4.html" class="page-btn">4</a><a href="5.html" class="page-btn">5</a><a href="6.html" class="page-btn">6</a><a href="2.html" class="arrow-btn">&#8594;</a></nav>
+<script>
+(function(){
+function highlight(pre){
+  let h = pre.innerHTML;
+  h=h.replace(/&lt;/g,'\x01LT\x01').replace(/&gt;/g,'\x01GT\x01').replace(/&amp;/g,'\x01AMP\x01');
+  const combined=/(?:("(?:[^"\\]|\\.)*")|((?:\/\/|#)[^\n\x01]*)|(\b(?:import|from|as|def|class|return|for|while|if|else|elif|in|not|and|or|True|False|None|print|with|lambda|yield|raise|try|except|finally|pass|break|continue|global|nonlocal|assert|del)\b)|(\b(?:np|pd|plt|KMeans|KMedoids|PCA|DataFrame)\b)|(\b[a-zA-Z_]\w*)(?=\s*\()|(?<![a-zA-Z_])(0x[0-9a-fA-F]+|\b\d+\.?\d*\b))/g;
+  h=h.replace(combined,function(m,str,cmt,kw,ty,fn,num){
+    if(str)return '<span class="str">'+str+'</span>';
+    if(cmt)return '<span class="cmt">'+cmt+'</span>';
+    if(kw)return '<span class="kw">'+kw+'</span>';
+    if(ty)return '<span class="ty">'+ty+'</span>';
+    if(fn){const skip=['if','for','while','return','print','range','len','int','float','str','list','dict','set','zip','enumerate','sorted','sum','max','min','abs'];return skip.includes(fn)?m:'<span class="fn">'+fn+'</span>';}
+    if(num)return '<span class="num">'+num+'</span>';
+    return m;
+  });
+  h=h.replace(/\x01LT\x01/g,'&lt;').replace(/\x01GT\x01/g,'&gt;').replace(/\x01AMP\x01/g,'&amp;');
+  pre.innerHTML=h;
+}
+document.querySelectorAll('pre.code-block').forEach(highlight);
+})();
+</script>
+</body>
+</html>
