@@ -256,6 +256,64 @@
             margin-top: 0;
         }
 
+        /* Q&A Section Styles */
+        .qa-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid var(--border-color);
+        }
+        .qa-block {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .qa-q {
+            background-color: var(--table-head-bg);
+            padding: 15px 20px;
+            font-weight: 700;
+            color: var(--brand-primary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 10px;
+        }
+        .qa-q::before {
+            content: "Q:";
+            color: var(--brand-accent);
+        }
+        .qa-a {
+            padding: 20px;
+            color: var(--text-main);
+            display: flex;
+            gap: 10px;
+        }
+        .qa-a::before {
+            content: "A:";
+            font-weight: 700;
+            color: #10b981; /* Green accent for answers */
+        }
+        .qa-a-content {
+            flex: 1;
+        }
+        .qa-a-content p:first-child {
+            margin-top: 0;
+        }
+        .qa-a-content p:last-child {
+            margin-bottom: 0;
+        }
+        .cadence-box {
+            background-color: #f8fafc;
+            border-left: 4px solid var(--brand-primary);
+            padding: 15px 20px;
+            margin-top: 15px;
+            border-radius: 0 4px 4px 0;
+        }
+        .cadence-box ul {
+            margin-bottom: 0;
+        }
+
         /* Simplified Takeaways Section */
         .simplified-section {
             background-color: #f0fdf4; /* Very light green tint */
@@ -796,6 +854,93 @@
             <li><strong>Bulk hardware procurement</strong> is the single largest gross-margin lever. Moving from 100-unit to 1,000-unit volumes on TEROS 12 / Sentek probes saves ~30 %; building an own-design SMT50-class sensor + ESP32 LoRa node for the lower-tier segments at 10k volume can put hardware gross margin above 55 %. Decide early which segments justify that capex.</li>
             <li><strong>Where to start the GTM sequence (data-driven recommendation):</strong> UAE high-tech greenhouses (highest retrofit %, fastest sales cycle, strongest political/funding tailwinds) → Saudi corporate-farm open-field pilots (high deal size, 60 % capex subsidies via ADF/Vision 2030) → DE potato Beregnungsverbände in Niedersachsen (regulatory-driven greenfield demand 2025–27) → DE/Pfalz premium vineyards (defensibility play) → DE protected horticulture (slow but sticky retrofit revenue) → date palms last (large TAM but conservative buying behavior).</li>
         </ol>
+
+        <div class="qa-section" id="internal-qa">
+            <h2>10. Appendix: Internal Strategic Q&A</h2>
+            <p><em>Addressed from recent founder alignment discussions regarding cloud costs, installation logistics, IP strategy, and operating cadence.</em></p>
+
+            <div class="qa-block">
+                <div class="qa-q">Do we need to budget heavily for GPU costs, especially as we scale?</div>
+                <div class="qa-a">
+                    <div class="qa-a-content">
+                        <p>Yes and no, but overall it is a negligible cost per customer. The architecture relies on a <strong>Foundation model + per-farm fine-tuning</strong>. We train one large base model on aggregated data to capture universal soil/crop physics (this happens infrequently). Then, for each specific farm, we only fine-tune the last few layers—fitting a thin "adapter" or LoRA-style low-rank update to capture the local soil bias. This per-farm tuning takes 1–5 minutes on a standard CPU.</p>
+                        <p><strong>Financial Plan Budgeting (3 Line Items):</strong></p>
+                        <ul>
+                            <li><strong>Training compute (cloud GPU):</strong> €100–300/month in years 1–2; scaling to €2k–5k/month at 10,000 customers. We will use spot cloud instances (RunPod, Lambda Labs, AWS) instead of buying hardware.</li>
+                            <li><strong>Inference compute (CPU cloud):</strong> €50–500/month scaling with customers. Very cheap.</li>
+                            <li><strong>Data storage + hosting:</strong> €100–500/month early, €1k–3k/month at scale (Postgres + time-series DB).</li>
+                        </ul>
+                        <p><em>Data Compliance Note:</em> To comply with the EU Data Act, GDPR, and the German farmer-data sovereignty expectations, all hosting must be on EU infrastructure (e.g., AWS Frankfurt, Hetzner). This adds a ~10-20% premium but is non-negotiable.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-block">
+                <div class="qa-q">What exactly is the difference between "Retrofit" and "Greenfield" deployments?</div>
+                <div class="qa-a">
+                    <div class="qa-a-content">
+                        <p><strong>Greenfield</strong> means the farm has zero existing smart infrastructure. We arrive at empty soil and install our sensors, gateways, and dashboard. We sell hardware + software + install labor. This results in the highest deal value, but highest install cost and slowest deployment.</p>
+                        <p><strong>Retrofit / Integrate</strong> means the farm already has sensors or climate computers (e.g., Priva, Sentek, CropX), but they lack intelligent decision-making. LeafShift plugs in via API, ingests their data, and adds our AI decision layer on top. We sell mostly SaaS software and integration work. This has a lower total deal value, but a much higher gross margin and a faster sales cycle.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-block">
+                <div class="qa-q">Should we outsource the physical installation of the hardware?</div>
+                <div class="qa-a">
+                    <div class="qa-a-content">
+                        <p>We will execute this in a strict three-phase approach:</p>
+                        <ul>
+                            <li><strong>Phase 1 (First 10 Customers): DIY.</strong> We do it ourselves. You cannot debug an AI system if you don't understand how the sensors were placed. We need this hands-on time to learn calibration, soil contact, cable routing, and gateway placement to write the training manuals. Founder time is capitalized; we cannot afford a €5k external installer bill on a €15k pilot.</li>
+                            <li><strong>Phase 2 (Scaling Initial Base): Freelancers.</strong> Hire agricultural student freelancers or dedicated field technicians to handle the labor using our newly drafted instructions.</li>
+                            <li><strong>Phase 3 (75+ Customers): Selective Outsourcing.</strong> Partner with existing irrigation installers (Beregnungsverbände, Netafim dealers) and certify them on LeafShift. We pay them a per-job fee (€150–250 per station).</li>
+                        </ul>
+                        <p><em>Nuance:</em> Hardware choice matters here. A Sentek Drill & Drop takes 30 minutes to install. A horizontal trench install takes 2–4 hours. Fast hardware drastically improves install economics.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-block">
+                <div class="qa-q">Does our specific sensor combination already exist? Should we patent it or keep it a trade secret?</div>
+                <div class="qa-a">
+                    <div class="qa-a-content">
+                        <p>The hardware components (Sensors, LoRaWAN nodes) are off-the-shelf, and the basic combination of "soil moisture + IoT + ML" is heavily published prior art. We cannot patent the basic concept.</p>
+                        <p>However, specific novel algorithms (like auto-calibrating sensors using post-hoc Bayesian drift detection, or specific multi-sensor fusion weighting) <em>might</em> be patentable later. For now, a pre-revenue startup should not misallocate €15k–30k on EU patents without the budget to enforce them.</p>
+                        <div class="figure-container" style="margin: 20px 0; padding: 20px;">
+                            <h3 style="margin-top: 0; font-size: 1.05rem;">IP Strategy Matrix: Patent vs. Trade Secret</h3>
+                            <img src="tradesecret_vs_patent.jpg" alt="Table comparing Patents vs Trade Secrets for Startups" style="margin-bottom: 10px;">
+                        </div>
+                        <p><strong>Recommendation:</strong> Rely on Trade Secrets. Ensure strict NDAs and IP-assignments for all team members. Keep our training pipelines private. Our true defensible moat is <strong>Data + Customer Relationships + Iteration Speed</strong>. Every customer provides calibrated training data that no competitor has.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-block">
+                <div class="qa-q">What about the USA market? It wasn't in the memo.</div>
+                <div class="qa-a">
+                    <div class="qa-a-content">
+                        <p>Correct. The USA was deliberately excluded from this specific market-sizing exercise to maintain focus on our immediate Phase 1 targets: Germany (DE) and the Gulf (GCC). The US market requires its own dedicated TAM analysis, regulatory review, and capex breakdown, which will be addressed in a subsequent phase.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-block">
+                <div class="qa-q">What is our operational cadence moving forward?</div>
+                <div class="qa-a">
+                    <div class="qa-a-content">
+                        <p>From Day 1, we operate with the discipline of a mature company. We are reinstating strict weekly alignment calls. The operating cadence is as follows:</p>
+                        <div class="cadence-box">
+                            <ul>
+                                <li><strong>Weekly:</strong> Founder sync (priorities, blockers), engineering review, and risk review.</li>
+                                <li><strong>Monthly:</strong> Product review, pilot/deployment status review, and drafting the investor update.</li>
+                                <li><strong>Quarterly:</strong> OKRs, roadmap resets, hiring gates, and security reviews.</li>
+                            </ul>
+                            <p style="margin-top: 10px; font-weight: bold; color: var(--brand-primary);">Golden Rule: "No quality debt that threatens autonomy and safety."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div id="simplified-takeaways" class="simplified-section">
             <h2>Simplified Key Takeaways</h2>
