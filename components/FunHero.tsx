@@ -15,7 +15,7 @@ export default function FunHero() {
     <section className="relative min-h-[100vh] overflow-hidden">
       <div aria-hidden className="absolute inset-0 -z-10">
         <div className="fun-mesh" />
-        <div className="absolute inset-x-0 top-[28%] bottom-[12%] opacity-80 mix-blend-screen">
+        <div className="absolute inset-0 opacity-85 mix-blend-screen">
           <SplineWave />
         </div>
         <div className="grid-lines" />
@@ -96,8 +96,8 @@ export default function FunHero() {
             linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
             linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
           background-size: 96px 96px;
-          mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
-          -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
+          mask-image: radial-gradient(ellipse 110% 100% at center, black 55%, transparent 100%);
+          -webkit-mask-image: radial-gradient(ellipse 110% 100% at center, black 55%, transparent 100%);
         }
         .vignette {
           position: absolute;

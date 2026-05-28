@@ -104,8 +104,8 @@ export default function ModeToggle({ variant }: Props) {
         .f5 { transform: rotateX(90deg) translateZ(9px); }
         .f6 { transform: rotateX(-90deg) translateZ(9px); }
         @keyframes cube-spin {
-          from { transform: rotateX(0deg) rotateY(0deg); }
-          to { transform: rotateX(360deg) rotateY(360deg); }
+          from { transform: rotateX(25deg) rotateY(35deg); }
+          to { transform: rotateX(385deg) rotateY(395deg); }
         }
       `}</style>
     </>

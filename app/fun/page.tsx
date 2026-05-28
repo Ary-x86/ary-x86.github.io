@@ -19,7 +19,8 @@ export default function Fun() {
     <>
       <FunBootScreen />
 
-      <header className="absolute top-0 left-0 right-0 z-20 mx-auto flex max-w-6xl items-center justify-between px-6 pt-8 sm:pt-10">
+      <header className="absolute top-0 left-0 right-0 z-20 px-6">
+        <div className="mx-auto flex max-w-6xl items-center justify-between border-b border-white/5 pt-8 pb-4 sm:pt-10">
         <Link
           href="/fun/"
           className="flex items-center gap-2.5 text-xs uppercase tracking-[0.22em]"
@@ -37,6 +38,7 @@ export default function Fun() {
         <nav className="flex items-center gap-6 text-xs uppercase tracking-widest text-[color:var(--muted)]">
           <ModeToggle variant="fun" />
         </nav>
+        </div>
       </header>
 
       <FunHero />
@@ -118,8 +120,8 @@ export default function Fun() {
         {/* Archive pointer */}
         <SectionFade className="relative py-32" as="section">
           <div className="mx-auto max-w-6xl px-6">
-            <div className="card-surface rounded-3xl p-10 sm:p-14">
-              <div className="flex flex-wrap items-end justify-between gap-6">
+            <div className="border-t border-[color:var(--border)] pt-12">
+              <div className="flex flex-wrap items-end justify-between gap-8">
                 <NumberedHeading
                   num="04"
                   label="Archive"
@@ -135,11 +137,11 @@ export default function Fun() {
                       </span>
                     </>
                   }
-                  subtitle="Earlier coursework. Preserved so links don&apos;t die — not representative of current work."
+                  subtitle="Earlier coursework. Preserved so links don't die — not representative of current work."
                 />
                 <Link
                   href="/archive/"
-                  className="rounded-full border border-white/15 px-6 py-3 text-sm hover:border-white/40 transition-colors"
+                  className="shrink-0 rounded-full border border-white/15 px-6 py-3 text-sm hover:border-white/40 transition-colors"
                 >
                   Enter /archive →
                 </Link>
