@@ -32,6 +32,18 @@ export const projects: Project[] = [
     category: "career",
     tags: ["Co-founder", "AgriTech", "AI", "Collaboration"],
   },
+  {
+    id: "leafshift-business-plan",
+    title: "Leafshift — Business Plan",
+    blurb:
+      "Sections 2–7 of the Leafshift business plan: the problem, ideal customer, market sizing, timing, product, and technology & defensibility for our AI decision layer for irrigation and fertigation. Print-ready A4 PDF, plus a one-click Word (.docx) download for Google Docs.",
+    href: "/LeafShift-Business-Plan/",
+    bucket: "pro",
+    category: "career",
+    tags: ["Leafshift", "Business Plan", "AgriTech", "Strategy"],
+    thumbnail: "/LeafShift-Business-Plan/thumbnail.svg",
+    external: true,
+  },
 
   // Fun — student, hobby, creative, university work
   {

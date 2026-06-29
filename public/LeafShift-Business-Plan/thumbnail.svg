@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750" role="img" aria-label="LeafShift Business Plan cover">
+  <defs>
+    <pattern id="grid" width="46" height="46" patternUnits="userSpaceOnUse">
+      <path d="M46 0H0V46" fill="none" stroke="#33402f" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- forest field + grid -->
+  <rect width="1200" height="750" fill="#1d251f"/>
+  <rect width="1200" height="750" fill="url(#grid)"/>
+
+  <!-- corner brackets -->
+  <path d="M64 64 H100 M64 64 V100" stroke="#a8ad9e" stroke-width="2" fill="none"/>
+  <path d="M1136 686 H1100 M1136 686 V650" stroke="#a8ad9e" stroke-width="2" fill="none"/>
+
+  <!-- utility labels -->
+  <text x="64" y="120" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="20" letter-spacing="4.4" fill="#a8ad9e">BUSINESS PLAN · V0.4</text>
+  <text x="1136" y="120" text-anchor="end" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="20" letter-spacing="4.4" fill="#a8ad9e">AG-AI · EST. 2026</text>
+
+  <!-- wordmark -->
+  <text x="60" y="380" font-family="Helvetica Neue,Helvetica,Arial,sans-serif" font-weight="800" font-size="200" letter-spacing="-6" fill="#eae9e2">leaf<tspan fill="#83a766">S</tspan>hift</text>
+
+  <!-- tagline -->
+  <text x="64" y="470" font-family="Helvetica Neue,Helvetica,Arial,sans-serif" font-weight="700" font-size="44" letter-spacing="-1" fill="#eae9e2">Every litre justified. <tspan fill="#a8ad9e">Every acre optimised.</tspan></text>
+
+  <!-- sub -->
+  <text x="64" y="520" font-family="Helvetica Neue,Helvetica,Arial,sans-serif" font-size="26" fill="#a8ad9e">The AI operating system for irrigation and fertigation.</text>
+
+  <!-- footer rule + meta -->
+  <line x1="64" y1="640" x2="1136" y2="640" stroke="#33402f" stroke-width="1"/>
+  <text x="64" y="690" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="22" letter-spacing="4.4" fill="#83a766">SECTIONS 02 – 07</text>
+  <text x="1136" y="690" text-anchor="end" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="22" letter-spacing="4.4" fill="#a8ad9e">PROBLEM → DEFENSIBILITY</text>
+</svg>

@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeafShift — Business Plan · Sections 2–7</title>
+<meta name="description" content="LeafShift business plan, sections 2–7: the problem, ideal customer, market size, timing, product, and technology &amp; defensibility for an AI operating system for irrigation and fertigation.">
+<meta name="author" content="Aryan Swami-Persaud">
+<link rel="icon" href="/favicon.ico">
+<link rel="canonical" href="https://ary-x86.github.io/LeafShift-Business-Plan/">
+<!-- social / link thumbnail -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeafShift — Business Plan · Sections 2–7">
+<meta property="og:description" content="The AI operating system for irrigation and fertigation. Problem → Defensibility.">
+<meta property="og:url" content="https://ary-x86.github.io/LeafShift-Business-Plan/">
+<meta property="og:image" content="https://ary-x86.github.io/LeafShift-Business-Plan/thumbnail.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LeafShift — Business Plan · Sections 2–7">
+<meta name="twitter:description" content="The AI operating system for irrigation and fertigation. Problem → Defensibility.">
+<meta name="twitter:image" content="https://ary-x86.github.io/LeafShift-Business-Plan/thumbnail.svg">
+
+<!--
+  ============================================================================
+  LEAFSHIFT BUSINESS PLAN — SECTIONS 2 TO 7 (Aryan's sections)
+  Brand: "Bone & Moss". Deep forest green + bone/off-white + moss accent.
+  Instrument aesthetic: monospace utility labels, hairline rules, corner
+  brackets, generous whitespace. "Numbers do the talking. Earth, not eco."
+
+  FONTS: built on a system neo-grotesque stack so it renders offline. If you
+  have the real brand face (e.g. a Helvetica Now / Söhne / Neue Haas grotesk),
+  swap it into --font-display and --font-body below.
+
+  IMAGES: every <figure> contains an <img> with an invented filename plus a
+  detailed IMAGE PROMPT comment written for Claude Design. Generate each image,
+  save it next to this file under the given filename, and it will appear. Until
+  then a styled placeholder shows in its place.
+  ============================================================================
+-->
+
+<style>
+  :root{
+    --forest:#1d251f;       /* primary dark */
+    --forest-2:#232c25;     /* panel dark */
+    --forest-line:#33402f;  /* dark hairlines */
+    --bone:#eae9e2;         /* primary light */
+    --bone-2:#e1e0d7;       /* card on bone */
+    --bone-line:#cfceC3;    /* light hairlines */
+    --moss:#83a766;         /* accent (large only) */
+    --moss-deep:#4f7a3e;    /* accent for small text on bone */
+    --ink:#1d251f;          /* text on bone */
+    --ink-soft:#5b6357;     /* muted text on bone */
+    --ink-faint:#8a9082;    /* faint text on bone */
+    --bone-soft:#a8ad9e;    /* muted text on forest */
+
+    --font-display:"Helvetica Neue",Helvetica,Arial,"Segoe UI",Roboto,sans-serif;
+    --font-body:"Helvetica Neue",Helvetica,Arial,"Segoe UI",Roboto,sans-serif;
+    --font-mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+
+    --wrap:880px;
+    --measure:680px;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bone);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  /* ---------- utility type ---------- */
+  .mono{
+    font-family:var(--font-mono);
+    text-transform:uppercase;
+    letter-spacing:0.22em;
+    font-size:0.7rem;
+    color:var(--ink-faint);
+  }
+  .mono-on-dark{color:var(--bone-soft);}
+
+  /* ---------- layout ---------- */
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px;}
+  .measure{max-width:var(--measure);}
+  p{margin:0 0 1.1em;}
+  strong{font-weight:700;}
+  a{color:var(--moss-deep);text-decoration:none;border-bottom:1px solid var(--bone-line);}
+
+  /* ---------- corner brackets ---------- */
+  .bracketed{position:relative;}
+  .bracketed::before,.bracketed::after{
+    content:"";position:absolute;width:16px;height:16px;pointer-events:none;
+  }
+  .bracketed::before{top:0;left:0;border-top:1.5px solid var(--moss);border-left:1.5px solid var(--moss);}
+  .bracketed::after{bottom:0;right:0;border-bottom:1.5px solid var(--moss);border-right:1.5px solid var(--moss);}
+
+  /* ============================================================
+     COVER
+  ============================================================ */
+  .cover{
+    background:var(--forest);
+    color:var(--bone);
+    background-image:
+      linear-gradient(var(--forest-line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--forest-line) 1px,transparent 1px);
+    background-size:46px 46px;
+    background-position:center;
+    border-bottom:1px solid var(--forest-line);
+  }
+  .cover-inner{
+    max-width:var(--wrap);margin:0 auto;padding:46px 28px 52px;
+    position:relative;min-height:62vh;display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .cover-inner::before,.cover-inner::after{
+    content:"";position:absolute;width:22px;height:22px;pointer-events:none;
+  }
+  .cover-inner::before{top:30px;right:28px;border-top:1.5px solid var(--bone-soft);border-right:1.5px solid var(--bone-soft);}
+  .cover-inner::after{bottom:36px;left:28px;border-bottom:1.5px solid var(--bone-soft);border-left:1.5px solid var(--bone-soft);}
+
+  .cover-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;}
+  .wordmark{
+    font-family:var(--font-display);font-weight:800;letter-spacing:-0.03em;line-height:0.9;
+    font-size:clamp(3rem,9vw,5.6rem);color:var(--bone);margin:38px 0 0;
+  }
+  .wordmark .s{color:var(--moss);}
+  .cover-tag{
+    font-family:var(--font-display);font-weight:700;letter-spacing:-0.02em;line-height:1.05;
+    font-size:clamp(1.3rem,3.4vw,2rem);margin:26px 0 0;color:var(--bone);max-width:30ch;
+  }
+  .cover-tag .muted{color:var(--bone-soft);}
+  .cover-sub{margin:14px 0 0;color:var(--bone-soft);max-width:54ch;font-size:0.98rem;line-height:1.55;}
+  .cover-foot{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:30px;}
+
+  /* ============================================================
+     DOCUMENT META / INDEX
+  ============================================================ */
+  .meta{border-bottom:1px solid var(--bone-line);background:var(--bone);}
+  .meta-inner{max-width:var(--wrap);margin:0 auto;padding:30px 28px;}
+  .meta-note{
+    border:1px solid var(--bone-line);border-left:3px solid var(--moss);
+    padding:18px 20px;margin-top:18px;background:var(--bone-2);border-radius:2px;
+  }
+  .meta-note p{margin:0;font-size:0.92rem;color:var(--ink-soft);line-height:1.55;}
+  .index{margin-top:26px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px 28px;}
+  .index a{
+    display:flex;gap:14px;align-items:baseline;border-bottom:1px solid var(--bone-line);
+    padding:9px 0;color:var(--ink);border-radius:0;
+  }
+  .index a:hover{color:var(--moss-deep);}
+  .index .num{font-family:var(--font-mono);font-size:0.78rem;color:var(--moss-deep);min-width:22px;}
+  .index .ttl{font-weight:700;font-size:0.96rem;letter-spacing:-0.01em;}
+
+  /* ============================================================
+     SECTIONS
+  ============================================================ */
+  section.block{padding:64px 0;border-bottom:1px solid var(--bone-line);}
+  .eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+  .eyebrow .rule{height:1px;background:var(--bone-line);flex:1;}
+  h2.head{
+    font-family:var(--font-display);font-weight:700;letter-spacing:-0.025em;line-height:1.04;
+    font-size:clamp(1.7rem,4.4vw,2.7rem);margin:0 0 22px;max-width:18ch;color:var(--ink);
+  }
+  .lead{font-size:1.12rem;line-height:1.6;color:var(--ink);max-width:var(--measure);}
+  h3.sub{
+    font-family:var(--font-display);font-weight:700;letter-spacing:-0.01em;
+    font-size:1.12rem;margin:38px 0 12px;color:var(--ink);max-width:var(--measure);
+  }
+  .body-text{max-width:var(--measure);}
+  .src{font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.06em;color:var(--ink-faint);text-transform:uppercase;}
+
+  /* ---------- stat callouts ---------- */
+  .stat-row{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:30px 0;max-width:var(--measure);}
+  .stat{
+    background:var(--forest);color:var(--bone);padding:22px 22px 20px;border-radius:3px;position:relative;
+  }
+  .stat .fig{font-family:var(--font-display);font-weight:700;letter-spacing:-0.02em;font-size:clamp(1.9rem,5vw,2.6rem);line-height:1;color:var(--moss);}
+  .stat .cap{margin-top:10px;font-size:0.84rem;line-height:1.45;color:var(--bone-soft);}
+  .stat .src{color:#6f7768;margin-top:10px;display:block;}
+
+  /* ---------- pull callout (inline emphasis) ---------- */
+  .pull{
+    border-left:3px solid var(--moss);padding:4px 0 4px 20px;margin:26px 0;max-width:var(--measure);
+    font-family:var(--font-display);font-weight:700;font-size:1.18rem;line-height:1.4;letter-spacing:-0.01em;color:var(--ink);
+  }
+
+  /* ---------- honesty note ---------- */
+  .honesty{
+    border:1px solid var(--forest-line);background:var(--forest);color:var(--bone);
+    border-radius:3px;padding:22px 24px;margin:34px 0 0;max-width:var(--measure);
+  }
+  .honesty .mono{color:var(--moss);margin-bottom:10px;display:block;}
+  .honesty p{margin:0;color:var(--bone-soft);font-size:0.95rem;line-height:1.55;}
+
+  /* ---------- figures ---------- */
+  figure.fig{margin:38px 0 0;max-width:var(--wrap);}
+  .fig-frame{
+    position:relative;border:1px solid var(--bone-line);background:var(--bone-2);border-radius:3px;
+    overflow:hidden;
+  }
+  .fig-frame img{display:block;width:100%;height:auto;}
+  .fig-ph{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    min-height:240px;padding:30px;text-align:center;color:var(--ink-faint);
+    background:
+      repeating-linear-gradient(135deg,transparent 0 12px,rgba(0,0,0,0.018) 12px 13px);
+  }
+  .fig-ph .tag{font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--moss-deep);}
+  .fig-ph .desc{font-size:0.86rem;max-width:46ch;color:var(--ink-soft);line-height:1.5;}
+  figcaption{margin-top:12px;display:flex;gap:12px;align-items:baseline;}
+  figcaption .fnum{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.14em;color:var(--moss-deep);text-transform:uppercase;white-space:nowrap;}
+  figcaption .ftxt{font-size:0.88rem;color:var(--ink-soft);line-height:1.45;}
+
+  /* ============================================================
+     FOOTER / REFERENCES
+  ============================================================ */
+  footer{background:var(--forest);color:var(--bone);padding:56px 0 64px;}
+  footer .wrap{max-width:var(--wrap);}
+  footer h3{font-family:var(--font-display);font-weight:700;font-size:1.1rem;margin:0 0 18px;color:var(--bone);}
+  .refs{list-style:none;margin:0;padding:0;display:grid;gap:12px;max-width:760px;}
+  .refs li{font-size:0.84rem;color:var(--bone-soft);line-height:1.5;padding-left:24px;position:relative;}
+  .refs li .mono{position:absolute;left:0;top:1px;color:var(--moss);font-size:0.66rem;letter-spacing:0.1em;}
+  .foot-rule{height:1px;background:var(--forest-line);margin:34px 0;}
+  .foot-meta{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+
+  /* ============================================================
+     RESPONSIVE
+  ============================================================ */
+  @media (max-width:680px){
+    body{font-size:16px;}
+    .index{grid-template-columns:1fr;}
+    .stat-row{grid-template-columns:1fr;}
+    .cover-inner{min-height:auto;}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    html{scroll-behavior:smooth;}
+  }
+  :focus-visible{outline:2px solid var(--moss);outline-offset:3px;}
+
+  /* ============================================================
+     TOOLBAR — back / print / download  (screen only)
+  ============================================================ */
+  .toolbar{
+    position:fixed;top:14px;right:14px;z-index:50;
+    display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end;
+    max-width:calc(100vw - 28px);
+  }
+  .tbtn{
+    display:inline-flex;align-items:center;gap:7px;
+    font-family:var(--font-mono);font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--ink);background:rgba(234,233,226,0.86);
+    border:1px solid var(--bone-line);border-radius:999px;padding:8px 14px;
+    text-decoration:none;cursor:pointer;line-height:1;white-space:nowrap;
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    box-shadow:0 1px 3px rgba(29,37,31,0.18);transition:background .15s,border-color .15s,transform .15s;
+  }
+  .tbtn:hover{background:var(--bone);border-color:var(--moss);transform:translateY(-1px);}
+  .tbtn .ic{font-size:0.85rem;line-height:1;}
+  .tbtn.primary{background:var(--forest);color:var(--bone);border-color:var(--forest-line);}
+  .tbtn.primary:hover{background:#26312a;border-color:var(--moss);}
+  @media (max-width:680px){
+    .toolbar{top:auto;bottom:12px;right:12px;left:12px;justify-content:center;}
+    .tbtn{padding:9px 13px;}
+    .tbtn .lbl-long{display:none;}
+  }
+
+  /* ============================================================
+     PRINT / PDF — A4
+  ============================================================ */
+  @page{ size:A4; margin:16mm 15mm; }
+  @media print{
+    *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    html{ scroll-behavior:auto; }
+    body{ font-size:10.5pt; line-height:1.5; background:#fff; }
+    .toolbar{ display:none !important; }
+    a{ color:inherit; border-bottom:none; }
+    .wrap,.cover-inner,.meta-inner,footer .wrap{ max-width:100%; padding-left:0; padding-right:0; }
+    .cover{ background-size:46px 46px; break-after:page; }
+    .cover-inner{ min-height:auto; padding:24px 0 28px; }
+    .meta{ break-after:auto; }
+    section.block{ padding:20px 0; }
+    figure.fig,.fig-frame,.stat,.stat-row,.honesty,.pull,.meta-note{ break-inside:avoid; }
+    h2.head,h3.sub{ break-after:avoid; }
+    figure.fig img{ max-width:100%; height:auto; }
+    footer{ padding:28px 0 0; }
+    .refs{ break-inside:auto; }
+    .refs li{ break-inside:avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     TOOLBAR — back to portfolio / print to A4 PDF / download .docx
+     Hidden when printing.
+============================================================ -->
+<nav class="toolbar no-print" aria-label="Document actions">
+  <a class="tbtn" href="https://ary-x86.github.io/#work" title="Back to portfolio">
+    <span class="ic" aria-hidden="true">←</span><span>Portfolio</span>
+  </a>
+  <button type="button" class="tbtn" onclick="window.print()" title="Print or save as an A4 PDF">
+    <span class="ic" aria-hidden="true">⎙</span><span>Save as <span class="lbl-long">A4 </span>PDF</span>
+  </button>
+  <a class="tbtn primary" href="LeafShift-Business-Plan.docx" download title="Download as a Word document (.docx) — open or import into Google Docs">
+    <span class="ic" aria-hidden="true">⤓</span><span>Download <span class="lbl-long">for Docs </span>(.docx)</span>
+  </a>
+</nav>
+
+<!-- ============================================================
+     COVER / MASTHEAD
+============================================================ -->
+<header class="cover">
+  <div class="cover-inner">
+    <div>
+      <div class="cover-top">
+        <span class="mono mono-on-dark">Business plan · v0.4</span>
+        <span class="mono mono-on-dark">AG-AI · EST. 2026</span>
+      </div>
+      <h1 class="wordmark">leaf<span class="s">S</span>hift</h1>
+      <p class="cover-tag">Every litre justified. <span class="muted">Every acre optimised.</span></p>
+      <p class="cover-sub">The AI operating system for irrigation and fertigation. Mathematical confidence, no guesswork — physics first, machine learning second, every decision explainable.</p>
+    </div>
+    <div class="cover-foot">
+      <span class="mono mono-on-dark">Sections 02 – 07</span>
+      <span class="mono mono-on-dark">Problem → Defensibility</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     DOCUMENT META + INDEX
+============================================================ -->
+<div class="meta">
+  <div class="meta-inner">
+    <span class="mono">About this document</span>
+    <div class="meta-note">
+      <p><strong>Scope &amp; honesty note.</strong> This document covers business-plan sections 2–7. LeafShift is the company described throughout. Where a field trial in Beja, Portugal is referenced, it is a separate applied-research project used as <strong>validation infrastructure</strong> — it demonstrates that our architecture works, it is not a paying customer. All performance figures from internal work are <strong>simulation results only</strong>: they show model behaviour under modelled conditions and have <strong>not yet been field-validated</strong>. We name what we have not proven in each section, on purpose.</p>
+    </div>
+    <nav class="index" aria-label="Section index">
+      <a href="#s2"><span class="num">02</span><span class="ttl">The problem</span></a>
+      <a href="#s3"><span class="num">03</span><span class="ttl">Target customer / ICP</span></a>
+      <a href="#s4"><span class="num">04</span><span class="ttl">Market size</span></a>
+      <a href="#s5"><span class="num">05</span><span class="ttl">Market timing</span></a>
+      <a href="#s6"><span class="num">06</span><span class="ttl">Product &amp; solution</span></a>
+      <a href="#s7"><span class="num">07</span><span class="ttl">Technology &amp; defensibility</span></a>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- ========================================================
+       02 · PROBLEM
+  ======================================================== -->
+  <section class="block" id="s2">
+    <div class="eyebrow"><span class="mono">02 · Problem</span><span class="rule"></span></div>
+    <h2 class="head">Growers have the data. They don't have the decision.</h2>
+
+    <p class="lead">Medium-to-large growers have spent a decade buying sensors, irrigation controllers, and climate systems. Each one works. The trouble is they don't work <em>together</em> — and the person in the middle pays for it every day.</p>
+
+    <div class="body-text">
+      <p>Irrigation runs on one logic. Climate runs on another. The weather forecast lives somewhere else again, and the grower's own experience fills the gaps. Someone has to pull all of that into a single daily decision by hand. When that decision is even slightly wrong, water goes where it wasn't needed, crops are stressed where they shouldn't be, and quality, energy, and labour costs all drift in the wrong direction — on the most valuable land on the farm.</p>
+
+      <h3 class="sub">A budgeted cost, not a sustainability slogan</h3>
+      <p>It is tempting to say "agriculture wastes water." That is true, but it is too broad to act on, and no one has a line item for it. The sharper, more honest problem is this: <strong>the data already exists, but it does not become coordinated action.</strong> That gap is expensive in money the grower already counts — water, pumping and cooling energy, labour hours, and lost crop quality — which is what turns it from an environmental talking point into an operating cost a buyer will pay to remove.</p>
+
+      <p>Two facts show why irrigation decisions carry so much financial weight:</p>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="fig">&lt;20% / &gt;54%</div>
+        <div class="cap">In the United States, irrigated land is under 20% of harvested cropland but produces more than 54% of all crop-sales value. A fifth of the land drives over half the value — so small irrigation gains move real money.</div>
+        <span class="src">USDA Census of Agriculture, 2017</span>
+      </div>
+      <div class="stat">
+        <div class="fig">~50%</div>
+        <div class="cap">Saudi irrigation efficiency sits near 50%, against a global best practice of about 85%. Agriculture is 84% of national water use, more than 90% of it from non-renewable groundwater, on under 2% arable land, with roughly 80% of food imported.</div>
+        <span class="src">FAO 2024 · Saudi MEWA</span>
+      </div>
+    </div>
+
+    <div class="body-text">
+      <h3 class="sub">Three stages — and the third one is still a person</h3>
+      <p>Every farm operating decision moves through three stages: <strong>measure</strong> what is happening, <strong>predict</strong> what is likely to happen, and <strong>coordinate</strong> the best combined action. Most installed systems do the first stage well. Some do the second. Almost none do the third consistently, across mixed equipment from different vendors. That third stage — turning many signals into one coordinated action — is the job still done by a human, inconsistently, and it is exactly the gap LeafShift fills.</p>
+
+      <div class="pull">The problem is not a missing sensor or a missing dashboard. It is the missing decision layer that turns existing data into coordinated action.</div>
+
+      <p>This is not just our view. PwC Middle East (2025) argues the central requirement in irrigation today is better integration across the operating system, not simply more technology. The U.S. Government Accountability Office (2024) found that the absence of common standards actively blocks interoperability between precision-agriculture tools. The pieces exist; the layer that makes them act as one does not.</p>
+    </div>
+
+    <!--
+      IMAGE PROMPT — FILE: leafshift_fig01_fragmentation.svg  (wide, ~1600x900)
+      ----------------------------------------------------------------------------
+      STYLE: LeafShift "Bone & Moss". Bone/off-white background (#eae9e2). Deep
+      forest green (#1d251f) line work and labels. ONE moss-green (#83a766)
+      highlight only. Flat, technical, Swiss-grid precision — NOT an eco
+      illustration, NO plants, NO water drops, NO gradients, NO shadows. Thin
+      hairline strokes (1.5px). Monospace UPPERCASE labels with wide letter
+      spacing for all captions. Generous negative space. Feels like an
+      engineering schematic / instrument diagram.
+
+      CONTENT: A "fragmentation vs coordination" diagram in two stacked rows.
+      TOP ROW (label top-left, mono: "TODAY — FRAGMENTED"): six small equal
+      rectangles in a row, each a thin forest outline with a short mono label
+      inside: "IRRIGATION", "CLIMATE", "SENSORS", "WEATHER", "FARM SOFTWARE",
+      "GROWER". Between the boxes draw BROKEN / DASHED short connector lines with
+      small gaps and tiny "x" break marks, so they clearly do NOT connect. Above
+      them three faint mono tags pinned by thin leader lines: "MEASURE" (over
+      sensors), "PREDICT" (over weather), and "COORDINATE" greyed-out / dimmed
+      with a small dashed question mark — showing the third capability is absent.
+      BOTTOM ROW (label top-left, mono: "LEAFSHIFT — COORDINATED"): the same six
+      boxes, but now a single continuous horizontal MOSS-GREEN bar runs beneath
+      all of them, connecting every box with clean solid lines into one element
+      labelled (mono, on the moss bar) "DECISION LAYER". Keep it calm and sparse.
+      Corner-bracket ticks in the far corners of the whole frame.
+    -->
+    <figure class="fig">
+      <div class="fig-frame bracketed">
+        <img src="leafshift_fig01_fragmentation.svg" alt="Diagram: six disconnected farm systems on top with broken links and a missing 'coordinate' stage, versus the same systems unified by a single LeafShift decision layer below."
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="fig-ph" style="display:none;">
+          <span class="tag">Figure 01 — generate in Claude Design</span>
+          <span class="desc">Fragmented systems (broken links, missing "coordinate" stage) versus one unified LeafShift decision layer. Full art-direction is in the HTML comment above.</span>
+        </div>
+      </div>
+      <figcaption><span class="fnum">Fig. 01</span><span class="ftxt">Today's stack measures and sometimes predicts, but the third stage — coordinating one action across mixed systems — is still manual. LeafShift is that missing layer.</span></figcaption>
+    </figure>
+
+    <div class="honesty">
+      <span class="mono">What we have not proven yet</span>
+      <p>We have not yet shown, at a named customer, how often this problem bites, exactly how much it costs them, and how much they will pay to remove it. That evidence comes from discovery interviews and pilot baselines, and it must be gathered before any of these figures are presented as a market-wide fact.</p>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       03 · TARGET CUSTOMER / ICP
+  ======================================================== -->
+  <section class="block" id="s3">
+    <div class="eyebrow"><span class="mono">03 · Target customer / ICP</span><span class="rule"></span></div>
+    <h2 class="head">One buyer first. Not "farmers."</h2>
+
+    <p class="lead">LeafShift's first customer is a specific operator, not an industry. It is a medium-to-large grower of high-value crops who already owns technical infrastructure, runs at a scale where coordination is genuinely hard, and has real money exposed to water, energy, labour, and crop quality.</p>
+
+    <div class="body-text">
+      <p>Concretely, and to start: <strong>commercial greenhouse, hydroponic, and vertical-farming operators in the UAE and Saudi Arabia</strong> producing high-value fresh produce, who already run irrigation and climate systems. We go to the GCC first because that is where the operating problem is most intense and most funded, not because the region is generically "good for agtech."</p>
+
+      <h3 class="sub">Why this buyer — and not the farm that needs help most</h3>
+      <p>LeafShift is a <em>layer</em>. It needs existing sensors, controllers, and data to coordinate. A low-tech farm has nothing to layer onto, so serving it would mean becoming a hardware installer first — which is slow, expensive, and destroys software margins. The operators we target have already done the hard part of buying and connecting equipment. We make that equipment finally act as one system.</p>
+
+      <p>The value also has to be large enough to clear an enterprise price, and that only happens where several costs stack up together. In UAE controlled-environment agriculture, cooling alone can account for 55–90% of a greenhouse's freshwater use (Fatnassi et al., 2023). That means water and energy decisions are physically linked — and coordinating exactly those linked decisions is what LeafShift does. So the value pool is the sum of water, energy, labour, and quality, not water alone.</p>
+
+      <h3 class="sub">Who signs, who uses, who pays, who blocks</h3>
+      <p>Investors do not ask "who is the customer" so much as "who are the four people around the purchase." For LeafShift: the <strong>user</strong> is the head grower or operations manager; the <strong>payer</strong> is the operations director or owner; the <strong>blocker</strong> is usually the incumbent climate-computer relationship (the grower is locked into a Priva or Ridder system) plus a natural reluctance to trust an unproven system with control. Naming that blocker honestly — and designing around it with shadow mode and explainable decisions — is what makes this a real customer profile rather than a wish.</p>
+    </div>
+
+    <!--
+      IMAGE PROMPT — FILE: leafshift_fig02_icp_card.svg  (portrait-ish, ~1400x1000)
+      ----------------------------------------------------------------------------
+      STYLE: LeafShift "Bone & Moss". This is a precise "spec sheet" / instrument
+      data-card, like a component datasheet. Bone background (#eae9e2). Forest
+      (#1d251f) text and 1px hairline rules. Moss (#83a766) used only for the
+      qualifying checkmarks/ticks and one header accent. Monospace for all field
+      labels and values. NO photos, NO icons of people, NO illustration — pure
+      typographic data card. Corner brackets around the whole card.
+
+      CONTENT: A single card titled (mono, top-left) "IDEAL CUSTOMER PROFILE",
+      with a small index "ICP · 01" top-right. Inside, a two-column key/value
+      table with hairline row dividers. Left column = field label (mono, muted),
+      right column = value (forest, slightly bolder):
+        SEGMENT          → Commercial CEA · greenhouse / hydroponic / vertical
+        GEOGRAPHY        → UAE first · Saudi Arabia second
+        SCALE            → Medium-to-large · multi-zone
+        CROPS            → High-value fresh produce
+        INFRASTRUCTURE   → Existing sensors, irrigation & climate control
+        COST EXPOSURE    → Water · energy · labour · crop quality
+        STAFF            → Has technical / operations staff
+        BUDGET           → Can buy an enterprise system
+      Then a thin divider and a small four-cell strip along the bottom titled
+      "DECISION MAP", each cell a mono label over a value:
+        USER → Head grower      PAYER → Ops director
+        BLOCKER → Climate-computer lock-in + trust
+        ENTRY → Shadow mode (no control on day one)
+      Put a small moss tick (✓) to the left of each qualifying SEGMENT/INFRA/COST
+      row. Calm, sparse, lots of whitespace, perfectly aligned grid.
+    -->
+    <figure class="fig">
+      <div class="fig-frame bracketed">
+        <img src="leafshift_fig02_icp_card.svg" alt="A datasheet-style Ideal Customer Profile card listing segment, geography, scale, crops, infrastructure, cost exposure, staff and budget, with a decision map of user, payer, blocker and entry point."
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="fig-ph" style="display:none;">
+          <span class="tag">Figure 02 — generate in Claude Design</span>
+          <span class="desc">A spec-sheet ICP card with a key/value table and a four-cell "decision map" (user, payer, blocker, entry). Full art-direction is in the HTML comment above.</span>
+        </div>
+      </div>
+      <figcaption><span class="fnum">Fig. 02</span><span class="ftxt">The first customer as a datasheet: who they are, what they already own, what it costs them — and who signs, uses, pays, and blocks.</span></figcaption>
+    </figure>
+
+    <div class="honesty">
+      <span class="mono">What we have not proven yet</span>
+      <p>We have not yet validated which sub-segment — greenhouse, vertical, or high-value open-field irrigated — converts fastest and pays most. We will set that priority from discovery interviews, and we will resist widening the target until one beachhead is working.</p>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       04 · MARKET SIZE
+  ======================================================== -->
+  <section class="block" id="s4">
+    <div class="eyebrow"><span class="mono">04 · Market size</span><span class="rule"></span></div>
+    <h2 class="head">Sized from the bottom up, not from a report.</h2>
+
+    <p class="lead">The category is large and growing — but a headline number copied from an industry report does not answer the question an investor actually has: how many real accounts can we reach, and what is each one worth? So we size from the bottom up and use the published figures only to confirm the category is venture-scale.</p>
+
+    <div class="body-text">
+      <h3 class="sub">The category, for direction only</h3>
+      <p>Independent estimates of the global precision-irrigation market cluster around <strong>US$5–9&nbsp;billion in 2024–25, growing to roughly US$10–29&nbsp;billion by 2033–35</strong>, at a high-single to low-double-digit annual growth rate. The research houses disagree on the exact numbers, which we show honestly rather than cherry-picking the largest. The relevant point is directional: this is a real, growing, multi-billion category — a ceiling worth aiming at, not a target we can claim.</p>
+      <p>There is also a specific regional tailwind. Saudi Arabia attracted over US$9.8&nbsp;billion in private-sector investment into sustainable agriculture and food projects in 2024, under Vision 2030 — capital actively flowing toward exactly the modernisation LeafShift supports.</p>
+
+      <h3 class="sub">How we actually size it</h3>
+      <p>We use a standard three-layer model, but we build the bottom layer from a real list, not a percentage of a report:</p>
+    </div>
+
+    <!--
+      IMAGE PROMPT — FILE: leafshift_fig03_tam_sam_som.svg  (wide, ~1600x1000)
+      ----------------------------------------------------------------------------
+      STYLE: LeafShift "Bone & Moss". Bone background (#eae9e2). Forest (#1d251f)
+      outlines and labels. Moss (#83a766) fills the SMALLEST (SOM) band only, to
+      draw the eye to the reachable target. Flat, NO gradients, NO 3D. Thin
+      hairlines. Monospace labels. This is a refined nested-band funnel, drawn as
+      three stacked horizontal bands of decreasing width (left-aligned), each a
+      clean rectangle — NOT a cone, NOT a pyramid of triangles. Corner brackets
+      on the frame.
+
+      CONTENT: Three stacked horizontal bands, widest at top:
+        BAND 1 (widest, forest outline, bone fill) —
+            mono label "TAM" + title "Global precision irrigation & decision software"
+            value "≈ US$5–9B today → US$10–29B by 2033–35"
+        BAND 2 (narrower, forest outline, faint forest tint) —
+            mono label "SAM" + title "Medium-to-large CEA & high-value irrigated operators, UAE + Saudi"
+            value "with existing infrastructure & budget"
+        BAND 3 (narrowest, MOSS-GREEN solid fill, forest text) —
+            mono label "SOM" + title "Named, reachable target accounts (Year 1–3)"
+            value "= accounts × ACV × adoption rate"
+      To the RIGHT of band 3, a small mono annotation with a thin leader line:
+      "BUILT FROM A REAL TARGET-ACCOUNT LIST — DEFENSIBLE ACCOUNT BY ACCOUNT".
+      Bottom caption strip (mono, muted): "TOP-DOWN = CEILING · BOTTOM-UP = THE NUMBER THAT MATTERS".
+      Keep it calm, aligned, lots of air.
+    -->
+    <figure class="fig">
+      <div class="fig-frame bracketed">
+        <img src="leafshift_fig03_tam_sam_som.svg" alt="A three-band TAM, SAM, SOM diagram where the smallest serviceable-obtainable-market band is highlighted in moss green and annotated as built from a real target-account list."
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="fig-ph" style="display:none;">
+          <span class="tag">Figure 03 — generate in Claude Design</span>
+          <span class="desc">Bottom-up TAM / SAM / SOM bands, with the reachable SOM highlighted and tied to a real account list. Full art-direction is in the HTML comment above.</span>
+        </div>
+      </div>
+      <figcaption><span class="fnum">Fig. 03</span><span class="ftxt">The billions are the ceiling. The number that matters is the bottom band: named accounts × realistic contract value × a realistic adoption rate.</span></figcaption>
+    </figure>
+
+    <div class="body-text">
+      <p>In words: the <strong>TAM</strong> is the global precision-irrigation and decision-software category above. The <strong>SAM</strong> is the slice of that we can actually serve at entry — medium-to-large CEA and high-value irrigated operators in the UAE and Saudi Arabia who have the infrastructure and budget to buy. The <strong>SOM</strong> is a countable list of those operators, multiplied by a realistic annual contract value (an implementation fee plus a subscription priced by managed area or number of zones), multiplied by a realistic multi-year adoption rate. Because the SOM is built from a named target-account list — the same 80–100 accounts we work in go-to-market — every euro in it can be defended account by account, which is exactly what an investor wants to test.</p>
+    </div>
+
+    <div class="honesty">
+      <span class="mono">What we have not proven yet</span>
+      <p>We are still building the account count and confirming a defensible contract value through early conversations. Until that list is complete, the SOM is presented as a transparent method with clearly-flagged placeholder numbers — never as a fabricated total.</p>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       05 · MARKET TIMING
+  ======================================================== -->
+  <section class="block" id="s5">
+    <div class="eyebrow"><span class="mono">05 · Market timing</span><span class="rule"></span></div>
+    <h2 class="head">The infrastructure finally exists. The decision layer doesn't.</h2>
+
+    <p class="lead">"AI is growing" is not a reason for a grower to buy. The real reason LeafShift is buyable now is simpler: growers have <em>already</em> installed the sensors, controllers, and climate computers. The foundation is in the ground. The only missing piece is the layer that turns it into coordinated decisions — and the pressure to add that layer is peaking at the same moment.</p>
+
+    <div class="body-text">
+      <p>Three forces are arriving together, and each one is evidenced rather than asserted:</p>
+
+      <h3 class="sub">1 · The infrastructure is already installed</h3>
+      <p>This is the quiet but decisive shift. Autonomous-growing software from Blue Radix already runs in 100 greenhouses across 17 countries, and Priva — whose climate computers LeafShift would sit alongside — operates in more than 100 countries with over 450 installation partners. The hardware and data layer we build on top of is now widespread. Five years ago the substrate for a decision layer barely existed; today it is everywhere our buyer operates.</p>
+
+      <h3 class="sub">2 · Water pressure is acute and funded</h3>
+      <p>In the GCC this is not a future risk, it is a present, budgeted priority. Saudi Vision 2030 and the National Water Strategy make irrigation efficiency a national goal; the FAO and the Saudi Irrigation Organization had established 21 demonstration farms across the Kingdom by mid-2024; and precision systems are already cutting in-region water use by 20–60%. The buyers are actively modernising right now, with public money behind them.</p>
+
+      <h3 class="sub">3 · The expert grower is scarce</h3>
+      <p>The whole autonomous-growing category is driven by the shortage of skilled, experienced growers — automation lets one grower manage several times more area. That scarcity is what turns a "nice optimisation" into an "operational necessity": when you cannot hire another expert, software that captures and scales expert decisions stops being optional.</p>
+
+      <div class="pull">The buyer already has the infrastructure, the budget, the pain, and no one to hire. All four are true now — and weren't five years ago.</div>
+
+      <h3 class="sub">Sequence: UAE first, Saudi second</h3>
+      <p>We enter the UAE first because it is the denser controlled-environment and agritech hub, which means more target accounts close together and faster pilots. Saudi Arabia follows because its irrigation-modernisation programme is larger in scale — bigger contracts, but a longer sales cycle. The order is deliberate: prove the motion where it is fastest, then scale it where it is biggest.</p>
+    </div>
+
+    <!--
+      IMAGE PROMPT — FILE: leafshift_fig04_why_now.svg  (wide, ~1600x820)
+      ----------------------------------------------------------------------------
+      STYLE: LeafShift "Bone & Moss". Bone background (#eae9e2). Forest (#1d251f)
+      lines and labels. Moss (#83a766) for the single convergence point only.
+      Flat, technical, NO gradients, hairline strokes, monospace labels, generous
+      whitespace. Corner brackets on the frame.
+
+      CONTENT: A "convergence" diagram. Three horizontal lanes on the left, each
+      a thin forest line with a mono lane label and a one-line caption, all
+      pointing RIGHT and converging into a single moss-green node on the right:
+        LANE 1: "INFRASTRUCTURE INSTALLED"  — sensors & climate computers now widespread
+        LANE 2: "WATER PRESSURE + POLICY"   — Vision 2030, funded efficiency targets
+        LANE 3: "GROWER SHORTAGE"           — automation replaces scarce expertise
+      The three lines meet at a moss-filled circle/square labelled (mono, forest
+      on moss) "BUYABLE NOW", with a short arrow continuing right to a small
+      forest tag "ENTRY: UAE → SAUDI". Keep angles clean and calm — three lines
+      gently converging, not a chaotic web. A faint mono timeline tick along the
+      bottom reading "2020 ———————→ 2026" to show these forces only recently
+      lined up. Sparse and precise.
+    -->
+    <figure class="fig">
+      <div class="fig-frame bracketed">
+        <img src="leafshift_fig04_why_now.svg" alt="A convergence diagram showing three forces — installed infrastructure, funded water pressure, and grower scarcity — meeting at a single 'buyable now' point, with entry sequenced UAE then Saudi."
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="fig-ph" style="display:none;">
+          <span class="tag">Figure 04 — generate in Claude Design</span>
+          <span class="desc">Three timing forces converging on a single "buyable now" point, with UAE-first / Saudi-second entry. Full art-direction is in the HTML comment above.</span>
+        </div>
+      </div>
+      <figcaption><span class="fnum">Fig. 04</span><span class="ftxt">Why now is not "AI is growing." It is three independent forces — installed kit, funded water pressure, and expert scarcity — lining up at the same moment.</span></figcaption>
+    </figure>
+  </section>
+
+  <!-- ========================================================
+       06 · PRODUCT & SOLUTION
+  ======================================================== -->
+  <section class="block" id="s6">
+    <div class="eyebrow"><span class="mono">06 · Product &amp; solution</span><span class="rule"></span></div>
+    <h2 class="head">An operating system for the irrigation decision.</h2>
+
+    <p class="lead">LeafShift connects to the sensors, controllers, weather, and crop data a grower already has; builds a live operating picture of the farm; forecasts where water stress and waste are about to happen; and then recommends — or, once trusted, executes — the irrigation and fertigation actions. It replaces guesswork with a hybrid model: physics first, machine learning second, every decision explainable.</p>
+
+    <div class="body-text">
+      <h3 class="sub">What the customer actually experiences — five stages</h3>
+      <p>We do not ask a grower to hand over control on day one. The product earns trust in steps, and each step produces the proof needed for the next:</p>
+    </div>
+
+    <!--
+      IMAGE PROMPT — FILE: leafshift_fig05_deployment_ladder.svg  (wide, ~1700x680)
+      ----------------------------------------------------------------------------
+      STYLE: LeafShift "Bone & Moss". Bone background (#eae9e2). Forest (#1d251f)
+      outlines/labels. Moss (#83a766) used as a progress fill that GROWS across
+      the five steps (step 1 barely any moss, step 5 fully moss) to signal
+      increasing autonomy/trust. Flat, hairline strokes, monospace labels, NO
+      gradients. Corner brackets on the frame.
+
+      CONTENT: A horizontal 5-step ladder/progression, left to right, each step a
+      clean rectangle connected by a thin forest arrow to the next. Mono step
+      number + title + one-line caption in each:
+        01 CONNECT    — ingest existing sensors, controllers, weather. No control.
+        02 OBSERVE    — live operating view + risk forecasts. Still no control.
+        03 SHADOW     — LeafShift runs beside the grower; decisions compared daily.
+        04 RECOMMEND  — proven categories surface as actions the grower approves.
+        05 CONTROL    — only proven categories move to automated execution.
+      Add a thin horizontal "trust / autonomy" axis arrow beneath, labelled left
+      "ZERO RISK" and right "FULL AUTONOMY", with a small note under step 03
+      (mono): "PROOF IS GENERATED HERE". Make the moss fill of each step box grow
+      progressively so the eye reads increasing automation left→right. Calm,
+      evenly spaced, lots of air.
+    -->
+    <figure class="fig">
+      <div class="fig-frame bracketed">
+        <img src="leafshift_fig05_deployment_ladder.svg" alt="A five-step deployment ladder from Connect to Observe to Shadow to Recommend to Control, with a growing moss-green fill indicating increasing autonomy and a 'zero risk to full autonomy' axis."
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="fig-ph" style="display:none;">
+          <span class="tag">Figure 05 — generate in Claude Design</span>
+          <span class="desc">Five-stage deployment ladder (connect → observe → shadow → recommend → control), trust growing left to right. Full art-direction is in the HTML comment above.</span>
+        </div>
+      </div>
+      <figcaption><span class="fnum">Fig. 05</span><span class="ftxt">Trust is earned in steps. Shadow mode (stage 3) is where the comparative proof is generated, at zero operational risk, before any control is handed over.</span></figcaption>
+    </figure>
+
+    <div class="body-text">
+      <p>Through all five stages the grower can always see <strong>why</strong> a decision was made. The physics baseline is explainable by its nature, and the machine-learning adjustment on top is attributed — you can see how much each factor contributed. That transparency is what earns a grower's trust, and it also keeps us aligned with European expectations on explainable AI from the start, rather than retrofitting it later.</p>
+
+      <h3 class="sub">Not autonomous on day one — on purpose</h3>
+      <p>Handing full control to an unproven system would be a trust and liability mistake, and growers know it. Shadow mode solves this: LeafShift's recommendations run quietly alongside the grower's real decisions, so the farm keeps running exactly as before while we accumulate a daily, side-by-side record of which system would have done better. That record is both the sales proof and the raw material for the data moat described in the next section.</p>
+
+      <h3 class="sub">This is not just a slide — the core already runs</h3>
+      <p>The architecture is not theoretical. In a separate applied-research project on a food bed in Beja, Portugal, we have already built and run the core LeafShift pattern in working software: a physics baseline (the FAO-56 crop-water-balance standard, implemented with a peer-reviewed, open-source library maintained by the USDA) plus a bounded machine-learning correction that learns each zone's local quirks and is capped so it can only ever adjust the physics by a small, safe amount. In a full-season simulation, that correction tracked soil moisture to well within sensor accuracy. This proves the architecture works end to end. It is <strong>validation infrastructure, not a customer deployment</strong> — and the numbers it produces are simulation results, not field-proven performance.</p>
+    </div>
+
+    <!--
+      IMAGE PROMPT — FILE: leafshift_fig06_dashboard.svg  (wide, ~1600x950)
+      ----------------------------------------------------------------------------
+      STYLE: EXACTLY the LeafShift "Bone & Moss" grower dashboard already in the
+      brand kit. Bone background (#eae9e2). Forest (#1d251f) text. A green
+      HEATMAP table where deeper moss = more water. Monospace numbers. Clean,
+      calm, instrument-like. NO chrome, NO gradients. leafShift wordmark small,
+      top-left (with the moss "S").
+
+      CONTENT: Recreate the "Water plan, next 5 days" screen. Title top-left:
+      "Water plan, next 5 days". A table with 5 zone rows down the left, each a
+      mono label: "Z01 · Cab", "Z02 · Chard", "Z03 · Pinot", "Z04 · Cab",
+      "Z05 · Syrah" (wine-grape zones). Five day-columns. Each cell either a value
+      in millimetres ("4.2 mm", "3.8 mm", "5.0 mm", etc.) on a moss-tinted
+      background whose intensity scales with the value, OR a faint "–" on bone for
+      a skipped day. Along the very bottom, a row of four large mono stat
+      readouts, evenly spaced: "−38.2%" (water vs baseline), "94%" (forecast
+      confidence), "0 / 12" (interventions), "06:20" (next run). Keep it sparse,
+      perfectly aligned, easy on the eyes — a precision instrument, not a
+      consumer app. (This mirrors the existing brand dashboard mock.)
+    -->
+    <figure class="fig">
+      <div class="fig-frame bracketed">
+        <img src="leafshift_fig06_dashboard.svg" alt="The LeafShift grower dashboard: a 'Water plan, next 5 days' heatmap table across five vineyard zones, with bottom stats for water saved, forecast confidence, interventions and next run time."
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="fig-ph" style="display:none;">
+          <span class="tag">Figure 06 — generate in Claude Design</span>
+          <span class="desc">The grower dashboard "Water plan, next 5 days" heatmap with bottom stat readouts. Mirrors the existing brand mock — full art-direction in the HTML comment above.</span>
+        </div>
+      </div>
+      <figcaption><span class="fnum">Fig. 06</span><span class="ftxt">What the grower sees: a per-zone water plan for the days ahead, with a clear running tally. Note — the figures shown are illustrative / simulated, not field-validated.</span></figcaption>
+    </figure>
+
+    <div class="honesty">
+      <span class="mono">What we have not proven yet</span>
+      <p>The Beja work proves the irrigation pattern on one bed in simulation. It does not yet prove LeafShift coordinating climate, energy, and irrigation together on a live commercial greenhouse, nor does it prove the saved-water and yield figures in the field. We distinguish clearly between the <strong>validated pattern</strong> (a bounded physics-plus-ML irrigation decision) and the <strong>designed extension</strong> (multi-resource coordination at commercial scale).</p>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       07 · TECHNOLOGY & DEFENSIBILITY
+  ======================================================== -->
+  <section class="block" id="s7" style="border-bottom:none;">
+    <div class="eyebrow"><span class="mono">07 · Technology &amp; defensibility</span><span class="rule"></span></div>
+    <h2 class="head">The moat is the data loop, not the algorithm.</h2>
+
+    <p class="lead">LeafShift's architecture is deliberately built on public, peer-reviewed foundations — and that is a strength, not a weakness. Our defensibility does not come from a secret equation. It comes from a loop that compounds with every deployment.</p>
+
+    <div class="body-text">
+      <p>The loop is simple to state: every deployment produces proprietary field data; that data trains better, site-specific corrections; those produce measurably better decisions; better decisions win more deployments; and more deployments produce more data. The technology is the machine that turns customers into a performance advantage — it is the means to the moat, not the moat itself.</p>
+
+      <h3 class="sub">Two layers: physics first, then a bounded learner</h3>
+      <p>The system has two layers, in a strict order. <strong>Layer one</strong> is a deterministic agronomic baseline — the FAO-56 crop-water-balance standard used by irrigation engineers worldwide. It calculates what each zone needs from first principles. It is transparent, explainable, and works on day one with no training data at all. <strong>Layer two</strong> is a machine-learning correction that learns the things the physics cannot know in advance: a particular bed's microclimate, a sensor that drifts, a neighbouring crop that shades it. Crucially, this correction is <strong>bounded</strong> — it can only nudge the baseline by a small, capped amount — and it is explainable, so every adjustment can be attributed. Physics always governs; the learner refines.</p>
+
+      <p>This ordering is the whole point. A pure "black box" that simply outputs an irrigation command is hard to trust, hard to audit, and a regulatory problem. A transparent physics baseline with a small, bounded, explained correction is trustworthy, auditable, and aligned with EU AI Act expectations by construction.</p>
+    </div>
+
+    <!--
+      IMAGE PROMPT — FILE: leafshift_fig07_architecture_loop.svg  (wide, ~1700x1000)
+      ----------------------------------------------------------------------------
+      STYLE: LeafShift "Bone & Moss". Bone background (#eae9e2). Forest (#1d251f)
+      structure and labels. Moss (#83a766) for the bounded ML correction band and
+      the circular data-loop arrows. Flat, technical schematic, hairline strokes,
+      monospace labels, NO gradients/shadows. Corner brackets on the frame.
+
+      CONTENT: TWO linked diagrams in one frame.
+      LEFT (≈55% width) — "DECISION STACK", drawn as two stacked horizontal bands
+      feeding a single output:
+        BAND A (wider, forest outline, bone fill): mono "LAYER 1 · PHYSICS BASELINE
+          (FAO-56)" — caption "deterministic · explainable · works day one".
+        BAND B (slim, MOSS fill, sitting on top of band A): mono "LAYER 2 · BOUNDED
+          ML CORRECTION" — caption "learns local quirks · capped at ±a small margin".
+        A small note/leader to band B: "PHYSICS ALWAYS GOVERNS".
+        An arrow down from the stacked bands to a forest pill: "EXPLAINABLE
+          PER-ZONE DECISION".
+      RIGHT (≈45% width) — "THE MOAT · DATA LOOP", drawn as a clean circular flow
+      of four nodes connected by moss arrows going clockwise:
+        1 "DEPLOYMENT" → 2 "PROPRIETARY FIELD DATA" → 3 "BETTER SITE-SPECIFIC
+          MODELS" → 4 "MEASURABLY BETTER DECISIONS" → back to 1 "WINS MORE
+          DEPLOYMENTS". Center of the circle: small mono label "COMPOUNDS".
+      A thin connector line from the LEFT decision output into node 2 of the RIGHT
+      loop, showing each decision feeds the loop. Keep both halves calm, aligned,
+      generously spaced. The circle should read as a flywheel, not a busy web.
+    -->
+    <figure class="fig">
+      <div class="fig-frame bracketed">
+        <img src="leafshift_fig07_architecture_loop.svg" alt="Left: a two-layer decision stack with a physics baseline and a bounded ML correction producing an explainable per-zone decision. Right: a four-node data-loop flywheel where deployments produce data that improves models and wins more deployments."
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="fig-ph" style="display:none;">
+          <span class="tag">Figure 07 — generate in Claude Design</span>
+          <span class="desc">Dual-layer architecture (physics + bounded ML) on the left, the compounding data-loop flywheel on the right. Full art-direction is in the HTML comment above.</span>
+        </div>
+      </div>
+      <figcaption><span class="fnum">Fig. 07</span><span class="ftxt">Left: physics governs, the learner refines, every decision is explainable. Right: each decision feeds a loop that makes the next deployment better and harder to displace.</span></figcaption>
+    </figure>
+
+    <div class="body-text">
+      <h3 class="sub">What is actually defensible — in order</h3>
+      <p>We are honest about what is and isn't proprietary, because an investor will probe exactly here. The physics standard, the open-source library, and the machine-learning method are all public — and we say so proudly, because that is what makes the system explainable and trustworthy. The defensibility sits in four places, strongest first:</p>
+      <p><strong>1 · The proprietary field-data loop.</strong> This is the same moat the serious incumbents actually have — their advantage is years of field data, not a secret algorithm. Ours is captured from day one through shadow-mode logging, drift detection, and continuous retraining, so the architecture is designed to accrue the moat rather than hope for it.</p>
+      <p><strong>2 · Vendor-neutrality.</strong> The leading autonomous-growing products are tied to specific climate computers. A layer that coordinates across mixed infrastructure from different vendors — and picks the best goal per site, whether that is saving water, saving fertiliser, or deliberately stressing a crop to improve quality — is a structurally different and broader position.</p>
+      <p><strong>3 · Deployment learning and workflow lock-in.</strong> The playbooks for installing, calibrating, and integrating into a grower's daily workflow become repeatable assets, and once LeafShift is the decision layer a grower trusts, the switching cost is high.</p>
+      <p><strong>4 · Explainability as a regulatory moat.</strong> As connected, AI-driven control comes under closer regulatory scrutiny in Europe and elsewhere, a transparent, bounded, attributable system is compliant where a black box is not.</p>
+    </div>
+
+    <div class="honesty">
+      <span class="mono">What we have not proven yet</span>
+      <p>The data loop is a <strong>future</strong> moat. Today we have one system's worth of simulated data, not a fleet's worth of field data. The defensibility described here is a well-grounded thesis about what this architecture will accumulate as it deploys — and we present it as exactly that, not as an advantage we already hold.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER / REFERENCES
+============================================================ -->
+<footer>
+  <div class="wrap">
+    <span class="mono mono-on-dark">Sources &amp; notes</span>
+    <h3 style="margin-top:14px;">References</h3>
+    <ul class="refs">
+      <li><span class="mono">01</span>USDA Economic Research Service / Census of Agriculture (2017): farms with irrigation produced &gt;54% of U.S. crop-sales value while irrigated land was &lt;20% of harvested cropland.</li>
+      <li><span class="mono">02</span>FAO (2024), <em>From scarcity to sustainability: efficient irrigation in Saudi Arabia</em>: Saudi irrigation efficiency ≈50% vs ≈85% best practice; FAO/SIO demonstration-farm programme.</li>
+      <li><span class="mono">03</span>Saudi Ministry of Environment, Water and Agriculture — National Water Strategy: agriculture ≈84% of national water use; efficiency ≈50%.</li>
+      <li><span class="mono">04</span>Arthur D. Little / Arab News (2026): &gt;90% of Saudi water from non-renewable groundwater &amp; desalination; &lt;2% arable; precision systems cut water 20–60%; CEA up to ~95% water savings.</li>
+      <li><span class="mono">05</span>Fatnassi, H. et al. (2023), <em>Protected agriculture systems in the UAE</em>, Acta Horticulturae 1377: pad-and-fan cooling ≈55–90% of greenhouse freshwater use.</li>
+      <li><span class="mono">06</span>PwC Middle East (2025), <em>Transforming unified irrigation platforms in the Middle East</em>: integration, not more technology, is the central requirement.</li>
+      <li><span class="mono">07</span>U.S. Government Accountability Office (2024), <em>Precision Agriculture</em> (GAO-24-105962): lack of common standards hampers interoperability.</li>
+      <li><span class="mono">08</span>Market sizing (directional): Renub Research; Market.us; Research and Markets; MarketsandMarkets / MRFR (2024–2026). Global precision-irrigation estimates ≈US$5–9B (2024–25) → ≈US$10–29B (2033–35).</li>
+      <li><span class="mono">09</span>Saudi Ministry of Environment, Water and Agriculture (2024): &gt;US$9.8B private investment into sustainable agriculture &amp; food projects.</li>
+      <li><span class="mono">10</span>Blue Radix &amp; Priva (2025) press materials: autonomous Crop Controller in 100 greenhouses / 17 countries; Priva in 100+ countries, 450+ install partners.</li>
+      <li><span class="mono">11</span>FAO-56 (Allen et al., 1998) &amp; pyfao56 (Thorp et al., 2022–2025, SoftwareX; Agric. Water Manag.): peer-reviewed USDA reference implementation underpinning the physics baseline.</li>
+    </ul>
+
+    <div class="foot-rule"></div>
+    <div class="foot-meta">
+      <span class="mono mono-on-dark">LeafShift · AG-AI · 2026</span>
+      <span class="mono mono-on-dark">Draft — internal · all figures simulated unless stated</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

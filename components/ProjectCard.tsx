@@ -39,6 +39,30 @@ export default function ProjectCard({ project, featured, index = 0 }: Props) {
         }}
       />
 
+      {project.thumbnail && (
+        <div
+          className={`relative -mx-6 -mt-6 overflow-hidden sm:-mx-7 sm:-mt-7 ${
+            featured ? "lg:-mx-10 lg:-mt-10" : ""
+          }`}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={project.thumbnail}
+            alt=""
+            className="aspect-[16/9] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            loading="lazy"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to top, rgba(11,11,15,0.85) 0%, transparent 55%)",
+            }}
+          />
+        </div>
+      )}
+
       <div className="relative flex items-start justify-between gap-4">
         <div className="flex items-baseline gap-3">
           <span
