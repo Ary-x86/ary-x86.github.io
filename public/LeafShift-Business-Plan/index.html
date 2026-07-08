@@ -195,8 +195,12 @@
   .honesty .mono{color:var(--moss);margin-bottom:10px;display:block;}
   .honesty p{margin:0;color:var(--bone-soft);font-size:0.95rem;line-height:1.55;}
 
-  /* ---------- figures ---------- */
-  figure.fig{margin:38px 0 0;max-width:var(--wrap);}
+  /* ---------- figures ----------
+     Figures share the text column's measure so their left AND right edges line
+     up with the body copy — the diagram reads as part of the same column, not a
+     wider block overhanging to the right. Symmetric top/bottom margin gives an
+     even gap above the image and below the caption. */
+  figure.fig{margin:32px 0;max-width:var(--measure);}
   .fig-frame{
     position:relative;border:1px solid var(--bone-line);background:var(--bone-2);border-radius:3px;
     overflow:hidden;
